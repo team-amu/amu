@@ -31,10 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Apps
     'accounts',
     'movies',
     'community',
+    
+    # 3rd party
+    'rest_framework',
 
+    # django native
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
