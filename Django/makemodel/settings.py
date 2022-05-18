@@ -42,8 +42,8 @@ REST_FRAMEWORK = {
 
     # 기본 권한 설정
     'DEFAULT_PERMISSION_CLASSES': [        
-        # 'rest_framework.permissions.AllowAny',      # => 기본적으로 모두에게 허용
-        'rest_framework.permissions.IsAuthenticated', # => 기본적으로 인증받아야 허용
+        'rest_framework.permissions.AllowAny',      # => 기본적으로 모두에게 허용
+        # 'rest_framework.permissions.IsAuthenticated', # => 기본적으로 인증받아야 허용
     ]
 }
 
@@ -167,3 +167,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/' # 사용자가 보는 미디어 url
 
 AUTH_USER_MODEL = 'accounts.User'
+
+# 커스텀 회원가입 시리얼라이저를 사용한다!!
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegistrationSerializer',
+}
+
+# 유저 정보를 저장하는 커스텀 어댑터 사용한다!!
+ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
