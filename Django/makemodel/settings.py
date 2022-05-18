@@ -42,8 +42,8 @@ REST_FRAMEWORK = {
 
     # 기본 권한 설정
     'DEFAULT_PERMISSION_CLASSES': [        
-        # 'rest_framework.permissions.AllowAny',      # => 기본적으로 모두에게 허용
-        'rest_framework.permissions.IsAuthenticated', # => 기본적으로 인증받아야 허용
+        'rest_framework.permissions.AllowAny',      # => 기본적으로 모두에게 허용
+        # 'rest_framework.permissions.IsAuthenticated', # => 기본적으로 인증받아야 허용
     ]
 }
 

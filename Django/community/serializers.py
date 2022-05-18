@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from community.models import Article
+from .models import Article
 
 class ArticleSerializer(serializers.Serializer):
     

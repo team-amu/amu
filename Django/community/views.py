@@ -3,11 +3,18 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .serializers.article import ArticleSerializer
+from .serializers import ArticleSerializer
+from django.core import serializers
 from .models import Article, Comment
 
+@api_view(['GET'])
 def articles_total(request, page):
-    start, end = (page-1)*20, page*20
-    articles = Article.objects.order_by('-pk')[start:end]
-    serializer = ArticleSerializer(articles, many=True)
+    articles2 = serializers.serialize("json", Article.objects.all())
+    print('articles2', articles2)
+    articles = Article.objects.all()
+    print('##########################')
+    print(articles)
+    serializer = ArticleSerializer(articles2)
+    print(serializer.data)
+    print('##########################')
     return Response(serializer.data)
