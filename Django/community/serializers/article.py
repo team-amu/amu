@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from community.models import Article
 
-class ArticleSerializer(serializers.Serializer):
+class ArticleSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Article
-        fields = ('title',)
+        fields = '__all__'
         
     
