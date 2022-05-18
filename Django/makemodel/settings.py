@@ -48,6 +48,7 @@ REST_FRAMEWORK = {
 }
 
 INSTALLED_APPS = [
+    # Apps
     'accounts',
     'movies',
     'community',
