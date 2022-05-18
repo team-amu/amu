@@ -30,16 +30,46 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# django.contrib.sites 에서 등록 필요
+SITE_ID = 1
+
+# drf 설정
+REST_FRAMEWORK = {
+    # 기본 인증방식 설정
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',        
+    ],
+
+    # 기본 권한 설정
+    'DEFAULT_PERMISSION_CLASSES': [        
+        # 'rest_framework.permissions.AllowAny',      # => 기본적으로 모두에게 허용
+        'rest_framework.permissions.IsAuthenticated', # => 기본적으로 인증받아야 허용
+    ]
+}
+
 INSTALLED_APPS = [
     # Apps
     'accounts',
     'movies',
     'community',
-    
-    # 3rd party
-    'rest_framework',
 
-    # django native
+    # 3rd party app
+    'rest_framework',
+    # token authentication
+    'rest_framework.authtoken', # token 기반 auth
+
+    # DRF auth 담당    
+    'dj_rest_auth',              # signup 제외 auth 관련 담당
+    'dj_rest_auth.registration', # signup 담당
+
+
+    # django allauth
+    'allauth',
+    'allauth.account',
+    # allauth 사용을 위해 필요
+    'django.contrib.sites',
+
+    # django natvie app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
