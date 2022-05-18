@@ -9,12 +9,8 @@ from .models import Article, Comment
 
 @api_view(['GET'])
 def articles_total(request, page):
-    articles2 = serializers.serialize("json", Article.objects.all())
-    print('articles2', articles2)
     articles = Article.objects.all()
-    print('##########################')
-    print(articles)
-    serializer = ArticleSerializer(articles2)
+    serializer = ArticleSerializer(articles, many=True)
+    print(serializer)
     print(serializer.data)
-    print('##########################')
     return Response(serializer.data)
