@@ -10,7 +10,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('pk', 'username')
+            fields = ('pk', 'username', 'nickname')
             
     comments = CommentSerializer(many=True, read_only=True)
     user = UserSerializer(read_only=True)
@@ -18,14 +18,15 @@ class ArticleSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Article
-        fields = ('pk', 'user', 'title', 'content', 'comments', 'like_users')
+        fields = ('pk', 'user', 'category', 'title', 'content', 'comments', 'like_users', 'created_at', 'updated_at')
+        read_only_fields = ('created_at', 'updated_at')
         
         
 class ArticleListSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('pk', 'username')
+            fields = ('pk', 'username', 'nickname')
 
     user = UserSerializer(read_only=True)
     comment_count = serializers.IntegerField(source="article.comments.count", read_only=True)
@@ -33,7 +34,8 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ('pk', 'user', 'title', 'comment_count', 'like_count')
+        fields = ('pk', 'user', 'category', 'title', 'comment_count', 'like_count', 'created_at', 'updated_at')
+        read_only_fields = ('created_at', 'updated_at')
 
         
     

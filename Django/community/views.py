@@ -38,7 +38,7 @@ def articles_review(request, page):
     
     
 @api_view(['GET'])
-def articles_article(request, page):
+def articles_free(request, page):
     start, end = (page-1)*20, page*20
     articles = get_list_or_404(Article, category="article")[start:end]
     if not articles:
@@ -93,6 +93,7 @@ def article_detail_update_delete(request, article_id):
             article.delete()
             data = {'삭제 완료': '삭제가 완료되었습니다.'}
             return Response(data, status=status.HTTP_204_NO_CONTENT)
+        return Response({'삭제 안 됨': '작성자가 로그인 사용자가 아님'})
 
     
     if request.method == 'GET':
@@ -120,7 +121,7 @@ def article_like(request, article_id):
 
 
 @api_view(['POST'])
-def create_comment(request, article_id):
+def comment_create(request, article_id):
     user = request.user
     article = get_object_or_404(Article, pk=article_id)
     
@@ -136,7 +137,7 @@ def create_comment(request, article_id):
 
 
 @api_view(['PUT', 'DELETE'])
-def comment_update_or_delete(request, article_id, comment_id):
+def comment_update_delete(request, article_id, comment_id):
     article = get_object_or_404(Article, pk=article_id)
     comment = get_object_or_404(Comment, pk=comment_id)
 

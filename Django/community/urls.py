@@ -11,7 +11,7 @@ urlpatterns = [
     path('total/<int:page>/', views.articles_total),
     path('hot/<int:page>/', views.articles_hot),
     path('review/<int:page>/', views.articles_review),
-    path('article/<int:page>/', views.articles_article),
+    path('free/<int:page>/', views.articles_free),
     
     # comment 부분
     path('<int:article_id>/comments/', views.comment_create),
