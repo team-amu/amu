@@ -21,3 +21,29 @@ def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def movie_like(request, movie_id):
+    movie = get_object_or_404(Movie, pk=movie_id)
+    user = request.user
+    if movie.like_users.filter(pk=user.pk).exists():
+        movie.like_users.remove(user)
+    else:
+        movie.like_users.add(user)
+        
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def movie_bookmark(request, movie_id):
+    movie = get_object_or_404(Movie, pk=movie_id)
+    user = request.user
+    if movie.bookmark_users.filter(pk=user.pk).exists():
+        movie.bookmark_users.remove(user)
+    else:
+        movie.bookmark_users.add(user)
+        
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
