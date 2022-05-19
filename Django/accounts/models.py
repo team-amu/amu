@@ -31,7 +31,7 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    nickname = models.CharField(max_length=20)
+    nickname = models.CharField(max_length=20, blank=True)
     # urls에 static url 추가해줘야함~(추가할 때 공식문서 보고 추가해주기)    
     profile_image = models.ImageField(upload_to='images/', blank=True) 
     # 문자열 기반 필드는 null True 금지!

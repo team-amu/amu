@@ -1,5 +1,46 @@
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
+from .models import Profile
+from django.contrib.auth import get_user_model
+from movies.serializers.movie import MovieListSerializer
+from community.serializers.article import ArticleListSerializer
+from community.serializers.comment import CommentSerializer
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class UserWithFollowNumInfoSerializer(serializers.ModelSerializer):
+        followings = serializers.IntegerField(source="followings.count")
+        followers = serializers.IntegerField(source="followers.count")
+        
+        class Meta:
+            model = get_user_model()
+            fields = '__all__'
+
+    user = UserWithFollowNumInfoSerializer(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+class ProfileWithUserInfoSerializer(serializers.ModelSerializer):
+
+    class UserWithActiveInfoSerializer(serializers.ModelSerializer):
+
+        like_movies = MovieListSerializer(read_only=True, many=True)
+        bookmark_movies = MovieListSerializer(read_only=True, many=True)
+        articles = ArticleListSerializer(read_only=True, many=True)
+        comments = CommentSerializer(read_only=True, many=True)
+        
+        class Meta:
+            model = get_user_model()
+            fields = '__all__'
+
+    user = UserWithActiveInfoSerializer(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
 
 class CustomRegistrationSerializer(RegisterSerializer):
     # 220519 수정
