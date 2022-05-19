@@ -1,6 +1,6 @@
 from allauth.account.adapter import DefaultAccountAdapter
 
-
+# 사용하지 않기로 해서 settings.py에 경로 설정 안되어있음~
 class CustomAccountAdapter(DefaultAccountAdapter):
     # 이메일 비어있을 때 에러 메세지 추가 해줘야댐!!
     # 닉네임 중복 확인 기능도 넣기!!

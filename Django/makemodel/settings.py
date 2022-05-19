@@ -183,10 +183,12 @@ MEDIA_URL = '/media/' # 사용자가 보는 미디어 url
 
 AUTH_USER_MODEL = 'accounts.User'
 
+# 필요한 유저 모델 관련 필드들을 유저와 1:N인 새로운 모델로 만들어주기로 함!!
+# 했는데 이메일은 필수 필드로 만들기로 해서 커스텀 시리얼라이저 사용함!
 # 커스텀 회원가입 시리얼라이저를 사용한다!!
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegistrationSerializer',
 }
 
-# 유저 정보를 저장하는 커스텀 어댑터 사용한다!!
-ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
+# # 유저 정보를 저장하는 커스텀 어댑터 사용한다!!
+# ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'

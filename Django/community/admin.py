@@ -12,6 +12,6 @@ User = get_user_model()
 
 class MyUserAdmin(UserAdmin):
     model = User
-    list_display = ('username', 'nickname', 'email',)
+    list_display = ('username', 'email',)
     
 admin.site.register(User, MyUserAdmin)
