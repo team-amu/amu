@@ -9,9 +9,8 @@ export default {
     login: () => HOST + ACCOUNTS + 'login/',
     logout: () => HOST + ACCOUNTS + 'logout/',
     signup: () => HOST + ACCOUNTS + 'signup/',
-    // 일단 위에 3개만~ 220519
     // // Token 으로 현재 user 판단
-    // currentUserInfo: () => HOST + ACCOUNTS + 'user/',
+    currentUserInfo: () => HOST + ACCOUNTS + 'user/', // login, logout 등등 처럼 제공되는 주소임!
     // // username으로 프로필 제공
     // profile: username => HOST + ACCOUNTS + 'profile/' + username,
   },
