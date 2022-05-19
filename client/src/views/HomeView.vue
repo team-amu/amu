@@ -1,13 +1,12 @@
 <template>
   <div>
-    <h1>로그인</h1>
-    
+    <h1>홈 화면 입니다.</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "LoginView",
+  name: "HomeView",
 }
 </script>
 

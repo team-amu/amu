@@ -6,24 +6,34 @@ import LoginView from '@/views/LoginView.vue'
 import LogoutView from '@/views/LogoutView.vue'
 import SignupView from '@/views/SignupView.vue'
 
+// movies 부분
+import HomeView from '@/views/HomeView.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
   // accounts 부분
   {
-    path: '/login',
+    path: '/accounts/login',
     name: 'login',
     component: LoginView,
   },
   {
-    path: '/logout',
+    path: '/accounts/logout',
     name: 'logout',
     component: LogoutView,
   },
   {
-    path: '/signup',
+    path: '/accounts/signup',
     name: 'signup',
     component: SignupView,
+  },
+  
+  // movies 부분
+  {
+    path: '/movies',
+    name: 'home',
+    component: HomeView,
   }
   
 ]
