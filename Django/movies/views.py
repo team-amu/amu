@@ -1,3 +1,4 @@
+from re import S
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, JsonResponse, Http404
 
@@ -14,6 +15,15 @@ from .models import Movie, Genre, Actor
 @api_view(['GET'])
 def home(request):
     return Response({'정보 없음': '최근 HOT한 영화, 친구가 좋아하는 영화 로직 짜야함' })
+
+
+@api_view(['GET'])
+def movie_search(request, search_page):
+    data = {
+        'search_page': search_page,
+        '정보 없음': 'request.GET.get().filter~~ 해서 선별해서 보내야 함',
+    }
+    return Response(data)
 
 
 @api_view(['GET'])
