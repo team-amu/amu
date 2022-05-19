@@ -18,8 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('community/', include('community.urls')),
-    path('movies/', include('movies.urls')),
+    path('api/v1/community/', include('community.urls')),
+    path('api/v1/movies/', include('movies.urls')),
 
     path('api/v1/accounts/', include('accounts.urls') ),
     # dj-rest-auth

@@ -4,10 +4,10 @@ from movies.models import Movie
 
 # Create your models here.
 class Article(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='articles')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, blank=True, null=True)
     
-    like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="article_like", null=True)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_articles")
 
     title = models.CharField(max_length=50)
     rank = models.IntegerField(blank=True, null=True)
@@ -22,8 +22,8 @@ class Article(models.Model):
     
 
 class Comment(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
