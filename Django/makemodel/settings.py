@@ -43,9 +43,18 @@ REST_FRAMEWORK = {
     # 기본 권한 설정
     'DEFAULT_PERMISSION_CLASSES': [        
         'rest_framework.permissions.AllowAny',      # => 기본적으로 모두에게 허용
-        # 'rest_framework.permissions.IsAuthenticated', # => 기본적으로 인증받아야 허용
+        # 'rest_framework.permissions.IsAuthenticated', # => 기본적으로 인증받아야 허용 / 비인증 사용자는 모두 401 Unauthorized
     ]
 }
+
+# 특정 origin 에게만 교차 출처 허용
+CORS_ALLOWED_ORIGINS = [
+    # Vue LocalHost
+    'http://localhost:8080',
+]
+
+# 모두에게 교차출처 허용 (*)
+# CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS = [
     # Apps
@@ -63,11 +72,14 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration', # signup 담당
 
 
-    # django allauth
+    # django allauth / signup 담당을 위해 필요 
     'allauth',
     'allauth.account',
     # allauth 사용을 위해 필요
     'django.contrib.sites',
+
+    # CORS 세팅
+    'corsheaders',
 
     # django natvie app
     'django.contrib.admin',
@@ -79,6 +91,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # CommonMiddleware보다 위에 위치
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
