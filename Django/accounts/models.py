@@ -26,7 +26,6 @@ class User(AbstractUser):
     like_movies = models.ManyToManyField(Movie, related_name='like_users', through='MovieLike')
     bookmark_movies = models.ManyToManyField(Movie, related_name='bookmark_users', through='MovieBookmark')
 
-    nickname = models.CharField(max_length=20)
     email = models.EmailField(max_length=254)
 
 class Profile(models.Model):
