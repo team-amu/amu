@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>홈 화면 입니다.</h1>
+    <h2>ProfileContentSection</h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HomeView",
+  name: 'ProfileContentSection',
 }
 </script>
 

@@ -35,7 +35,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import AccountErrorList from '../components/AccountErrorList.vue'
+import AccountErrorList from '@/components/AccountErrorList.vue'
 export default {
   components: { AccountErrorList },
   name: "SignupView",
@@ -47,7 +47,7 @@ export default {
           password1: '',
           password2: '',
           email: '',
-       },
+      },
         profile: {
           nickname: '',
         },
