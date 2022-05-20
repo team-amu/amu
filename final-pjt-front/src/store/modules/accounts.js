@@ -2,6 +2,8 @@ import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
 
+import _ from 'lodash'
+
 export default {
   state: {
     // 직접 접근 금지! getters 이용하기!
@@ -11,13 +13,17 @@ export default {
     authError: null,
     profileError: null,
     currentUserProfile: {},
+    isSelfUser: profile.user.username === currentUser.username,
   },
 
   getters: {
     // state의 정보는 모두 getters를 이용해서 꺼낸다!!
-    isLoggedIn: state => !!state.token, // 토큰이 로컬 스토리지에 들어가 있으면 로그인 되어있는 것
+    isLoggedIn: state => !!state.token, 
     currentUser: state => state.currentUser,
+    isCurrentUser: state => !_.isEmpty(state.currentUser),
     profile: state => state.profile,
+    isProfile: state => !_.isEmpty(state.profile), // 객체는 {}도 True기 때문에 lodash의 힘을 빌린다! 
+    isSelfUser: state => state.isSelfUser,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: `Token ${state.token}`}),
     profileError: state => state.profileError,
@@ -174,6 +180,20 @@ export default {
       }
     },
 
+    fetchProfileLike({ commit }, { username }) {
+      /*
+      GET: profile URL로 요청보내기
+        성공하면
+          state.profile에 저장
+      */
+      axios({
+        url: drf.accounts.profileLike(username),
+        method: 'get',
+      })
+        .then(res => {
+          commit('SET_PROFILE', res.data)
+        })
+    },
   }
 
 }

@@ -16,6 +16,10 @@ export default {
 		currentUserInfo: () => HOST + ACCOUNTS + "user/", // login, logout 등등 처럼 제공되는 주소임!
 		// // username으로 프로필 제공
 		// profile: username => HOST + ACCOUNTS + 'profile/' + username,
+		profileLike: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/`,
+		profileBookmark: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'bookmark/',
+		profileAritcle: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/`+ 'article/',
+		profileComment: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'comment/',
 	},
 	community: {
 		// article 조작 또는 이벤트 관련
@@ -26,10 +30,10 @@ export default {
 		articleLike: (articlePk) => HOST + COMMUNITY + `${articlePk}/` + "like/",
 
 		// article page 확인
-		articleTotal: (page) => HOST + COMMUNITY + "total/" + `${page}/`,
-		articleHot: (page) => HOST + COMMUNITY + "hot/" + `${page}/`,
-		articleReview: (page) => HOST + COMMUNITY + "review/" + `${page}/`,
-		articleFree: (page) => HOST + COMMUNITY + "free/" + `${page}/`,
+		communityTotal: (page) => HOST + COMMUNITY + "total/" + `${page}/`,
+		communityHot: (page) => HOST + COMMUNITY + "hot/" + `${page}/`,
+		communityReview: (page) => HOST + COMMUNITY + "review/" + `${page}/`,
+		communityFree: (page) => HOST + COMMUNITY + "free/" + `${page}/`,
 
 		// comment 관련
 		commentCreate: (articlePk) => HOST + COMMUNITY + `${articlePk}/` + COMMENTS,

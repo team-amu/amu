@@ -5,12 +5,12 @@
       <router-link :to="{ name: 'logout'}">logout</router-link> |
       <router-link :to="{ name: 'signup'}">signup</router-link>
     </nav>
-    <section>
+    <section v-if="isCurrentUser">
       <!-- profile 관련 -->
-      <router-link :to="{ name: 'profileLike' }">ProfileLike</router-link> | 
-      <router-link :to="{ name: 'profileBookmark' }">ProfileBookmark</router-link> |
-      <router-link :to="{ name: 'profileArticle' }">ProfileArticle</router-link> | 
-      <router-link :to="{ name: 'profileComment' }">ProfileComment</router-link>
+      <router-link :to="{ name: 'profileLike', params: { username }}">ProfileLike</router-link> | 
+      <router-link :to="{ name: 'profileBookmark',  params: { username }}">ProfileBookmark</router-link> |
+      <router-link :to="{ name: 'profileArticle',  params: { username }}">ProfileArticle</router-link> | 
+      <router-link :to="{ name: 'profileComment',  params: { username }}">ProfileComment</router-link>
     </section>
     <section>
       <!-- movie 관련 -->
@@ -26,7 +26,7 @@
   </div>
 </template>
 
-// <script>
+ <script>
 // import HomeView from '@/components/profile/ProfileUserSection.vue'
 // export default {
 //   components: { HomeView },
@@ -36,7 +36,25 @@
 //   methods: {
 //   }
 // }
-// </script>
+  import { mapActions, mapGetters } from 'vuex'
+
+  export default {
+    name: 'App',
+    components: { },
+    methods: {
+      ...mapActions(['fetchCurrentUser']),
+    },
+    computed: {
+      ...mapGetters(['currentUser', 'isCurrentUser']),
+      username() {
+        return this.currentUser.username? this.currentUser.username : 'guest'
+      },
+    },
+    created() {
+      this.fetchCurrentUser()
+    }
+  }
+ </script>
 
 <style>
 </style>
