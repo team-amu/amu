@@ -51,7 +51,7 @@ export default {
       localStorage.setItem('token', '')
     },
 
-    signup({commit, getters, dispatch}, payRoad) {
+    signup({commit, getters, dispatch}, payload) {
       /* 
         POST: 사용자 입력정보를 signup URL로 보내기
         성공하면
@@ -66,7 +66,7 @@ export default {
       axios({
         url: drf.accounts.signup(),
         method: 'post',
-        data: payRoad.credentials
+        data: payload.credentials
       })
         .then(res => {
           const token = res.data.key
@@ -75,9 +75,9 @@ export default {
 
           // 프로필 생성!
           axios({
-            url: drf.accounts.createProfile(payRoad.credentials.username),
+            url: drf.accounts.createProfile(payload.credentials.username),
             method: 'post',
-            data: payRoad.profile,
+            data: payload.profile,
             headers: getters.authHeader,
           })
             .then(res => {
