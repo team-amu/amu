@@ -4,26 +4,26 @@
 
     <account-error-list v-if="authError"></account-error-list>
 
-    <form @submit.prevent="signup(credentials)">
+    <form @submit.prevent="signup(payRoad)">
       <div>
         <label for="username">Username: </label>
-        <input  v-model="credentials.username" type="text" id="username" required/>
+        <input  v-model="payRoad.credentials.username" type="text" id="username" required/>
       </div>
       <div>
         <label for="password1">Password: </label>
-        <input v-model="credentials.password1" type="password" id="password1" required/>
+        <input v-model="payRoad.credentials.password1" type="password" id="password1" required/>
       </div>
       <div>
         <label for="password2">Password Confirmation:</label>
-        <input v-model="credentials.password2" type="password" id="password2" required />
+        <input v-model="payRoad.credentials.password2" type="password" id="password2" required />
       </div>
       <div>
         <label for="email">email:</label>
-        <input v-model="credentials.email" type="email" id="email" required />
+        <input v-model="payRoad.credentials.email" type="email" id="email" required />
       </div>
       <div>
         <label for="nickname">nickname:</label>
-        <input v-model="credentials.nickname" type="text" id="nickname" required />
+        <input v-model="payRoad.profile.nickname" type="text" id="nickname" required />
       </div>
       <div>
         <button>Signup</button>
@@ -41,24 +41,24 @@ export default {
   name: "SignupView",
   data() {
     return {
-      credentials: {
-        username: '',
-        password1: '',
-        password2: '',
-        email: '',
-        nickname: '',
-      },
-      obj: {
-        data: '',
-      },
-      data: '',
+      payRoad: {
+        credentials: {
+          username: '',
+          password1: '',
+          password2: '',
+          email: '',
+       },
+        profile: {
+          nickname: '',
+        },
+      }
     }
   },
   computed: {
     ...mapGetters(['authError'])
   },
   methods: {
-    ...mapActions(['signup'])
+    ...mapActions(['signup']),
   }
 }
 </script>

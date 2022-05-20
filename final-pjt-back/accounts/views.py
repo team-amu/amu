@@ -63,9 +63,9 @@ def follow(request, username):
 
 @api_view(['POST', 'PUT'])
 def update_profile(request, username):
+
     profile_user = get_object_or_404(get_user_model(), username=username)
     me = request.user
-    
     if request.method == 'PUT':
         profile = profile_user.profile
         if me == profile_user:

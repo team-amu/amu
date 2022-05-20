@@ -7,8 +7,10 @@ export default {
     // 직접 접근 금지! getters 이용하기!
     token: localStorage.getItem('token') || '' , // 새로고침해도 로컬스토리지에 토큰 있으면 저장할 수 있도록!
     currentUser: {},
-    // profile: {}, 교수님 코드에서 지금 필요없는 코드
+    profile: {},
     authError: null,
+    profileError: null,
+    currentUserProfile: {},
   },
 
   getters: {
@@ -17,7 +19,9 @@ export default {
     currentUser: state => state.currentUser,
     profile: state => state.profile,
     authError: state => state.authError,
-    authHeader: state => ({ Authorization: `Token ${state.token}`})
+    authHeader: state => ({ Authorization: `Token ${state.token}`}),
+    profileError: state => state.profileError,
+    currentUserProfile: state => state.currentUserProfile,
   },
 
   mutations: {
@@ -25,6 +29,7 @@ export default {
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
+    SER_PROFILE_ERROR: (state, error) => state.profileError = error,
   },
 
   actions: {
@@ -46,7 +51,7 @@ export default {
       localStorage.setItem('token', '')
     },
 
-    signup({commit, dispatch}, credentials) {
+    signup({commit, getters, dispatch}, payRoad) {
       /* 
         POST: 사용자 입력정보를 signup URL로 보내기
         성공하면
@@ -61,12 +66,28 @@ export default {
       axios({
         url: drf.accounts.signup(),
         method: 'post',
-        data: credentials
+        data: payRoad.credentials
       })
         .then(res => {
           const token = res.data.key
           dispatch('saveToken', token) // 로컬 스토리지에 토큰 저장
           dispatch('fetchCurrentUser') // 로컬 스토리지에 유저 정보 저장
+
+          // 프로필 생성!
+          axios({
+            url: drf.accounts.createProfile(payRoad.credentials.username),
+            method: 'post',
+            data: payRoad.profile,
+            headers: getters.authHeader,
+          })
+            .then(res => {
+              commit('SET_PROFILE', res.data)
+            })
+            .catch(err => {
+              console.error(err.response.data)
+              commit('SER_PROFILE_ERROR', err.response.data)
+            })
+
           router.push({ name: 'home' })
         })
         .catch(err => {
