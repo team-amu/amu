@@ -190,5 +190,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegistrationSerializer',
 }
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 # # 유저 정보를 저장하는 커스텀 어댑터 사용한다!!
 # ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'

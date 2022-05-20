@@ -29,7 +29,7 @@ class User(AbstractUser):
     email = models.EmailField(max_length=254)
 
 class Profile(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     nickname = models.CharField(max_length=20, blank=True)
     # urls에 static url 추가해줘야함~(추가할 때 공식문서 보고 추가해주기)    
