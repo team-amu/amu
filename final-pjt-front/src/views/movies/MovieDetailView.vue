@@ -10,6 +10,7 @@ export default {
   name: "MovieDetailView",
   components: {  },
   data () {
+    return {}
   },
   computed: {
   },

@@ -1,21 +1,22 @@
 <template>
   <div>
-    <h1>MovieSearchView</h1>
+    <h1>Article Detail</h1>
   </div>
 </template>
 
 <script>
-// import  from '@/components//.vue'
+// import ArticleCreateForm from "@/components/community/ArticleCreateForm"
 export default {
-  name: "MovieSearchView",
-  components: {  },
+  name: "ArticleDetailView",
+  components: {
+  },
   data () {
     return {}
   },
   computed: {
   },
   methods: {
-  }
+  },
 }
 </script>
 
