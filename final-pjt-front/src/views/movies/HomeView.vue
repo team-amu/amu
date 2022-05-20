@@ -10,6 +10,9 @@ export default {
   name: "HomeView",
   components: {  },
   data () {
+    return {
+
+    }
   },
   computed: {
   },
@@ -21,3 +24,4 @@ export default {
 <style>
 
 </style>
+
