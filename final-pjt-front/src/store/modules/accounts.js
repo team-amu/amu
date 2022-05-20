@@ -62,7 +62,6 @@ export default {
           에러 메시지 표시
       */
 
-      // 대상 컴퓨터 연결 에러 문제로 가입성공 했을 시에 db에는 들어가나 토큰값이 state에 저장이 안됨!! 220519
       axios({
         url: drf.accounts.signup(),
         method: 'post',
@@ -142,7 +141,7 @@ export default {
         .then(() => {
           dispatch('removeToken')
           alert('성공적으로 logout!')
-          router.push({ name: 'login' }) // login 으로 보내지 말고 추후 수정 필요
+          router.push({ name: 'login' }) // login 으로 보내지 말고 추후 수정 필요 220519
         })
         .error(err => {
           console.error(err.response)
