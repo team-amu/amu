@@ -26,7 +26,7 @@ import ArticleCreateView from "@/views/community/ArticleCreateView.vue";
 import ArticleDetailView from "@/views/community/ArticleDetailView.vue";
 
 // default 부분
-import NotFound404 from "@/views/community/NotFound404.vue";
+import NotFound404 from "@/views/NotFound404.vue";
 
 Vue.use(VueRouter);
 
@@ -124,7 +124,7 @@ const routes = [
 		// 404 페이지
 		path: "/404",
 		name: "NotFound",
-		component: NotFountView,
+		component: NotFound404,
 	},
 
 	{
