@@ -13,9 +13,10 @@ class MovieSerializer(serializers.ModelSerializer):
             fields = ('id', 'name')
             
     class UserSerializer(serializers.ModelSerializer):
+
         class Meta:
             model = User
-            fields = ('pk', 'username', 'nickname')
+            fields = ('pk', 'username')
         
     genres = GenreSerializer(read_only=True, many=True)
     # actors = ActorSerializer(read_only=True, many=True)
