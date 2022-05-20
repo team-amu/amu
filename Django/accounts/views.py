@@ -44,7 +44,6 @@ def update_profile(request, username):
     
     # 프로필이 이미 있을 때 또 생성되는 거 하나만 생성되도록 이렇게 막았는데 구조 깔끔하게 바꾸기!!
     if profile_user.profile_set.filter(user_id=profile_user.id).exists():
-
         if request.method == 'PUT':
             profile = profile_user.profile_set.get(user_id=profile_user.id)    
             if me == profile_user and profile:
