@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Community Review</h1>
+    <article-sort-select></article-sort-select>
     <article-unit-select></article-unit-select>
     <ul>
       <review-title-item
@@ -16,11 +17,13 @@
 import { mapGetters, mapActions } from "vuex";
 import ReviewTitleItem from "@/components/community/ReviewTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
+import ArticleSortSelect from '@/components/community/ArticleSortSelect';
 export default {
   name: "CommunityTotalView",
   components: {
     ReviewTitleItem,
     ArticleUnitSelect,
+    ArticleSortSelect,
   },
   data () {
     return {}

@@ -6,17 +6,23 @@ import _ from "lodash";
 export default {
 	state: {
 		communityArticleUnit: localStorage.getItem("communityArticleUnit") || 5,
+		communityArticleSort: localStorage.getItem("communityArticleSort") || "-pk",
+		totalPageNum: localStorage.getItem("totalPageNum") || 1,
 		reviewPageNum: localStorage.getItem("reviewPageNum") || 1,
 		freePageNum: localStorage.getItem("freePageNum") || 1,
 		reviews: [],
 		frees: [],
+		totals: [],
 		articleInfo: {},
 	},
 
 	getters: {
 		communityArticleUnit: (state) => state.communityArticleUnit,
+		communityArticleSort: (state) => state.communityArticleSort,
+		totalPageNum: (state) => state.totalPageNum,
 		reviewPageNum: (state) => state.reviewPageNum,
 		freePageNum: (state) => state.freePageNum,
+		totals: (state) => state.totals,
 		reviews: (state) => state.reviews,
 		frees: (state) => state.frees,
 		articleInfo: (state) => state.articleInfo,
@@ -27,12 +33,16 @@ export default {
 	},
 
 	mutations: {
+		SET_TOTALS: (state, totals) => (state.totals = totals),
 		SET_REVIEWS: (state, reviews) => (state.reviews = reviews),
 		SET_FREES: (state, frees) => (state.frees = frees),
+		SET_TOTAL_PAGE_NUM: (state, page) => (state.totalPageNum = page),
 		SET_REVIEW_PAGE_NUM: (state, page) => (state.reviewPageNum = page),
 		SET_FREE_PAGE_NUM: (state, page) => (state.freePageNum = page),
 		SET_COMMUNITY_ARTICLE_UNIT: (state, unit) =>
 			(state.communityArticleUnit = unit),
+		SET_COMMUNITY_ARTICLE_SORT: (state, sort) =>
+			(state.communityArticleSort = sort),
 		SET_ARTICLE_INFO: (state, article) => (state.articleInfo = article),
 		SET_ARTICLE_COMMENTS: (state, comments) =>
 			(state.articleInfo.comments = comments),
@@ -43,6 +53,18 @@ export default {
 		setCommunityArticleUnit({ commit }, unit) {
 			commit("SET_COMMUNITY_ARTICLE_UNIT", unit);
 			localStorage.setItem("communityArticleUnit", unit);
+		},
+
+		// 게시물 정렬 기준 저장
+		setCommunityArticleSort({ commit }, sort) {
+			commit("SET_COMMUNITY_ARTICLE_SORT", sort);
+			localStorage.setItem("communityArticleSort", sort);
+		},
+
+		// 전체게시판 게시물 페이지 저장
+		setTotalPageNum({ commit }, page) {
+			commit("SET_TOTAL_PAGE_NUM", page);
+			localStorage.setItem("totalPageNum", page);
 		},
 
 		// 영화게시판 게시물 페이지 저장
@@ -57,10 +79,30 @@ export default {
 			localStorage.setItem("freePageNum", page);
 		},
 
+		// 영화게시판 게시물 단위별로 totals에 저장
+		setTotals({ commit, getters }, page) {
+			const params = {
+				unit: Number(getters.communityArticleUnit),
+				sort: getters.communityArticleSort,
+			};
+			axios({
+				url: drf.community.communityTotal(page),
+				method: "get",
+				params: params,
+			})
+				.then((res) => {
+					commit("SET_TOTALS", res.data);
+				})
+				.catch((err) => {
+					console.error(err.data);
+				});
+		},
+
 		// 영화게시판 게시물 단위별로 reviews에 저장
 		setReviews({ commit, getters }, page) {
 			const params = {
 				unit: Number(getters.communityArticleUnit),
+				sort: getters.communityArticleSort,
 			};
 			axios({
 				url: drf.community.communityReview(page),
@@ -79,6 +121,7 @@ export default {
 		setFrees({ commit, getters }, page) {
 			const params = {
 				unit: Number(getters.communityArticleUnit),
+				sort: getters.communityArticleSort,
 			};
 			axios({
 				url: drf.community.communityFree(page),
