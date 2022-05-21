@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{articleInfo}}
     <h1>{{ articleInfo.title }}</h1>
     <h2>#{{ articleInfo.pk }}</h2>
     작성자 : {{ articleInfo.user.username}}
@@ -8,16 +9,27 @@
     댓글 : {{ articleInfo.comments_count }} |
     좋아요 : {{ articleInfo.likes_count }}
     <hr>
+    <!-- 영화게시판이면 poster사진이랑 평점 보이게 -->
     <div v-if="isReview">
       <img :src="posterSrc" alt="포스터 사진"> <br>
       {{ articleInfo.rank}}
+      <hr>
     </div>
-    <hr>
+    
+    <!-- 내용 부분 -->
     내용
     <hr>
     {{ articleInfo.content }}
     <hr>
-    <button>좋아요</button>
+
+    <!-- 좋아요 버튼  -->
+    <button
+      @click="onClickLike(articleInfo.pk)"
+    >
+    {{ articleInfo.likes_count }} {{ likeBtnText }}</button>
+    <hr>
+
+    <!-- 댓글 섹션 -->
     <section id="commentSection">
       <form
         @submit.prevent="createComment"
@@ -40,8 +52,6 @@
         :comment="comment"
       ></comment-item>
     </section>
-    
-    
   </div>
 </template>
 
@@ -61,12 +71,21 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['articleInfo', 'authHeader']),
+    ...mapGetters(['articleInfo', 'authHeader', 'currentUser']),
     isReview() {
       return this.articleInfo.category==='review'
     },
     comments() {
       return this.articleInfo.comments
+    },
+    isLiked() {
+      const ret = this.articleInfo.like_users.some(like_user => {
+        return this.currentUser.pk === like_user.pk
+      })
+      return ret
+    },
+    likeBtnText() {
+      return this.isLiked ? '좋아요 취소' : '좋아요'
     },
 
     // 영화 관련
@@ -76,6 +95,7 @@ export default {
       return domain + path
     }
   },
+
   methods: {
     ...mapActions(['setArticleInfo']),
     createComment() {
@@ -84,6 +104,21 @@ export default {
         url: drf.community.commentCreate(this.articleInfo.pk),
         headers: this.authHeader,
         data: { content: this.commentInputData }
+      })
+      .then(() => {
+        this.$router.go(this.$router.currentRoute);
+      })
+      .catch(err => {
+        console.error(err.data)
+      })
+    },
+    // 좋아요 버튼 누르면 호출
+    onClickLike(articlePk) {
+      axios({
+        method: "post",
+        url: drf.community.articleLike(articlePk),
+        headers: this.authHeader,
+        data: {}
       })
       .then(() => {
         this.$router.go(this.$router.currentRoute);

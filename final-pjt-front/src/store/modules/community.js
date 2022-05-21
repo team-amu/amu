@@ -40,7 +40,7 @@ export default {
 		},
 		// Article Page 저장
 		setReviewPageNum({ commit }, page) {
-			commit("SET_ARTICLE_PAGE_NUM", page);
+			commit("SET_REVIEW_PAGE_NUM", page);
 			localStorage.setItem("reviewPageNum", page);
 		},
 		setFreePageNum({ commit }, page) {
