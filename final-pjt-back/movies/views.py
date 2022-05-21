@@ -25,24 +25,39 @@ def home(request):
 def hot_movies(request):
     now = timezone.now()
     past = date.today() - timedelta(days = 7) # 현재로부터 30일 전일때
+    # 30일 이내에 좋아요와 북마크가 많이 눌린 영화들!!
     movies = Movie.objects.annotate(
-        recent_like_num=Count('movielike', filter=Q(movielike__created_at__range=(past, now)))
-        ).order_by('-recent_like_num')[:10]
+        recent_like_num=Count('movielike', filter=Q(movielike__created_at__range=(past, now))),
+        recent_bookmark_num=Count('moviebookmark', filter=Q(movielike__created_at__range=(past, now))),
+        ).filter(~Q(recent_like_num=0)).filter(~Q(recent_bookmark_num=0)
+        ).order_by('-recent_like_num', '-recent_bookmark_num')[:10]
 
     serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def like_movies(request):
-    
+    # 내가 팔로우한 사람들이 좋아하는 영화 랜덤 10개
     me = request.user
     if me.is_authenticated:
-    
-        return Response({'정보 없음': '친구가 좋아하는 영화 로직 짜야함' })
+        movies = Movie.objects.annotate(
+            like_num=Count('like_users', filter=Q(like_users__followers=me))
+        ).filter(~Q(like_num=0)).order_by('?')[:10]
+        
+        serializer = MovieListSerializer(movies, many=True)
+        return Response(serializer.data)
 
 @api_view(['GET'])
 def bookmark_movies(request):
-    return Response({'정보 없음': '친구가 북마크한 영화 로직 짜야함' })
+    # 내가 팔로우한 사람들이 북마크한 영화 랜덤 10개
+    me = request.user
+    if me.is_authenticated:
+        movies = Movie.objects.annotate(
+            like_num=Count('like_users', filter=Q(like_users__followers=me))
+        ).filter(~Q(like_num=0)).order_by('?')[:10]
+        
+        serializer = MovieListSerializer(movies, many=True)
+        return Response(serializer.data)
 
 
 @api_view(['GET'])
