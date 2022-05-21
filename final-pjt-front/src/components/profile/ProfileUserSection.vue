@@ -5,7 +5,7 @@
     <!-- <img :src="payload.profileInfo.profile_image" alt="프로필사진"> -->
     
     <span v-if="!isEditing">
-      <h2>닉네임 : {{ payload.nickname }}</h2>    
+      <h2>닉네임 : {{ profile.nickname }}</h2>    
     </span>
     <span v-if="isEditing">
       <input type="text" v-model="payload.nickname">
@@ -20,7 +20,7 @@
       <h2>한 줄 자기소개: </h2>
     </span>
 
-    <h2 v-if="!isEditing"> {{ payload.introduce }}</h2>
+    <h2 v-if="!isEditing"> {{ profile.introduce }}</h2>
     
     <span v-if="isEditing">
       <input type="text" v-model="payload.introduce">
