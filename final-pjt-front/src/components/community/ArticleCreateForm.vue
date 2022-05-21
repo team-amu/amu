@@ -1,6 +1,6 @@
 <template>
   <form
-    @submit.prevent="onSubmit"
+    @submit.prevent="createArticle(formData)"
   >
     <label for="categorySelect">카테고리 선택</label><br>
     <select v-model="categorySelectData" name="categorySelect" id="categorySelect"><hr>
@@ -28,6 +28,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+import drf from "@/api/drf";
+import { mapGetters } from 'vuex';
 export default {
   name: 'ArticleCreateForm',
   data () {
@@ -40,12 +43,14 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['authHeader']),
     isReview () {
       return this.categorySelectData==='review'
     }
   },
   methods: {
-    onSubmit () {
+    // article 생성
+    createArticle() {
       const formData = {
         'title': this.titleInputData,
         'category': this.categorySelectData,
@@ -53,7 +58,17 @@ export default {
         'movie': this.movieInputData,
         'rank': this.rankInputData,
       }
-      console.log(formData)
+      axios({
+        method: "post",
+        url: drf.community.articleCreate(),
+        headers: this.authHeader,
+        data: formData,
+      })
+      .then(res => {
+        alert('작성이 완료되었습니다!')
+        const newArticlePk = res.data.pk
+        this.$router.push({ name: 'articleDetail', params: { articlePk: newArticlePk } })
+      })
     }
   }
 }

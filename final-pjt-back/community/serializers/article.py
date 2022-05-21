@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from community.models import Article
+from movies.models import Movie
 from django.contrib.auth import get_user_model
 from .comment import CommentSerializer
 
@@ -11,8 +12,14 @@ class ArticleSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
             fields = ('pk', 'username')
+    
+    class MovieSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Movie
+            fields = ('id', 'title', 'poster_path')
             
     comments = CommentSerializer(many=True, read_only=True)
+    movie = MovieSerializer(read_only=True)
     user = UserSerializer(read_only=True)
     like_users = UserSerializer(read_only=True, many=True)
     comments_count = serializers.IntegerField(source="comments.count", read_only=True)
