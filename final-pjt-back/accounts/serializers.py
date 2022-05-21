@@ -1,3 +1,4 @@
+from asyncio import format_helpers
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from .models import Profile
@@ -10,8 +11,25 @@ from community.serializers.comment import CommentSerializer
 class ProfileSerializer(serializers.ModelSerializer):
 
     class UserSerializer(serializers.ModelSerializer):
-        followings = serializers.IntegerField(source="followings.count")
-        followers = serializers.IntegerField(source="followers.count")
+        
+        class FollowSerializer(serializers.ModelSerializer):
+
+            class NicknameSerializer(serializers.ModelSerializer):
+                class Meta:
+                    model = Profile
+                    fields = ('id', 'nickname',)
+
+            profile = NicknameSerializer(read_only=True)
+
+            class Meta:
+                model = get_user_model()
+                fields = ('id', 'username', 'profile',)
+
+        followers = FollowSerializer(read_only=True, many=True)
+        followings = FollowSerializer(read_only=True, many=True)
+        
+        followings_count = serializers.IntegerField(source="followings.count")
+        followers_count = serializers.IntegerField(source="followers.count")
         like_movies = MovieListSerializer(read_only=True, many=True)
         bookmark_movies = MovieListSerializer(read_only=True, many=True)
         articles = ArticleListSerializer(read_only=True, many=True)

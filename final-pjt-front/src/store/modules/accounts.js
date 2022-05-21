@@ -191,6 +191,9 @@ export default {
         .then(res => {
           commit('SET_PROFILE', res.data)
         })
+        .catch((err) => {
+					console.error(err.response.data);
+				});
     },
 
     fetchProfileBookmark({ commit }, username) {
@@ -206,6 +209,9 @@ export default {
         .then(res => {
           commit('SET_PROFILE', res.data)
         })
+        .catch((err) => {
+					console.error(err.response.data);
+				});
     },
 
     fetchProfileArticle({ commit }, username) {
@@ -221,6 +227,9 @@ export default {
         .then(res => {
           commit('SET_PROFILE', res.data)
         })
+        .catch((err) => {
+					console.error(err.response.data);
+				});
     },
 
     fetchProfileComment({ commit }, username) {
@@ -236,7 +245,24 @@ export default {
         .then(res => {
           commit('SET_PROFILE', res.data)
         })
+        .catch((err) => {
+					console.error(err.response.data);
+				});
     },
-  }
-
+    
+    follow({ commit, getters }, username) {
+      console.log('sdsd')
+      axios({
+        url: drf.accounts.follow(username),
+        method: "post",
+        headers: getters.authHeader,
+      })
+        .then((res) => {
+          commit('SET_PROFILE', res.data)
+        })
+        .catch((err) => {
+          console.error(err.response.data);
+        });
+    },
+  },
 }

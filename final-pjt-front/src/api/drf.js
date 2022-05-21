@@ -14,12 +14,13 @@ export default {
 		createProfile: (username) => HOST + ACCOUNTS + "profile/" + `${username}/` + 'update/',
 		// // Token 으로 현재 user 판단
 		currentUserInfo: () => HOST + ACCOUNTS + "user/", // login, logout 등등 처럼 제공되는 주소임!
-		// // username으로 프로필 제공
-		// profile: username => HOST + ACCOUNTS + 'profile/' + username,
+		// 프로필 출력
 		profileLike: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/`,
 		profileBookmark: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'bookmark/',
 		profileAritcle: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/`+ 'article/',
 		profileComment: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'comment/',
+		// follow
+		follow: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'follow/',
 	},
 	community: {
 		// article 조작 또는 이벤트 관련
