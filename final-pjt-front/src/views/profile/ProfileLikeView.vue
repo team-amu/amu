@@ -1,9 +1,8 @@
 <template>
   <div>
     <h1>Profile Like</h1>
-    {{ profileUser }}
-    <profile-user-section v-if="isSelfUser" :profile="profile"></profile-user-section>
-    <profile-content-section v-if="isSelfUser" :profile="profile"></profile-content-section>
+    <profile-user-section v-if="isRightProfile && isProfile" :profile="profile"></profile-user-section>
+    <profile-content-section v-if="isRightProfile && isProfile" :contents="profile.user.like_movies"></profile-content-section>
   </div>
 </template>
 
@@ -15,25 +14,36 @@
   export default {
     components: { ProfileUserSection, ProfileContentSection },
     name: "ProfileLikeView",
+    data() {
+      return {
+        isRightProfile: false
+      }
+    },
     computed: {
-      ...mapGetters(['profile', 'isProfile', 'isSelfUser']),
-      // 버튼으로 이동했을 때 state의 프로필 바꿔주기 위해서!!
-      profileUser() {
-        const payload = { username: this.$route.params.username }
-        this.fetchProfileLike(payload)
-        console.log(this.isSelfUSer)
-        // return this.profile
-        return payload.username
-      },
+      ...mapGetters(['isProfile', 'profile'])
     },
     methods: {
       ...mapActions(['fetchProfileLike'])
     },
-    mounted() {
+    watch: {
+      // 이 조건은 구글링 하다가 찾았는데 아직 잘 모름 일단 넣어놈,,
+      immediate: true,
+      // 주소가 바뀌면 그 주소에 맞는 프로필 가져오기!
+      $route: {
+        handler() {
+          this.isRightProfile = false
+          this.fetchProfileLike(this.$route.params.username)
+        }
+      },
+      // 프로필을 가져와서 바뀌었으면 isRightProfile 조건 true로 바꿔서 랜더링하게!
+      profile: {
+        handler() {
+          this.isRightProfile = true
+        }
+      },
     },
     created() {
-      const payload = { username: this.$route.params.username }
-      this.fetchProfileLike(payload)
+      this.fetchProfileLike(this.$route.params.username)
     }
   }
 </script>

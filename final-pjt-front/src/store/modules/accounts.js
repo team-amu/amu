@@ -10,10 +10,9 @@ export default {
     token: localStorage.getItem('token') || '' , // 새로고침해도 로컬스토리지에 토큰 있으면 저장할 수 있도록!
     currentUser: {},
     profile: {},
+    currentUserProfile: {},
     authError: null,
     profileError: null,
-    currentUserProfile: {},
-    isSelfUser: profile.user.username === currentUser.username,
   },
 
   getters: {
@@ -23,7 +22,6 @@ export default {
     isCurrentUser: state => !_.isEmpty(state.currentUser),
     profile: state => state.profile,
     isProfile: state => !_.isEmpty(state.profile), // 객체는 {}도 True기 때문에 lodash의 힘을 빌린다! 
-    isSelfUser: state => state.isSelfUser,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: `Token ${state.token}`}),
     profileError: state => state.profileError,
@@ -35,7 +33,7 @@ export default {
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
-    SER_PROFILE_ERROR: (state, error) => state.profileError = error,
+    SET_PROFILE_ERROR: (state, error) => state.profileError = error,
   },
 
   actions: {
@@ -180,7 +178,7 @@ export default {
       }
     },
 
-    fetchProfileLike({ commit }, { username }) {
+    fetchProfileLike({ commit }, username) {
       /*
       GET: profile URL로 요청보내기
         성공하면
@@ -188,6 +186,51 @@ export default {
       */
       axios({
         url: drf.accounts.profileLike(username),
+        method: 'get',
+      })
+        .then(res => {
+          commit('SET_PROFILE', res.data)
+        })
+    },
+
+    fetchProfileBookmark({ commit }, username) {
+      /*
+      GET: profile URL로 요청보내기
+        성공하면
+          state.profile에 저장
+      */
+      axios({
+        url: drf.accounts.profileBookmark(username),
+        method: 'get',
+      })
+        .then(res => {
+          commit('SET_PROFILE', res.data)
+        })
+    },
+
+    fetchProfileArticle({ commit }, username) {
+      /*
+      GET: profile URL로 요청보내기
+        성공하면
+          state.profile에 저장
+      */
+      axios({
+        url: drf.accounts.profileAritcle(username),
+        method: 'get',
+      })
+        .then(res => {
+          commit('SET_PROFILE', res.data)
+        })
+    },
+
+    fetchProfileComment({ commit }, username) {
+      /*
+      GET: profile URL로 요청보내기
+        성공하면
+          state.profile에 저장
+      */
+      axios({
+        url: drf.accounts.profileComment(username),
         method: 'get',
       })
         .then(res => {
