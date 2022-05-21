@@ -1,10 +1,11 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-import accounts from './modules/accounts'
+import accounts from "./modules/accounts";
+import community from "./modules/community";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { accounts, }
-})
+	modules: { accounts, community },
+});

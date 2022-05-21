@@ -29,8 +29,9 @@ def articles_hot(request, page):
 
 @api_view(['GET'])
 def articles_review(request, page):
-    start, end = (page-1)*20, page*20
-    articles = get_list_or_404(Article, category="review")[start:end]
+    unit = int(request.GET.get('unit'))
+    start, end = (page-1)*unit, page*unit
+    articles = get_list_or_404(Article, category="review")[::-1][start:end]
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
@@ -39,8 +40,9 @@ def articles_review(request, page):
     
 @api_view(['GET'])
 def articles_free(request, page):
-    start, end = (page-1)*20, page*20
-    articles = get_list_or_404(Article, category="article")[start:end]
+    unit = int(request.GET.get('unit'))
+    start, end = (page-1)*unit, page*unit
+    articles = get_list_or_404(Article, category="free")[start:end]
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
