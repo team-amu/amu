@@ -1,21 +1,22 @@
 <template>
   <router-link
   :to="{ name: 'articleDetail',
-          params: { articlePk: review.pk, article: review } }">
+          params: { articlePk: free.pk, article: free } }">
+  
     <li>
-      [{{ review.category }} #{{ review.pk }}] {{ review.title }}
+      [{{free.category}} #{{ free.pk }}] {{ free.title }}
     </li>
   </router-link>
 </template>
 
 <script>
 export default {
-  name: "ReviewTitleItem",
+  name: "FreeTitleItem",
   data () {
     return {}
   },
   props: {
-    review: Object
+    free: Object
   },
   methods: {},
   computed: {},

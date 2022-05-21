@@ -31,7 +31,7 @@ def articles_hot(request, page):
 def articles_review(request, page):
     unit = int(request.GET.get('unit'))
     start, end = (page-1)*unit, page*unit
-    articles = get_list_or_404(Article, category="review")[start:end]
+    articles = get_list_or_404(Article, category="review")[::-1][start:end]
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
@@ -42,7 +42,7 @@ def articles_review(request, page):
 def articles_free(request, page):
     unit = int(request.GET.get('unit'))
     start, end = (page-1)*unit, page*unit
-    articles = get_list_or_404(Article, category="article")[start:end]
+    articles = get_list_or_404(Article, category="free")[start:end]
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
