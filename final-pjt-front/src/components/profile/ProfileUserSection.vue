@@ -2,16 +2,41 @@
   <div>
     <h2>ProfileUserSection</h2>
     <hr>
-    <h2>닉네임 : {{ profile.nickname }}</h2>
+    <!-- <img :src="payload.profileInfo.profile_image" alt="프로필사진"> -->
+    
+    <span v-if="!isEditing">
+      <h2>닉네임 : {{ payload.nickname }}</h2>    
+    </span>
+    <span v-if="isEditing">
+      <input type="text" v-model="payload.nickname">
+    </span>
+
     <h2> 팔로잉 : {{ profile.user.followings_count }} / 팔로워 : {{ profile.user.followers_count }}</h2>
+    
     <button v-if="isFollow() && !isMe()" @click="follow(profileUsername)">언팔로우</button>
     <button v-if="!isFollow() && !isMe()" @click="follow(profileUsername)">팔로우</button>
+    
+    <span>
+      <h2>한 줄 자기소개: </h2>
+    </span>
+
+    <h2 v-if="!isEditing"> {{ payload.introduce }}</h2>
+    
+    <span v-if="isEditing">
+      <input type="text" v-model="payload.introduce">
+      <button @click="onUpdate">Update</button> |
+      <button @click="switchIsEditing">Cancle</button>
+    </span>
+
+    <button v-if="isMe() && !isEditing" @click="switchIsEditing">Edit</button>
 
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import _ from "lodash";
+
 export default {
   name: 'ProfileUserSection',
   props: {
@@ -19,16 +44,26 @@ export default {
   },
   data() {
     return {
+      isEditing: false,
+      payload: {
+        username: this.$route.params.username,
+        nickname: this.profile.nickname,
+        // profile_image: this.profile.profile.profile_image,
+        introduce: this.profile.introduce,
+      }
     }
   },
   computed: {
     ...mapGetters(['currentUser']),
     profileUsername() {
       return this.$route.params.username
+    },
+    isPayload() {
+      return !_.isEmpty(this.payload)
     }
   },
   methods: {
-    ...mapActions(['follow']),
+    ...mapActions(['follow', 'profileUpdate']),
     isFollow() {
       return this.profile.user.followers.some((ele) => {
         return ele.id === this.currentUser.pk
@@ -36,6 +71,13 @@ export default {
     },
     isMe() {
       return this.profile.user.id === this.currentUser.pk
+    },
+    switchIsEditing() {
+      this.isEditing = !this.isEditing
+    },
+    onUpdate() {
+      this.profileUpdate(this.payload)
+      this.isEditing = false
     }
   },
 }

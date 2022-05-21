@@ -249,9 +249,8 @@ export default {
 					console.error(err.response.data);
 				});
     },
-    
+
     follow({ commit, getters }, username) {
-      console.log('sdsd')
       axios({
         url: drf.accounts.follow(username),
         method: "post",
@@ -262,6 +261,23 @@ export default {
         })
         .catch((err) => {
           console.error(err.response.data);
+        });
+    },
+
+    profileUpdate({commit, getters}, {username, nickname, profile_image, introduce}) {
+      const profile = { nickname, profile_image, introduce }
+      axios({
+        url: drf.accounts.profileUpdate(username),
+        method: "put",
+        data: profile,
+        headers: getters.authHeader,
+      })
+        .then((res) => {
+          commit("SET_PROFILE", res.data);
+        })
+        .catch((err) => {
+          console.error(err.response.data);
+          commit("SER_PROFILE_ERROR", err.response.data);
         });
     },
   },

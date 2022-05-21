@@ -19,6 +19,8 @@ export default {
 		profileBookmark: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'bookmark/',
 		profileAritcle: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/`+ 'article/',
 		profileComment: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'comment/',
+		// 프로필 정보 업데이트
+		profileUpdate: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'update/',
 		// follow
 		follow: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'follow/',
 	},
