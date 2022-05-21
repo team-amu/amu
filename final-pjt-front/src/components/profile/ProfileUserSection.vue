@@ -35,7 +35,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import _ from "lodash";
 
 export default {
   name: 'ProfileUserSection',
@@ -58,9 +57,6 @@ export default {
     profileUsername() {
       return this.$route.params.username
     },
-    isPayload() {
-      return !_.isEmpty(this.payload)
-    }
   },
   methods: {
     ...mapActions(['follow', 'profileUpdate']),

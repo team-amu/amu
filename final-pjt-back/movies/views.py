@@ -10,11 +10,39 @@ from .serializers.movie import MovieSerializer, MovieListSerializer
 from .serializers.actor import ActorSerializer, ActorListSerializer 
 from .serializers.genre import GenreSerializer
 
+from django.utils import timezone
+from django.db.models import Q, Sum, Count, Case, When
+from datetime import datetime, timedelta, date
 from .models import Movie, Genre, Actor
+
+from django.contrib.auth.decorators import login_required
 
 @api_view(['GET'])
 def home(request):
     return Response({'정보 없음': '최근 HOT한 영화, 친구가 좋아하는 영화 로직 짜야함' })
+
+@api_view(['GET'])
+def hot_movies(request):
+    now = timezone.now()
+    past = date.today() - timedelta(days = 7) # 현재로부터 30일 전일때
+    movies = Movie.objects.annotate(
+        recent_like_num=Count('movielike', filter=Q(movielike__created_at__range=(past, now)))
+        ).order_by('-recent_like_num')[:10]
+
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def like_movies(request):
+    
+    me = request.user
+    if me.is_authenticated:
+    
+        return Response({'정보 없음': '친구가 좋아하는 영화 로직 짜야함' })
+
+@api_view(['GET'])
+def bookmark_movies(request):
+    return Response({'정보 없음': '친구가 북마크한 영화 로직 짜야함' })
 
 
 @api_view(['GET'])
