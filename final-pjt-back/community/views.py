@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, JsonResponse
+from django.db.models import Q, Count
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -14,8 +15,16 @@ from django.http import Http404
 
 @api_view(['GET'])
 def articles_total(request, page):
-    start, end = (page-1)*20, page*20
-    articles = get_list_or_404(Article)[start:end]
+    unit = int(request.GET.get('unit'))
+    sort = request.GET.get('sort')
+    start, end = (page-1)*unit, page*unit
+    if sort=='-pk':
+        articles = Article.objects.filter(Q(category='review')|Q(category='free')).order_by(sort)[start:end]
+    elif sort=='-comments_count':
+        articles = Article.objects.filter(Q(category='review')|Q(category='free')).annotate(comments_count=Count('comments')).order_by(sort)[start:end]
+    elif sort == '-likes_count':
+        articles = Article.objects.filter(Q(category='review')|Q(category='free')).annotate(likes_count=Count('like_users')).order_by(sort)[start:end]
+        
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
@@ -30,8 +39,16 @@ def articles_hot(request, page):
 @api_view(['GET'])
 def articles_review(request, page):
     unit = int(request.GET.get('unit'))
+    sort = request.GET.get('sort')
     start, end = (page-1)*unit, page*unit
-    articles = get_list_or_404(Article, category="review")[::-1][start:end]
+    
+    if sort=='-pk':
+        articles = Article.objects.filter(Q(category='review')).order_by(sort)[start:end]
+    elif sort=='-comments_count':
+        articles = Article.objects.filter(Q(category='review')).annotate(comments_count=Count('comments')).order_by(sort)[start:end]
+    elif sort == '-likes_count':
+        articles = Article.objects.filter(Q(category='review')).annotate(likes_count=Count('like_users')).order_by(sort)[start:end]
+    
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
@@ -41,8 +58,16 @@ def articles_review(request, page):
 @api_view(['GET'])
 def articles_free(request, page):
     unit = int(request.GET.get('unit'))
+    sort = request.GET.get('sort')
     start, end = (page-1)*unit, page*unit
-    articles = get_list_or_404(Article, category="free")[start:end]
+    
+    if sort=='-pk':
+        articles = Article.objects.filter(Q(category='free')).order_by(sort)[start:end]
+    elif sort=='-comments_count':
+        articles = Article.objects.filter(Q(category='free')).annotate(comments_count=Count('comments')).order_by(sort)[start:end]
+    elif sort == '-likes_count':
+        articles = Article.objects.filter(Q(category='free')).annotate(likes_count=Count('like_users')).order_by(sort)[start:end]
+    
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)

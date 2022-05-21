@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Community Free</h1>
+    <article-sort-select></article-sort-select>
     <article-unit-select></article-unit-select>
     <ul>
       
@@ -18,11 +19,14 @@
 import { mapGetters, mapActions } from "vuex";
 import FreeTitleItem from "@/components/community/FreeTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
+import ArticleSortSelect from '@/components/community/ArticleSortSelect';
+
 export default {
   name: "CommunityTotalView",
   components: {
     FreeTitleItem,
     ArticleUnitSelect,
+    ArticleSortSelect,
   },
   data () {
     return {}

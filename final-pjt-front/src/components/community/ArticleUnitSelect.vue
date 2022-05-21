@@ -17,7 +17,7 @@ export default {
   // data () {
   // },
   methods: {
-    ...mapActions(['setCommunityArticleUnit', 'setReviews', 'setFrees']),
+    ...mapActions(['setCommunityArticleUnit', 'setReviews', 'setFrees', 'setTotals']),
 
     onChange(event) {
       // 현재 page번호와 개수 단위 임시 저장
@@ -34,6 +34,7 @@ export default {
       // this.$router.push({ name: 'communityReview', params: {page: newPage} })
       this.setReviews(newPage)
       this.setFrees(newPage)
+      this.setTotals(newPage)
     },
   },
   computed: {

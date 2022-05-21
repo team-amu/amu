@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{articleInfo}}
     <h1>{{ articleInfo.title }}</h1>
     <h2>#{{ articleInfo.pk }}</h2>
     작성자 : {{ articleInfo.user.username}}
