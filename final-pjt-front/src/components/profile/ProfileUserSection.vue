@@ -35,7 +35,7 @@ export default {
       })
     },
     isMe() {
-      return this.profile.id === this.currentUser.pk
+      return this.profile.user.id === this.currentUser.pk
     }
   },
 }
