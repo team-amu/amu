@@ -14,7 +14,7 @@ import ProfileCommentView from "@/views/profile/ProfileCommentView.vue";
 
 // movies 부분
 import HomeView from "@/views/movies/HomeView.vue";
-// import SearchView from "@/views/movies/SearchView.vue";
+import MovieSearchView from "@/views/movies/MovieSearchView.vue";
 import MovieDetailView from "@/views/movies/MovieDetailView.vue";
 
 // community 부분
@@ -24,6 +24,7 @@ import CommunityFreeView from "@/views/community/CommunityFreeView.vue";
 import CommunityReviewView from "@/views/community/CommunityReviewView.vue";
 import ArticleCreateView from "@/views/community/ArticleCreateView.vue";
 import ArticleDetailView from "@/views/community/ArticleDetailView.vue";
+import ArticleEditView from "@/views/community/ArticleEditView.vue";
 
 // default 부분
 import NotFound404 from "@/views/NotFound404.vue";
@@ -83,8 +84,8 @@ const routes = [
 	},
 	{
 		path: "/movies/search/:searchPage",
-		name: "movieDetail",
-		component: MovieDetailView,
+		name: "movieSearch",
+		component: MovieSearchView,
 	},
 
 	// community 부분
@@ -97,6 +98,11 @@ const routes = [
 		path: "/community/:articlePk",
 		name: "articleDetail",
 		component: ArticleDetailView,
+	},
+	{
+		path: "/community/:articlePk/edit",
+		name: "articleEdit",
+		component: ArticleEditView,
 	},
 	{
 		path: "/community/total/:page",

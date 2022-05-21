@@ -19,7 +19,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             fields = ('id', 'title', 'poster_path')
             
     comments = CommentSerializer(many=True, read_only=True)
-    movie = MovieSerializer(read_only=True)
+    # movie = MovieSerializer()
     user = UserSerializer(read_only=True)
     like_users = UserSerializer(read_only=True, many=True)
     comments_count = serializers.IntegerField(source="comments.count", read_only=True)

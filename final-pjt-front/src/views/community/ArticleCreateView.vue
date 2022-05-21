@@ -1,24 +1,29 @@
 <template>
   <div>
     <h1>ArticleCreate</h1>
-    <article-create-form></article-create-form>
+    <article-form :articleInfo="articleInfo" action="create"></article-form>
   </div>
 </template>
 
 <script>
-import ArticleCreateForm from "@/components/community/ArticleCreateForm"
+import ArticleForm from "@/components/community/ArticleForm"
 export default {
   name: "ArticleCreateView",
   components: {
-    ArticleCreateForm,
+    ArticleForm,
   },
   data () {
-    return {}
-  },
-  computed: {
-  },
-  methods: {
-  },
+    return {
+      articleInfo: {
+        pk: null,
+        title: '',
+        category: 'review',
+        content: '',
+        movie: null,
+        rank: 10
+      }
+    }
+  }
 }
 </script>
 

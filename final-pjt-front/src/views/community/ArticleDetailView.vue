@@ -8,6 +8,14 @@
     생성 시간 : {{ articleInfo.created_at }} | 
     댓글 : {{ articleInfo.comments_count }} |
     좋아요 : {{ articleInfo.likes_count }}
+    <div v-if="isAuthor">
+      <router-link
+        :to="{ name: 'articleEdit', params: { articlePk: articleInfo.pk }}"
+      >
+        <button>수정</button>
+      </router-link>
+      <button @click="deleteArticle(articleInfo.pk)">삭제</button>
+    </div>
     <hr>
     <!-- 영화게시판이면 poster사진이랑 평점 보이게 -->
     <div v-if="isReview">
@@ -30,28 +38,7 @@
     <hr>
 
     <!-- 댓글 섹션 -->
-    <section id="commentSection">
-      <form
-        @submit.prevent="createComment"
-      >
-      <textarea
-        v-model="commentInputData"
-        name="commentInput"
-        id="commentInput"
-        placeholder="댓글 작성..."
-        ></textarea>
-      <br>
-      <button>등록</button>
-      </form>
-      <hr>
-      댓글 {{ articleInfo.comments_count }}
-      <hr>
-      <comment-item
-        v-for="comment in comments"
-        :key="comment.pk"
-        :comment="comment"
-      ></comment-item>
-    </section>
+    <comment-section :comments="articleInfo.comments"></comment-section>
   </div>
 </template>
 
@@ -59,11 +46,11 @@
 import axios from 'axios';
 import drf from "@/api/drf";
 import { mapActions, mapGetters } from 'vuex'
-import CommentItem from '@/components/community/CommentItem'
+import CommentSection from '@/components/community/CommentSection'
 export default {
   name: "ArticleDetailView",
   components: {
-    CommentItem,
+    CommentSection,
   },
   data () {
     return {
@@ -71,12 +58,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['articleInfo', 'authHeader', 'currentUser']),
-    isReview() {
-      return this.articleInfo.category==='review'
+    ...mapGetters(['articleInfo', 'authHeader', 'currentUser', 'isAuthor']),
+    articlePk() {
+      return this.$route.params.articlePk
     },
     comments() {
       return this.articleInfo.comments
+    },
+    isReview() {
+      return this.articleInfo.category==='review'
     },
     isLiked() {
       const ret = this.articleInfo.like_users.some(like_user => {
@@ -97,21 +87,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['setArticleInfo']),
-    createComment() {
-      axios({
-        method: "post",
-        url: drf.community.commentCreate(this.articleInfo.pk),
-        headers: this.authHeader,
-        data: { content: this.commentInputData }
-      })
-      .then(() => {
-        this.$router.go(this.$router.currentRoute);
-      })
-      .catch(err => {
-        console.error(err.data)
-      })
-    },
+    ...mapActions(['setArticleInfo', 'deleteArticle']),
     // 좋아요 버튼 누르면 호출
     onClickLike(articlePk) {
       axios({
@@ -129,9 +105,8 @@ export default {
     }
   },
   created() {
-    const articlePk = this.$route.params.articlePk
-    this.setArticleInfo(articlePk)
-  }
+    this.setArticleInfo(this.articlePk)
+  },
 }
 </script>
 
