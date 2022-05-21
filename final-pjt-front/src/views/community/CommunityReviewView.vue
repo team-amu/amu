@@ -1,14 +1,16 @@
 <template>
   <div>
     <h1>Community Review</h1>
+    <article-title-list-two></article-title-list-two>
   </div>
 </template>
 
 <script>
-// import ArticleCreateForm from "@/components/community/ArticleCreateForm"
+import ArticleTitleListTwo from "@/components/community/ArticleTitleListTwo"
 export default {
-  name: "CommunityReviewView",
+  name: "CommunityTotalView",
   components: {
+    ArticleTitleListTwo,
   },
   data () {
     return {}

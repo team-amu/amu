@@ -19,7 +19,9 @@
     </section>
     <section>
       <!-- community 관련 -->
-      <router-link :to="{ name: 'articleCreate' }">ArticleCreate</router-link>
+      <router-link :to="{ name: 'articleCreate' }">ArticleCreate</router-link> |
+      <router-link :to="{ name: 'communityReview', params: {page:'1'} }">CommunityReviewVue</router-link>
+      
     </section>
 
     <router-view/>
