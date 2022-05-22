@@ -21,7 +21,7 @@
     <p>{{ movieDetail.overview}}</p>
 
     <h3>출연진</h3>
-    <span v-for="actor in movieDetail.actors" :key="actor.id" >
+    <span v-for="actor in movieDetail.castedactors_set" :key="actor.id" >
       <actor-item :actor="actor" style="display: inline;"></actor-item>
     </span>
 

@@ -3,7 +3,8 @@
   <!-- 라우터 링크를 밖에 넣어야 하나? -->
   <div id="movieCard">
     <img :src="profileSrc" alt="profile" class="movie-poster">
-    <span>{{ actor.name }}</span>
+    <span>배역:{{ actor.character }}</span>
+    <span>배우:{{ actor.actor.name }}</span>
   </div>
 </div>
 </template>
@@ -22,7 +23,7 @@ export default {
   },
   computed: {
     profileSrc () {
-      return `https://image.tmdb.org/t/p/w600_and_h900_bestv2${this.actor.profile_path}`
+      return `https://image.tmdb.org/t/p/w600_and_h900_bestv2${this.actor.actor.profile_path}`
     },
   },
   created() {

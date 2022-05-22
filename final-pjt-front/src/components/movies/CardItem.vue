@@ -7,7 +7,7 @@
       <!-- {{ movie }} -->
       <img :src="posterSrc" alt="poster" class="movie-poster">
       <div id="titleSection">
-        <span id="score">{{ score }}</span>
+        <span id="score">{{ movie.vote_average }}</span>
         <span id="title">{{ movie.title }}</span>
       </div>
     </div>
