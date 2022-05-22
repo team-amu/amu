@@ -1,6 +1,15 @@
 <template>
   <div>
-    <card-item v-for="movie in movies" :key="movie.id" :movie="movie"></card-item>
+
+    <div>
+      <card-item 
+        v-for="movie in movies" 
+        :key="movie.id" 
+        :movie="movie"
+        style="display: inline;"
+      ></card-item>
+    </div>
+
   </div>
 </template>
 
@@ -23,5 +32,4 @@ export default {
 </script>
 
 <style>
-
 </style>

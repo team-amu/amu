@@ -15,7 +15,6 @@
     <section>
       <!-- movie 관련 -->
       <router-link :to="{ name: 'home' }">Home</router-link> |
-      <router-link :to="{ name: 'movieDetail' }">MovieDetail</router-link>
     </section>
     <section>
       <!-- community 관련 -->
