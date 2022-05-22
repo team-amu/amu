@@ -74,10 +74,11 @@ export default {
         })
     },
 
-    fetchMovieDetail({commit}, moviePk) {
+    fetchMovieDetail({commit, getters}, moviePk) {
       axios({
         url: drf.movies.detail(moviePk),
         method: "get",
+        headers: getters.authHeader,
         // data: {}
       })
         .then((res) => {
@@ -89,6 +90,37 @@ export default {
             router.push({ name: 'NotFound' })
           }
         })
-    }
+    },
+
+    movieLike({commit, getters}, moviePk) {
+      axios({
+        url: drf.movies.like(moviePk),
+        method: "post",
+        headers: getters.authHeader,
+        // data: {}
+      })
+        .then((res) => {
+          commit("SET_MOVIE_DETAIL", res.data)
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
+    },
+
+    movieBookmark({commit, getters}, moviePk) {
+      axios({
+        url: drf.movies.bookmark(moviePk),
+        method: "post",
+        headers: getters.authHeader,
+        // data: {}
+      })
+        .then((res) => {
+          commit("SET_MOVIE_DETAIL", res.data)
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
+    },
+
   },
 }

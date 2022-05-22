@@ -31,7 +31,6 @@ export default {
       // 주소가 바뀌면 그 주소에 맞는 프로필 가져오기!
       $route: {
         handler() {
-          console.log('ssdsd')
           this.isRightProfile = false
           this.fetchProfileComment(this.$route.params.username)
         }
