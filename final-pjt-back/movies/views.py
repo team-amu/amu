@@ -29,7 +29,7 @@ def hot_movies(request):
     movies = Movie.objects.annotate(
         recent_like_num=Count('movielike', filter=Q(movielike__created_at__range=(past, now))),
         recent_bookmark_num=Count('moviebookmark', filter=Q(movielike__created_at__range=(past, now))),
-        ).filter(~Q(recent_like_num=0)).filter(~Q(recent_bookmark_num=0)
+        ).filter((~Q(recent_like_num=0)) | (~Q(recent_bookmark_num=0))
         ).order_by('-recent_like_num', '-recent_bookmark_num')[:10]
 
     serializer = MovieListSerializer(movies, many=True)
@@ -53,12 +53,11 @@ def bookmark_movies(request):
     me = request.user
     if me.is_authenticated:
         movies = Movie.objects.annotate(
-            like_num=Count('like_users', filter=Q(like_users__followers=me))
-        ).filter(~Q(like_num=0)).order_by('?')[:10]
+            bookmark_num=Count('bookmark_users', filter=Q(bookmark_users__followers=me))
+        ).filter(~Q(bookmark_num=0)).order_by('?')[:10]
         
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
-
 
 @api_view(['GET'])
 def movie_search(request, search_page):

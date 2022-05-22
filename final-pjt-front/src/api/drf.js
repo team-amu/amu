@@ -47,6 +47,11 @@ export default {
 	},
 	movies: {
 		home: () => HOST + MOVIES,
+		// 추천 알고리즘 영화들
+		hotMovie: () => HOST + MOVIES + 'hot/',
+		likeMovie: () => HOST + MOVIES + 'like/',
+		bookmarkMovie: () => HOST + MOVIES + 'bookmark/',
+		//
 		detail: (moviePk) => HOST + MOVIES + `${moviePk}/`,
 		like: (moviePk) => HOST + MOVIES + `${moviePk}/` + "like/",
 		bookmark: (moviePk) => HOST + MOVIES + `${moviePk}/` + "bookmark/",
