@@ -126,7 +126,7 @@ export default {
 				});
 		},
 
-		logout({ getters, dispatch }) {
+		logout({ commit, getters, dispatch }) {
 			/* 
       POST: token을 logout URL로 보내기
         성공하면
@@ -141,9 +141,10 @@ export default {
 				method: "post",
 				// data: {}, // post요청은 무조건 data가 넘어갈 것이라고 가정되어있어. 그치만 주석처리 해줘도 상관 없음!
 				headers: getters.authHeader,
-			}) // res인자 넘어오는데 사용하지 않으므로 생략
-				.then(() => {
+			})
+				.then((res) => {
 					dispatch("removeToken");
+          commit("SET_CURRENT_USER", res.data)
 					alert("성공적으로 logout!");
 					router.push({ name: "login" }); // login 으로 보내지 말고 추후 수정 필요 220519
 				})
@@ -193,6 +194,9 @@ export default {
         })
         .catch((err) => {
 					console.error(err.response.data);
+          if (err.response.status === 404) {
+            router.push({ name: 'NotFound' })
+          }
 				});
     },
 
@@ -211,6 +215,9 @@ export default {
         })
         .catch((err) => {
 					console.error(err.response.data);
+          if (err.response.status === 404) {
+            router.push({ name: 'NotFound' })
+          }
 				});
     },
 
@@ -229,6 +236,9 @@ export default {
         })
         .catch((err) => {
 					console.error(err.response.data);
+          if (err.response.status === 404) {
+            router.push({ name: 'NotFound' })
+          }
 				});
     },
 
@@ -247,6 +257,9 @@ export default {
         })
         .catch((err) => {
 					console.error(err.response.data);
+          if (err.response.status === 404) {
+            router.push({ name: 'NotFound' })
+          }
 				});
     },
 
