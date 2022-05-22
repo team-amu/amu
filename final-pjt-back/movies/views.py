@@ -12,7 +12,7 @@ from .serializers.genre import GenreSerializer
 from .serializers.character import CharacterSerializer
 
 from django.utils import timezone
-from django.db.models import Q, Sum, Count, Case, When
+from django.db.models import Q, Sum, Count, Case, When, Avg
 from datetime import datetime, timedelta, date
 from .models import Movie, Genre, Actor, CastedActors
 
@@ -69,10 +69,12 @@ def movie_search(request, search_page):
     return Response(data)
 
 
-
 @api_view(['GET'])
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
+    # 커뮤니티 랭크 평균 뽑고 싶음... 어케 해결하지..
+    # amu = Movie.objects.annotate(amu_rank=Count('article_set__rank')).order_by('-amu_rank')
+    # print(amu)
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
 
