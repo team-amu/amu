@@ -13,9 +13,11 @@
     
     <button v-if="isLike && isLoggedIn" @click="movieLike(movieDetail.id)">좋아요 취소</button>
     <button v-if="!isLike && isLoggedIn" @click="movieLike(movieDetail.id)">좋아요</button>
+    <span> : {{ movieDetail.likes_count }} </span>
 
     <button v-if="isBookmark && isLoggedIn" @click="movieBookmark(movieDetail.id)">북마크 취소</button>
     <button v-if="!isBookmark && isLoggedIn" @click="movieBookmark(movieDetail.id)">북마크</button>
+    <span> : {{ movieDetail.bookmarks_count }}</span>
 
     <h3>개요</h3>
     <p>{{ movieDetail.overview}}</p>
