@@ -35,3 +35,26 @@ DELETE FROM django_content_type;
 DELETE FROM django_migrations;
 DELETE FROM django_session;
 
+
+INSERT INTO community_article_like_users (article_id, user_id)
+VALUES
+(1, 5),
+(2, 5),
+(3, 5),
+(4, 5),
+(5, 5),
+(6, 5),
+(7, 5),
+(8, 5),
+(9, 5),
+(10, 5),
+(11, 5),
+(12, 5),
+(13, 5),
+(14, 5),
+(15, 5),
+(17, 5),
+(18, 5),
+(19, 5),
+(20, 5),
+(21, 5);

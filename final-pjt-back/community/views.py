@@ -15,16 +15,20 @@ from django.http import Http404
 
 @api_view(['GET'])
 def articles_total(request, page):
-    unit = int(request.GET.get('unit'))
-    sort = request.GET.get('sort')
-    start, end = (page-1)*unit, page*unit
-    if sort=='-pk':
-        articles = Article.objects.filter(Q(category='review')|Q(category='free')).order_by(sort)[start:end]
-    elif sort=='-comments_count':
-        articles = Article.objects.filter(Q(category='review')|Q(category='free')).annotate(comments_count=Count('comments')).order_by(sort)[start:end]
+    req = request.GET
+    unit = int(req.get('unit'))
+    sort = req.get('sort')
+    
+    # articles = Article.objects.filter(Q(category='review')|Q(category='free'))
+    articles = Article.objects.all()
+    if sort=='-comments_count':
+        articles = articles.annotate(comments_count=Count('comments'))
     elif sort == '-likes_count':
-        articles = Article.objects.filter(Q(category='review')|Q(category='free')).annotate(likes_count=Count('like_users')).order_by(sort)[start:end]
-        
+        articles = articles.annotate(likes_count=Count('like_users'))
+    
+    start, end = (page-1)*unit, page*unit
+    articles = articles.order_by(sort)[start:end]
+    
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
@@ -33,21 +37,42 @@ def articles_total(request, page):
 
 @api_view(['GET'])
 def articles_hot(request, page):
-    return Response({'미완성' : '정보들 params로 받아서 필터해주어야 함' })
+    req = request.GET
+    unit = int(req.get('unit'))
+    hot_sort = req.get('hotSort')
+    hot_sort_std, hot_sort_unit = hot_sort.split('.')
+    hot_sort_unit = int(hot_sort_unit)
+    # articles = Article.objects.filter(Q(category='review')|Q(category='free'))
+        
+    # hot에 대한 filter 추가
+    if hot_sort_std == 'likes':
+        articles = Article.objects.order_by('-pk').annotate(likes_count=Count('like_users')).filter(likes_count__gte=hot_sort_unit)
+    elif hot_sort_std == 'comments':
+        articles = Article.objects.order_by('-pk').annotate(comments_count=Count('comments')).filter(comments_count__gte=hot_sort_unit)
+    
+    start, end = (page-1)*unit, page*unit
+    articles = articles[start:end]
+
+    if not articles:
+        raise Http404("page does not exist")
+    serializer = ArticleSerializer(articles, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
 def articles_review(request, page):
-    unit = int(request.GET.get('unit'))
-    sort = request.GET.get('sort')
-    start, end = (page-1)*unit, page*unit
+    req = request.GET
+    unit = int(req.get('unit'))
+    sort = req.get('sort')
     
-    if sort=='-pk':
-        articles = Article.objects.filter(Q(category='review')).order_by(sort)[start:end]
-    elif sort=='-comments_count':
-        articles = Article.objects.filter(Q(category='review')).annotate(comments_count=Count('comments')).order_by(sort)[start:end]
+    articles = Article.objects.filter(Q(category='review'))
+    if sort=='-comments_count':
+        articles = articles.annotate(comments_count=Count('comments'))
     elif sort == '-likes_count':
-        articles = Article.objects.filter(Q(category='review')).annotate(likes_count=Count('like_users')).order_by(sort)[start:end]
+        articles = articles.annotate(likes_count=Count('like_users'))
+    
+    start, end = (page-1)*unit, page*unit
+    articles = articles.order_by(sort)[start:end]
     
     if not articles:
         raise Http404("page does not exist")
@@ -57,16 +82,18 @@ def articles_review(request, page):
     
 @api_view(['GET'])
 def articles_free(request, page):
-    unit = int(request.GET.get('unit'))
-    sort = request.GET.get('sort')
-    start, end = (page-1)*unit, page*unit
+    req = request.GET
+    unit = int(req.get('unit'))
+    sort = req.get('sort')
     
-    if sort=='-pk':
-        articles = Article.objects.filter(Q(category='free')).order_by(sort)[start:end]
-    elif sort=='-comments_count':
-        articles = Article.objects.filter(Q(category='free')).annotate(comments_count=Count('comments')).order_by(sort)[start:end]
+    articles = Article.objects.filter(Q(category='free'))
+    if sort=='-comments_count':
+        articles = articles.annotate(comments_count=Count('comments'))
     elif sort == '-likes_count':
-        articles = Article.objects.filter(Q(category='free')).annotate(likes_count=Count('like_users')).order_by(sort)[start:end]
+        articles = articles.annotate(likes_count=Count('like_users'))
+    
+    start, end = (page-1)*unit, page*unit
+    articles = articles.order_by(sort)[start:end]
     
     if not articles:
         raise Http404("page does not exist")
