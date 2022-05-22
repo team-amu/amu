@@ -12,6 +12,7 @@
       >
       </article-title-item>
     </ul>
+    <custom-pagination></custom-pagination>
   </div>
 </template>
 
@@ -20,12 +21,14 @@ import { mapGetters, mapActions } from "vuex";
 import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
 import ArticleSortSelect from '@/components/community/ArticleSortSelect';
+import CustomPagination from "@/components/common/CustomPagination";
 export default {
   name: "CommunityArticleView",
   components: {
     ArticleTitleItem,
     ArticleSortSelect,
     ArticleUnitSelect,
+    CustomPagination,
   },
   data () {
     return {}
