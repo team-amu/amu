@@ -2,7 +2,11 @@
   <div>
     <h1>{{ articleInfo.title }}</h1>
     <h2>#{{ articleInfo.pk }}</h2>
-    작성자 : {{ articleInfo.user.username}}
+    <router-link
+      :to="{ name: 'profileLike', params: { username: articleInfo.user.username } }"
+    >
+      작성자 : {{ articleInfo.user.username}}
+    </router-link>
     <hr>
     생성 시간 : {{ articleInfo.created_at }} | 
     댓글 : {{ articleInfo.comments_count }} |
