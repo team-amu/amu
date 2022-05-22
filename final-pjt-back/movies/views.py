@@ -6,13 +6,13 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .serializers.movie import MovieSerializer, MovieListSerializer
-from .serializers.actor import ActorSerializer, ActorListSerializer 
+from .serializers.movie import MovieSerializer, MovieListSerializer, MovieTitleSerializer
+from .serializers.actor import ActorSerializer, ActorListSerializer, ActorNameSerializer 
 from .serializers.genre import GenreSerializer
 from .serializers.character import CharacterSerializer
 
 from django.utils import timezone
-from django.db.models import Q, Sum, Count, Case, When, Avg
+from django.db.models import Q, Sum, Count, Case, When, Avg, Value, Func, F
 from datetime import datetime, timedelta, date
 from .models import Movie, Genre, Actor, CastedActors
 
@@ -101,4 +101,34 @@ def movie_bookmark(request, movie_id):
         movie.bookmark_users.add(user)
         
     serializer = MovieSerializer(movie)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def print_keyword_search(request):
+    keyword = request.GET.get('searchWord')
+    select = request.GET.get('select')
+
+    if select == 'title':
+        if keyword:
+            results = Movie.objects.annotate(
+                retitle=Func(
+                    F('title'), Value(' '), Value(''), function='replace'
+                )
+            ).filter(retitle__contains=keyword)
+        else:
+            results = Movie.objects.all()
+        
+        serializer = MovieTitleSerializer(results, many=True)
+
+    elif select == 'actor':
+        if keyword:
+            results = Actor.objects.annotate(
+                retitle=Func(
+                    F('name'), Value(' '), Value(''), function='replace'
+                )
+            ).filter(retitle__contains=keyword)
+        else:
+            results = Actor.objects.all()
+            
+        serializer = ActorNameSerializer(results, many=True)
     return Response(serializer.data)

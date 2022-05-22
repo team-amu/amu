@@ -16,3 +16,10 @@ class ActorListSerializer(serializers.ModelSerializer):
         model = Actor
         # fields = ('id', 'name', 'profile_path', 'character')
         fields = ('id', 'name', 'profile_path')
+
+class ActorNameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Actor
+        # fields = ('id', 'name', 'profile_path', 'character')
+        fields = ('id', 'name',)

@@ -3,7 +3,24 @@
     <h1>Home</h1>
     
     <hr>
-    <search-bar-section></search-bar-section>
+    <search-bar-section
+    @input-change="inputChange"
+    ></search-bar-section>
+    <!-- 박스 회색이 계속 보이는거 수정하기! 검색에 커서 갔을 때만!!-->
+    <div class="searched-box">
+      <ul v-for="searchedOutput in searchedOutputs" :key="searchedOutput.id">
+        <router-link :to="{ name: 'movieDetail', params: { moviePk : searchedOutput.id } }" v-if="type==='title'">
+          <li>
+            {{ searchedOutput.title }}
+          </li>
+        </router-link>
+        <router-link v-if="type==='actor'">
+          <li>
+            {{ searchedOutput.name }}
+          </li>
+        </router-link>
+      </ul>
+    </div>
     <hr>
     
     <h2>최근 HOT한 영화 </h2>
@@ -21,38 +38,45 @@
 import CardList from '@/components/movies/CardList.vue'
 import SearchBarSection from '@/components/movies/SearchBarSection.vue'
 import { mapActions, mapGetters } from 'vuex'
+import axios from 'axios'
+import drf from "@/api/drf"
 
 export default {
   name: "HomeView",
   components: { CardList, SearchBarSection },
   data () {
-    return {}
+    return {
+      inputValue: null,
+      searchedOutputs: null,
+      type: '',
+    }
   },
   computed: {
     ...mapGetters(['hotMovie', 'likeMovie', 'bookmarkMovie']),
   },
   methods: {
     ...mapActions(['fetchHotMovie', 'fetchLikeMovie', 'fetchBookmarkMovie', ]),
+    inputChange: function ({inputData, select}) {
+      this.type = select
+      axios({
+        url: drf.movies.keywordSearch(),
+        methods: "get",
+        params: {
+          searchWord: inputData,
+          select: select
+        }
+      })
+        .then((res) => {
+          this.searchedOutputs = res.data
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
+    },
   },
   watch: {
     // 이 조건은 구글링 하다가 찾았는데 아직 잘 모름 일단 넣어놈,,
     immediate: true,
-    // 프로필을 가져와서 바뀌었으면 isRightProfile 조건 true로 바꿔서 랜더링하게!
-    // hotMovie: {
-    //   handler() {
-    //   this.fetchHotMovie()
-    //   }
-    // },
-    // likeMovie: {
-    //   handler() {
-    //   this.fetchLikeMovie()
-    //   }
-    // },
-    // bookmarkMovie: {
-    //   handler() {
-    //   this.fetchBookmarkMovie()
-    //   }
-    // },
   },
   created() {
      this.fetchHotMovie()
@@ -63,6 +87,13 @@ export default {
 </script>
 
 <style>
-
+.searched-box {
+  width: 100%;
+  height: 100px;
+  margin: 5px;
+  background-color: silver;
+  float: left;
+  overflow: auto;
+}
 </style>
 

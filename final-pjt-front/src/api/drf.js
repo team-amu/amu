@@ -59,11 +59,11 @@ export default {
 		bookmarkMovie: () => HOST + MOVIES + "bookmark/",
 		//
 		detail: (moviePk) => HOST + MOVIES + `${moviePk}/`,
-		actors: (moviePk) => HOST + MOVIES + `${moviePk}/` + 'actors/',
+		//
 		like: (moviePk) => HOST + MOVIES + `${moviePk}/` + "like/",
 		bookmark: (moviePk) => HOST + MOVIES + `${moviePk}/` + "bookmark/",
-		search: (searchPage) => HOST + MOVIES + `${searchPage}/`,
-		sort: (searchPage) => HOST + MOVIES + `${searchPage}/`,
-		filter: (searchPage) => HOST + MOVIES + `${searchPage}/`,
+		//
+		search: (searchPage) => HOST + MOVIES + 'search/' + `${searchPage}/`,
+		keywordSearch: () => HOST + MOVIES + 'keywordSearch/'
 	},
 };
