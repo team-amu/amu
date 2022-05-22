@@ -51,7 +51,7 @@ def articles_review(request, page):
     
     if not articles:
         raise Http404("page does not exist")
-    serializer = ArticleSaveSerializer(articles, many=True)
+    serializer = ArticleSerializer(articles, many=True)
     return Response(serializer.data)
     
     
