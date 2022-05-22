@@ -45,7 +45,6 @@ export default {
     return {
       isLike: '',
       isBookmark: '',
-      localMovieDetail: {},
     }
   },
   computed: {

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-for="review in recentTwoReviews" :key="review.id">
-      <router-link :to="{ name: 'articleDetail', params: { articlePk : review.id } }">
+    <div v-for="review in reviews" :key="review.pk">
+      <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
         <review-item :review="review"></review-item>
       </router-link>
       <hr>
@@ -11,20 +11,38 @@
 
 <script>
 import ReviewItem from '@/components/movies/ReviewItem.vue'
+import { mapGetters } from 'vuex'
+import _ from 'lodash'
+
 export default {
   name: 'ReviewList',
   components: { ReviewItem },
   data() {
     return {
-      recentTwoReviews: [],
+      // recentTwoReviews: [],
+      isCheck: false,
     }
   },
   props: {
     reviews: Array,
   },
+  computed: {
+    // 최근 리뷰 두 개만 뽑기
+    // recentTwoReviews() {
+    //   const reverseArray = [...this.reviews].reverse()
+    //   return reverseArray.splice(0, 2)
+    // }
+    ...mapGetters(['movieRecentTwoReviews']),
+  },
+  watch: {
+    movieRecentTwoReviews: {
+      handler() {
+        this.isCheck = !_.isEmpty(this.movieRecentTwoReviews)
+      }
+    }
+  },
   created() {
-    const reverseArray = [...this.reviews].reverse() // 최근 리뷰만 2개 뽑기
-    this.recentTwoReviews = reverseArray.splice(0, 2)
+
   }
 }
 </script>

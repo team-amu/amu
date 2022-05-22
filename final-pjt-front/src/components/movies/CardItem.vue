@@ -25,12 +25,6 @@ export default {
     posterSrc () {
       return `https://image.tmdb.org/t/p/w600_and_h900_bestv2${this.movie.poster_path}`
     },
-    score () {
-      if (!this.movie.vote_average) {
-        return '0.0'
-      }
-      return this.movie.vote_average
-    }
   }
 
 }
