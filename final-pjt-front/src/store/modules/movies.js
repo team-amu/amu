@@ -81,7 +81,6 @@ export default {
         // data: {}
       })
         .then((res) => {
-          console.log(res.data)
           commit("SET_MOVIE_DETAIL", res.data)
         })
         .catch((err) => {

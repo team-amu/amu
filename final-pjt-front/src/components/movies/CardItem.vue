@@ -1,5 +1,6 @@
 <template>
 <div>
+  <!-- 라우터 링크를 밖에 넣어야 하나? -->
   <router-link
     :to="{ name: 'movieDetail', params: {moviePk: movie.id}}">
     <div id="movieCard">
