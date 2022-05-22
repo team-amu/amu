@@ -5,25 +5,25 @@
     <article-unit-select></article-unit-select>
     <ul>
       
-      <total-title-item
-        v-for="total in totals"
-        :key="total.pk"
-        :total="total"
+      <article-title-item
+        v-for="article in totals"
+        :key="article.pk"
+        :article="article"
       >
-      </total-title-item>
+      </article-title-item>
     </ul>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import TotalTitleItem from "@/components/community/TotalTitleItem";
+import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
 import ArticleSortSelect from '@/components/community/ArticleSortSelect';
 export default {
-  name: "CommunityTotalView",
+  name: "CommunityArticleView",
   components: {
-    TotalTitleItem,
+    ArticleTitleItem,
     ArticleSortSelect,
     ArticleUnitSelect,
   },
@@ -34,7 +34,7 @@ export default {
     ...mapGetters(['totals'])
   },
   methods: {
-    ...mapActions(['setArticlePage', 'setTotals','setTotalPageNum'])
+    ...mapActions(['setTotalPage', 'setTotals','setTotalPageNum'])
   },
   created() {
     const page = this.$route.params.page;

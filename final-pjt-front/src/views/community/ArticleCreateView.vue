@@ -20,7 +20,7 @@ export default {
         category: 'review',
         content: '',
         movie: null,
-        rank: 10
+        rank: null
       }
     }
   }

@@ -110,7 +110,7 @@ def article_detail_update_delete(request, article_id):
     
     def article_update():
         if request.user == article.user:
-            serializer = ArticleSerializer(instance=article, data=request.data)
+            serializer = ArticleSaveSerializer(instance=article, data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)

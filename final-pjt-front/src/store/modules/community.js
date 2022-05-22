@@ -10,16 +10,16 @@ export default {
 		totalPageNum: localStorage.getItem("totalPageNum") || 1,
 		reviewPageNum: localStorage.getItem("reviewPageNum") || 1,
 		freePageNum: localStorage.getItem("freePageNum") || 1,
+		totals: [],
 		reviews: [],
 		frees: [],
-		totals: [],
 		articleInfo: {},
 	},
 
 	getters: {
 		communityArticleUnit: (state) => state.communityArticleUnit,
 		communityArticleSort: (state) => state.communityArticleSort,
-		totalPageNum: (state) => state.totalPageNum,
+		articlePageNum: (state) => state.articlePageNum,
 		reviewPageNum: (state) => state.reviewPageNum,
 		freePageNum: (state) => state.freePageNum,
 		totals: (state) => state.totals,
@@ -174,6 +174,7 @@ export default {
 
 		// 게시물 수정
 		updateArticle({ commit, getters }, formData) {
+			console.log(formData);
 			axios({
 				method: "put",
 				url: drf.community.articleUpdate(formData.pk),
@@ -201,7 +202,7 @@ export default {
 						commit("SET_ARTICLE_INFO", {});
 						alert("삭제가 완료되었습니다!");
 						router.push({
-							name: "communityTotal",
+							name: "communityArticle",
 							params: { page: "1" },
 						});
 					})
