@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .serializers.article import ArticleSerializer, ArticleListSerializer
+from .serializers.article import ArticleSerializer, ArticleSaveSerializer, ArticleListSerializer
 from .serializers.comment import CommentSerializer
 
 from django.core import serializers
@@ -51,7 +51,7 @@ def articles_review(request, page):
     
     if not articles:
         raise Http404("page does not exist")
-    serializer = ArticleSerializer(articles, many=True)
+    serializer = ArticleSaveSerializer(articles, many=True)
     return Response(serializer.data)
     
     
@@ -87,7 +87,7 @@ def article_create(request):
     #     return Response(serializer.data)
     
     def article_create():
-        serializer = ArticleSerializer(data=request.data)
+        serializer = ArticleSaveSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

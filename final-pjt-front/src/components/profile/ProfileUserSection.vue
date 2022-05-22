@@ -25,7 +25,7 @@
     <span v-if="isEditing">
       <input type="text" v-model="payload.introduce">
       <button @click="onUpdate">Update</button> |
-      <button @click="switchIsEditing">Cancle</button>
+      <button @click="switchIsEditing">Cancel</button>
     </span>
 
     <button v-if="isMe() && !isEditing" @click="switchIsEditing">Edit</button>

@@ -153,7 +153,6 @@ export default {
 
 		// 게시물 생성
 		createArticle({ commit, getters }, formData) {
-			console.log(formData);
 			axios({
 				method: "post",
 				url: drf.community.articleCreate(),
