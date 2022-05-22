@@ -104,7 +104,7 @@ def movie_bookmark(request, movie_id):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def print_keyword_search(request):
+def print_keyword_search(request): # 검색어에 맞는 내용들을 출력해줌
     keyword = request.GET.get('searchWord')
     select = request.GET.get('select')
 
