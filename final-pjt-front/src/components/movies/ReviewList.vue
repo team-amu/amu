@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 왜 언디파인 되는거지?ㅠㅠ 찾아보기!-->
     <div v-for="review in reviews" :key="review.pk">
       <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
         <review-item :review="review"></review-item>
@@ -33,6 +34,13 @@ export default {
     //   return reverseArray.splice(0, 2)
     // }
     ...mapGetters(['movieRecentTwoReviews']),
+    // isCheck() {
+    //   if (this.movieRecentTwoReviews !== undefined) {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // }
   },
   watch: {
     movieRecentTwoReviews: {
