@@ -1,26 +1,25 @@
 <template>
-  <div class="overflow-auto">
-    <b-pagination
-			pills
-			v-model="currentPage"
-			:total-rows="rows"
-			></b-pagination>
+  <div class="text-center">
+    <v-pagination
+      circle
+      v-model="currentPage"
+      :length="totalPages"
+			@input="handlePageChange"
+    ></v-pagination>
   </div>
 </template>
 
 <script>
-import { BPagination } from 'bootstrap-vue'
 export default {
-	name: "CustomPagination",
-	components: {
-		BPagination,
-	},
-	data() {
+	data () {
 		return {
-			rows: 100,
-			currentPage: 1,
-			perPage: 5,
-			total: 20
+			currentPage: '1',
+			totalPages: '3',
+		}
+	},
+	methods: {
+		handlePageChange(value) {
+			this.currentPage = value;
 		}
 	}
 }
