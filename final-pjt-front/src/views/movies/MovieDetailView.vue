@@ -27,7 +27,6 @@ export default {
   watch: {
   // 이 조건은 구글링 하다가 찾았는데 아직 잘 모름 일단 넣어놈,,
     immediate: true,
-    // 주소가 바뀌면 그 주소에 맞는 프로필 가져오기!
     $route: {
       handler() {
         this.fetchMovieDetail(this.$route.params.moviePk)

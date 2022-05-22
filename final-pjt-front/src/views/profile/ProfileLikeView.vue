@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Profile Like</h1>
-    <profile-user-section  :profile="profile"></profile-user-section>
-    <profile-content-section :contents="profile.user.like_movies"></profile-content-section>
+    <profile-user-section v-if="isRightProfile && isProfile" :profile="profile"></profile-user-section>
+    <profile-content-section v-if="isRightProfile && isProfile" :contents="profile.user.like_movies"></profile-content-section>
   </div>
 </template>
 
@@ -16,7 +16,7 @@
     name: "ProfileLikeView",
     data() {
       return {
-        // isRightProfile: false
+        isRightProfile: false
       }
     },
     computed: {
@@ -31,16 +31,16 @@
       // 주소가 바뀌면 그 주소에 맞는 프로필 가져오기!
       $route: {
         handler() {
+          this.isRightProfile = false
           this.fetchProfileLike(this.$route.params.username)
         }
       },
-      // // 머임 왜 조건이랑 이거 없어도 잘됨?? ??.?? ?.?? 이전엔 왜 안됐음??? 220522
-      // // 프로필을 가져와서 바뀌었으면 isRightProfile 조건 true로 바꿔서 랜더링하게!
-      // profile: {
-      //   handler() {
-      //     this.isRightProfile = true
-      //   }
-      // },
+      // 프로필을 가져와서 바뀌었으면 isRightProfile 조건 true로 바꿔서 랜더링하게!
+      profile: {
+        handler() {
+          this.isRightProfile = true
+        }
+      },
     },
     created() {
       this.fetchProfileLike(this.$route.params.username)
