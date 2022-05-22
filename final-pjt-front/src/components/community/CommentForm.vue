@@ -1,5 +1,8 @@
 <template>
-  <form @submit.prevent="onSubmit">
+  <form
+    @submit.prevent="onSubmit"
+    @keyup.enter="onSubmit"
+  >
     <textarea
         v-model="content"
         name="commentInput"

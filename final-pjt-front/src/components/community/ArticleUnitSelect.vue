@@ -17,7 +17,8 @@ export default {
   // data () {
   // },
   methods: {
-    ...mapActions(['setCommunityArticleUnit', 'setReviews', 'setFrees', 'setTotals']),
+    ...mapActions(['setCommunityArticleUnit',
+                    'setReviews', 'setFrees', 'setTotals', 'setHots']),
 
     onChange(event) {
       // 현재 page번호와 개수 단위 임시 저장
@@ -35,6 +36,7 @@ export default {
       this.setReviews(newPage)
       this.setFrees(newPage)
       this.setTotals(newPage)
+      this.setHots(newPage)
     },
   },
   computed: {

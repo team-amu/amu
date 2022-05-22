@@ -7,10 +7,13 @@ export default {
 	state: {
 		communityArticleUnit: localStorage.getItem("communityArticleUnit") || 5,
 		communityArticleSort: localStorage.getItem("communityArticleSort") || "-pk",
+		communityArticleHotSort:
+			localStorage.getItem("communityArticleHotSort") || "likes.10",
 		totalPageNum: localStorage.getItem("totalPageNum") || 1,
 		reviewPageNum: localStorage.getItem("reviewPageNum") || 1,
 		freePageNum: localStorage.getItem("freePageNum") || 1,
 		totals: [],
+		hots: [],
 		reviews: [],
 		frees: [],
 		articleInfo: {},
@@ -19,10 +22,12 @@ export default {
 	getters: {
 		communityArticleUnit: (state) => state.communityArticleUnit,
 		communityArticleSort: (state) => state.communityArticleSort,
+		communityArticleHotSort: (state) => state.communityArticleHotSort,
 		articlePageNum: (state) => state.articlePageNum,
 		reviewPageNum: (state) => state.reviewPageNum,
 		freePageNum: (state) => state.freePageNum,
 		totals: (state) => state.totals,
+		hots: (state) => state.hots,
 		reviews: (state) => state.reviews,
 		frees: (state) => state.frees,
 		articleInfo: (state) => state.articleInfo,
@@ -34,15 +39,19 @@ export default {
 
 	mutations: {
 		SET_TOTALS: (state, totals) => (state.totals = totals),
+		SET_HOTS: (state, hots) => (state.hots = hots),
 		SET_REVIEWS: (state, reviews) => (state.reviews = reviews),
 		SET_FREES: (state, frees) => (state.frees = frees),
 		SET_TOTAL_PAGE_NUM: (state, page) => (state.totalPageNum = page),
+		SET_HOT_PAGE_NUM: (state, page) => (state.hotPageNum = page),
 		SET_REVIEW_PAGE_NUM: (state, page) => (state.reviewPageNum = page),
 		SET_FREE_PAGE_NUM: (state, page) => (state.freePageNum = page),
 		SET_COMMUNITY_ARTICLE_UNIT: (state, unit) =>
 			(state.communityArticleUnit = unit),
 		SET_COMMUNITY_ARTICLE_SORT: (state, sort) =>
 			(state.communityArticleSort = sort),
+		SET_COMMUNITY_ARTICLE_HOT_SORT: (state, hotSort) =>
+			(state.communityArticleHotSort = hotSort),
 		SET_ARTICLE_INFO: (state, article) => (state.articleInfo = article),
 		SET_ARTICLE_COMMENTS: (state, comments) =>
 			(state.articleInfo.comments = comments),
@@ -61,10 +70,22 @@ export default {
 			localStorage.setItem("communityArticleSort", sort);
 		},
 
+		// 인기 게시물 정렬 기준 저장
+		setCommunityArticleHotSort({ commit }, hotSort) {
+			commit("SET_COMMUNITY_ARTICLE_HOT_SORT", hotSort);
+			localStorage.setItem("communityArticleHotSort", hotSort);
+		},
+
 		// 전체게시판 게시물 페이지 저장
 		setTotalPageNum({ commit }, page) {
 			commit("SET_TOTAL_PAGE_NUM", page);
 			localStorage.setItem("totalPageNum", page);
+		},
+
+		// 인기게시판 게시물 페이지 저장
+		setHotPageNum({ commit }, page) {
+			commit("SET_HOT_PAGE_NUM", page);
+			localStorage.setItem("hotPageNum", page);
 		},
 
 		// 영화게시판 게시물 페이지 저장
@@ -79,7 +100,7 @@ export default {
 			localStorage.setItem("freePageNum", page);
 		},
 
-		// 영화게시판 게시물 단위별로 totals에 저장
+		// 전체게시판 게시물 단위별로 totals에 저장
 		setTotals({ commit, getters }, page) {
 			const params = {
 				unit: Number(getters.communityArticleUnit),
@@ -92,6 +113,26 @@ export default {
 			})
 				.then((res) => {
 					commit("SET_TOTALS", res.data);
+				})
+				.catch((err) => {
+					console.error(err.data);
+				});
+		},
+
+		// 인기게시판 게시물 단위별로 hots 저장
+		setHots({ commit, getters }, page) {
+			const params = {
+				unit: Number(getters.communityArticleUnit),
+				sort: getters.communityArticleSort,
+				hotSort: getters.communityArticleHotSort,
+			};
+			axios({
+				url: drf.community.communityHot(page),
+				method: "get",
+				params: params,
+			})
+				.then((res) => {
+					commit("SET_HOTS", res.data);
 				})
 				.catch((err) => {
 					console.error(err.data);
@@ -153,6 +194,10 @@ export default {
 
 		// 게시물 생성
 		createArticle({ commit, getters }, formData) {
+			if (formData.category === "review") {
+				formData.movie = null;
+				formData.rank = null;
+			}
 			axios({
 				method: "post",
 				url: drf.community.articleCreate(),
@@ -174,7 +219,10 @@ export default {
 
 		// 게시물 수정
 		updateArticle({ commit, getters }, formData) {
-			console.log(formData);
+			if (formData.category === "review") {
+				formData.movie = null;
+				formData.rank = null;
+			}
 			axios({
 				method: "put",
 				url: drf.community.articleUpdate(formData.pk),
