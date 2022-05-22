@@ -16,7 +16,7 @@
     name: "ProfileLikeView",
     data() {
       return {
-        isRightProfile: false
+        // isRightProfile: false
       }
     },
     computed: {
@@ -34,7 +34,7 @@
           this.fetchProfileLike(this.$route.params.username)
         }
       },
-      // // 머임 왜 조건이랑 이거 없어도 잘됨?? ??.?? ?.?? 220522
+      // // 머임 왜 조건이랑 이거 없어도 잘됨?? ??.?? ?.?? 이전엔 왜 안됐음??? 220522
       // // 프로필을 가져와서 바뀌었으면 isRightProfile 조건 true로 바꿔서 랜더링하게!
       // profile: {
       //   handler() {

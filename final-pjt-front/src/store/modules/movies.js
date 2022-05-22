@@ -1,3 +1,4 @@
+import router from "@/router";
 import axios from "axios";
 import drf from "@/api/drf";
 
@@ -80,10 +81,14 @@ export default {
         // data: {}
       })
         .then((res) => {
+          console.log(res.data)
           commit("SET_MOVIE_DETAIL", res.data)
         })
         .catch((err) => {
           console.log(err.response.data)
+          if (err.response.status === 404) {
+            router.push({ name: 'NotFound' })
+          }
         })
     }
   },
