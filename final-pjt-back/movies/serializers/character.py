@@ -15,4 +15,4 @@ class CharacterSerializer(serializers.ModelSerializer):
         model = CastedActors
         # fields = '__all__'
         exclude = ('movie',)
-        
+

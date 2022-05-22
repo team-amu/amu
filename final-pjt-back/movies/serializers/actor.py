@@ -3,15 +3,16 @@ from movies.models import Actor
 from .character import CharacterSerializer
 
 class ActorSerializer(serializers.ModelSerializer):
-    character = CharacterSerializer(many=True, read_only=True)
+    castedactors_set = CharacterSerializer(many=True, read_only=True)
 
     class Meta:
         model = Actor
-        fields = ('id', 'name', 'profile_path', 'character')
+        fields = ('id', 'name', 'profile_path', 'castedactors_set')
         
         
 class ActorListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Actor
-        fields = ('id', 'name', 'profile_path', 'character')
+        # fields = ('id', 'name', 'profile_path', 'character')
+        fields = ('id', 'name', 'profile_path')

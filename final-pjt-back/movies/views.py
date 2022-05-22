@@ -9,11 +9,12 @@ from rest_framework.decorators import api_view
 from .serializers.movie import MovieSerializer, MovieListSerializer
 from .serializers.actor import ActorSerializer, ActorListSerializer 
 from .serializers.genre import GenreSerializer
+from .serializers.character import CharacterSerializer
 
 from django.utils import timezone
 from django.db.models import Q, Sum, Count, Case, When
 from datetime import datetime, timedelta, date
-from .models import Movie, Genre, Actor
+from .models import Movie, Genre, Actor, CastedActors
 
 from django.contrib.auth.decorators import login_required
 
@@ -68,12 +69,12 @@ def movie_search(request, search_page):
     return Response(data)
 
 
+
 @api_view(['GET'])
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
-
 
 @api_view(['POST'])
 def movie_like(request, movie_id):

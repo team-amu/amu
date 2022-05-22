@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from movies.models import Movie, Genre, CastedActors, Actor
-from .actor import ActorSerializer
+from .actor import ActorSerializer, ActorListSerializer
+from community.serializers.article import ArticleSerializer
 from .character import CharacterSerializer
 from django.contrib.auth import get_user_model
 
@@ -19,19 +20,20 @@ class MovieSerializer(serializers.ModelSerializer):
             fields = ('pk', 'username')
         
     genres = GenreSerializer(read_only=True, many=True)
-    # actors = ActorSerializer(read_only=True, many=True)
+    actors = ActorSerializer(read_only=True, many=True)
     castedactors_set = CharacterSerializer(read_only=True, many=True)
     like_users = UserSerializer(read_only=True, many=True)
     likes_count = serializers.IntegerField(source="like_users.count")
     bookmark_users = UserSerializer(read_only=True, many=True)
     bookmarks_count = serializers.IntegerField(source="bookmark_users.count")
-    
+    article_set = ArticleSerializer(read_only=True, many=True)
+
     class Meta:
         model = Movie
         fields = ('id', 'genres','title', 'release_date', 'popularity',
                 'vote_count', 'vote_average', 'overview', 'homepage', 'runtime',
-                'poster_path', 'video_key', 'image_key', 'castedactors_set',
-                'likes_count', 'like_users', 'bookmarks_count', 'bookmark_users',)
+                'poster_path', 'video_key', 'image_key', 'actors', 'castedactors_set',
+                'likes_count', 'like_users', 'bookmarks_count', 'bookmark_users', 'article_set',)
         
         
 class MovieListSerializer(serializers.ModelSerializer):

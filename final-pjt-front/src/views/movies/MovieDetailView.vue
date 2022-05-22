@@ -20,6 +20,14 @@
     <h3>개요</h3>
     <p>{{ movieDetail.overview}}</p>
 
+    <h3>출연진</h3>
+    <span v-for="actor in movieDetail.actors" :key="actor.id" >
+      <actor-item :actor="actor" style="display: inline;"></actor-item>
+    </span>
+
+    <h3>리뷰</h3>
+    <hr>
+    <review-list :reviews="movieDetail.article_set"></review-list>
   </div>
 </template>
 
@@ -27,14 +35,16 @@
 // import  from '@/components//.vue'
 import { mapActions, mapGetters } from 'vuex'
 import CardItem from '@/components/movies/CardItem.vue'
+import ActorItem from '@/components/movies/ActorItem.vue'
+import ReviewList from '@/components/movies/ReviewList.vue'
 
 export default {
   name: "MovieDetailView",
-  components: { CardItem },
+  components: { CardItem, ActorItem, ReviewList },
   data () {
     return {
-      isLike: 'sdsd',
-      isBookmark: 'sdsd',
+      isLike: '',
+      isBookmark: '',
       localMovieDetail: {},
     }
   },

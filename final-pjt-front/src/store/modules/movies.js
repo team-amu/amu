@@ -74,7 +74,6 @@ export default {
 				});
 		},
 
-<<<<<<< HEAD
     fetchMovieDetail({commit, getters}, moviePk) {
       axios({
         url: drf.movies.detail(moviePk),
@@ -125,23 +124,3 @@ export default {
 
   },
 }
-=======
-		fetchMovieDetail({ commit }, moviePk) {
-			axios({
-				url: drf.movies.detail(moviePk),
-				method: "get",
-				// data: {}
-			})
-				.then((res) => {
-					commit("SET_MOVIE_DETAIL", res.data);
-				})
-				.catch((err) => {
-					console.log(err.response.data);
-					if (err.response.status === 404) {
-						router.push({ name: "NotFound" });
-					}
-				});
-		},
-	},
-};
->>>>>>> d96743be06f09eccc74997904550a6e546e9f39d
