@@ -3,12 +3,14 @@
   :to="{ name: 'articleDetail',
           params: { articlePk: review.pk, article: review } }">
     <li>
-      [{{ review.category }} #{{ review.pk }}] {{ review.title }}
+      [{{ review.category }} #{{ review.pk }}] {{ review.title }} - {{ nickname }}
+      {{ review.movie }}
     </li>
   </router-link>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: "ReviewTitleItem",
   data () {
@@ -18,7 +20,12 @@ export default {
     review: Object
   },
   methods: {},
-  computed: {},
+  computed: {
+    ...mapGetters(['profile']),
+    nickname () {
+      return this.review.user.profile.nickname
+    }
+  },
 }
 </script>
 

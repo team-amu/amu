@@ -4,7 +4,7 @@
           params: { articlePk: free.pk, article: free } }">
   
     <li>
-      [{{free.category}} #{{ free.pk }}] {{ free.title }}
+      [{{free.category}} #{{ free.pk }}] {{ free.title }} - {{ nickname }}
     </li>
   </router-link>
 </template>
@@ -19,7 +19,11 @@ export default {
     free: Object
   },
   methods: {},
-  computed: {},
+  computed: {
+    nickname () {
+      return this.free.user.profile.nickname
+    }
+  },
 }
 </script>
 

@@ -4,7 +4,7 @@
           params: { articlePk: total.pk, article: total } }">
   
     <li>
-      [{{total.category}} #{{ total.pk }}] {{ total.title }}
+      [{{total.category}} #{{ total.pk }}] {{ total.title }} - {{ nickname }} - {{ total.created_at }}
     </li>
   </router-link>
 </template>
@@ -19,7 +19,11 @@ export default {
     total: Object
   },
   methods: {},
-  computed: {},
+  computed: {
+    nickname () {
+      return this.total.user.profile.nickname
+    }
+  },
 }
 </script>
 
