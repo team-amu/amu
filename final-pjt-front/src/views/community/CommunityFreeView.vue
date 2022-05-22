@@ -5,26 +5,26 @@
     <article-unit-select></article-unit-select>
     <ul>
       
-      <free-title-item
-        v-for="free in frees"
-        :key="free.pk"
-        :free="free"
+      <article-title-item
+        v-for="article in frees"
+        :key="article.pk"
+        :article="article"
       >
-      </free-title-item>
+      </article-title-item>
     </ul>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import FreeTitleItem from "@/components/community/FreeTitleItem";
+import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
 import ArticleSortSelect from '@/components/community/ArticleSortSelect';
 
 export default {
   name: "CommunityTotalView",
   components: {
-    FreeTitleItem,
+    ArticleTitleItem,
     ArticleUnitSelect,
     ArticleSortSelect,
   },

@@ -11,18 +11,24 @@ export default {
 		logout: () => HOST + ACCOUNTS + "logout/",
 		signup: () => HOST + ACCOUNTS + "signup/",
 		// 유저 프로필 생성
-		createProfile: (username) => HOST + ACCOUNTS + "profile/" + `${username}/` + 'update/',
+		createProfile: (username) =>
+			HOST + ACCOUNTS + "profile/" + `${username}/` + "update/",
 		// // Token 으로 현재 user 판단
 		currentUserInfo: () => HOST + ACCOUNTS + "user/", // login, logout 등등 처럼 제공되는 주소임!
 		// 프로필 출력
-		profileLike: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/`,
-		profileBookmark: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'bookmark/',
-		profileAritcle: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/`+ 'article/',
-		profileComment: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'comment/',
+		profileLike: (username) => HOST + ACCOUNTS + "profile/" + `${username}/`,
+		profileBookmark: (username) =>
+			HOST + ACCOUNTS + "profile/" + `${username}/` + "bookmark/",
+		profileAritcle: (username) =>
+			HOST + ACCOUNTS + "profile/" + `${username}/` + "article/",
+		profileComment: (username) =>
+			HOST + ACCOUNTS + "profile/" + `${username}/` + "comment/",
 		// 프로필 정보 업데이트
-		profileUpdate: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'update/',
+		profileUpdate: (username) =>
+			HOST + ACCOUNTS + "profile/" + `${username}/` + "update/",
 		// follow
-		follow: (username) => HOST + ACCOUNTS + 'profile/' + `${username}/` + 'follow/',
+		follow: (username) =>
+			HOST + ACCOUNTS + "profile/" + `${username}/` + "follow/",
 	},
 	community: {
 		// article 조작 또는 이벤트 관련
@@ -48,9 +54,9 @@ export default {
 	movies: {
 		home: () => HOST + MOVIES,
 		// 추천 알고리즘 영화들
-		hotMovie: () => HOST + MOVIES + 'hot/',
-		likeMovie: () => HOST + MOVIES + 'like/',
-		bookmarkMovie: () => HOST + MOVIES + 'bookmark/',
+		hotMovie: () => HOST + MOVIES + "hot/",
+		likeMovie: () => HOST + MOVIES + "like/",
+		bookmarkMovie: () => HOST + MOVIES + "bookmark/",
 		//
 		detail: (moviePk) => HOST + MOVIES + `${moviePk}/`,
 		actors: (moviePk) => HOST + MOVIES + `${moviePk}/` + 'actors/',

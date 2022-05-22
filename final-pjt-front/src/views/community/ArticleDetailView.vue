@@ -3,9 +3,9 @@
     <h1>{{ articleInfo.title }}</h1>
     <h2>#{{ articleInfo.pk }}</h2>
     <router-link
-      :to="{ name: 'profileLike', params: { username: articleInfo.user.username } }"
+      :to="{ name: 'profileLike', params: { username } }"
     >
-      작성자 : {{ articleInfo.user.username}}
+      작성자 : {{ nickname }}
     </router-link>
     <hr>
     생성 시간 : {{ articleInfo.created_at }} | 
@@ -61,7 +61,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['articleInfo', 'authHeader', 'currentUser', 'isAuthor']),
+    ...mapGetters(['articleInfo', 'authHeader', 'currentUser', 'isAuthor', 'profile']),
     articlePk() {
       return this.$route.params.articlePk
     },
@@ -81,12 +81,20 @@ export default {
       return this.isLiked ? '좋아요 취소' : '좋아요'
     },
 
+    username() {
+      return this.articleInfo.user.username
+    },
+
+    nickname() {
+      return this.articleInfo.user.profile.nickname
+    },
+
     // 영화 관련
     posterSrc() {
       const domain = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2'
       const path = this.articleInfo.movie.poster_path
       return domain + path
-    }
+    },
   },
 
   methods: {

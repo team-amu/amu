@@ -2,8 +2,8 @@
   <li>
     작성자 : 
     <router-link
-      :to="{ name: 'profileLike', params: { username: commentData.commentUser.username } }">
-      {{ commentData.commentUser.username }}
+      :to="{ name: 'profileLike', params: { username } }">
+      {{ nickname }}
     </router-link>
     <br>
     <span v-if="!isEditing">
@@ -51,6 +51,12 @@ export default {
     ...mapGetters(['currentUser']),
     isCommentAuthor() {
       return this.currentUser.pk === this.comment.user.pk
+    },
+    username() {
+      return this.commentData.commentUser.username
+    },
+    nickname() {
+      return this.commentData.commentUser.profile.nickname
     }
   },
   methods: {

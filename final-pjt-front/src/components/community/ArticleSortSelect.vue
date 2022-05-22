@@ -4,9 +4,9 @@
     id="articleSortSelect"
     @change.prevent="onChange"
   >
-    <option value="-pk">최신순</option>
-    <option value="-likes_count">좋아요 많은 순</option>
-    <option value="-comments_count">댓글 많은 순</option>
+    <option value="-pk" :selected="isSortRecent">최신순</option>
+    <option value="-likes_count" :selected="isSortLikesCount">좋아요 많은 순</option>
+    <option value="-comments_count" :selected="isSortCommentsCount">댓글 많은 순</option>
   </select>
 </template>
 
@@ -30,6 +30,15 @@ export default {
   },
   computed: {
     ...mapGetters(['communityArticleSort']),
+    isSortRecent(){
+      return this.communityArticleSort === '-pk'
+    },
+    isSortLikesCount(){
+      return this.communityArticleSort === '-likes_count'
+    },
+    isSortCommentsCount(){
+      return this.communityArticleSort === '-comments_count'
+    },
   }
 }
 </script>

@@ -4,9 +4,9 @@
     id="articleUnitSelect"
     @change.prevent="onChange"
   >
-    <option value="5">5개씩 보기</option>
-    <option value="10">10개씩 보기</option>
-    <option value="20">20개씩 보기</option>
+    <option value="5" :selected="isUnit5">5개씩 보기</option>
+    <option value="10" :selected="isUnit10">10개씩 보기</option>
+    <option value="20" :selected="isUnit20">20개씩 보기</option>
   </select>
 </template>
 
@@ -39,6 +39,15 @@ export default {
   },
   computed: {
     ...mapGetters(['communityArticleUnit']),
+    isUnit5(){
+      return this.communityArticleUnit === '5'
+    },
+    isUnit10(){
+      return this.communityArticleUnit === '10'
+    },
+    isUnit20(){
+      return this.communityArticleUnit === '20'
+    },
   }
 }
 </script>

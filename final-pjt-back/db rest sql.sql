@@ -34,3 +34,4 @@ DELETE FROM django_admin_log;
 DELETE FROM django_content_type;
 DELETE FROM django_migrations;
 DELETE FROM django_session;
+

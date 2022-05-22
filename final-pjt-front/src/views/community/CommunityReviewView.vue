@@ -4,24 +4,24 @@
     <article-sort-select></article-sort-select>
     <article-unit-select></article-unit-select>
     <ul>
-      <review-title-item
-        v-for="review in reviews"
-        :key="review.pk"
-        :review="review"
-      ></review-title-item>
+      <article-title-item
+        v-for="article in reviews"
+        :key="article.pk"
+        :article="article"
+      ></article-title-item>
     </ul>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import ReviewTitleItem from "@/components/community/ReviewTitleItem";
+import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
 import ArticleSortSelect from '@/components/community/ArticleSortSelect';
 export default {
-  name: "CommunityTotalView",
+  name: "CommunityReviewView",
   components: {
-    ReviewTitleItem,
+    ArticleTitleItem,
     ArticleUnitSelect,
     ArticleSortSelect,
   },

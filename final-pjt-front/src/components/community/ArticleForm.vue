@@ -78,6 +78,12 @@ export default {
     isReview() {
       return this.formData.category === 'review'
     }
+  },
+  created() {
+    if (this.action === 'update') {
+      this.formData.movie = this.formData.movie.title
+    }
+    console.log(this.formData)
   }
 }
 </script>
