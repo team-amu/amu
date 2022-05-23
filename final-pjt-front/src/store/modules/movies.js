@@ -6,9 +6,9 @@ import drf from "@/api/drf";
 
 export default {
 	state: {
-		hotMovie: {},
-		likeMovie: {},
-		bookmarkMovie: {},
+		hotMovie: [],
+		likeMovie: [],
+		bookmarkMovie: [],
 		movieDetail: {},
 		searchedMovies: {},
 	},
