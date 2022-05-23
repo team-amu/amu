@@ -1,4 +1,4 @@
 
 
-[공용 노션](https://lateral-icon-3c3.notion.site/05d0a603568544f087c413e397236361)
+[공용 노션](https://cyclic-traffic-ddc.notion.site/bf74a7a8e0b64b8eb48b500552949ba0)
 
