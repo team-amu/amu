@@ -35,7 +35,10 @@
       </section>
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar
+      app
+      color='black'
+    >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Archive Of Movie</v-toolbar-title>
     </v-app-bar>
@@ -80,5 +83,9 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+#app {
+  background-color: $darker-gray;
+  color: white;
+}
 </style>
