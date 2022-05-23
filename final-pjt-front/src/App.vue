@@ -75,9 +75,10 @@
     },
     created() {
       this.fetchCurrentUser()
+      this.drawer = false;
     }
   }
- </script>
+</script>
 
 <style>
 </style>

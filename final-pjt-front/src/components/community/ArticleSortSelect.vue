@@ -18,29 +18,34 @@ export default {
     action: String,
   },
   methods: {
-    ...mapActions(['setCommunityArticleSort', 'setReviews', 'setFrees', 'setTotals', 'setHots']),
+    ...mapActions(['setCommunityArticleSort', 'setReviews', 'setFrees', 'setTotals', 'setHots',
+    'setReviewPageNum', 'setFreePageNum', 'setTotalPageNum', 'setHotPageNum']),
 
     onChange(event) {
-      if (confirm('정렬 기준을 변경하시면 1번 페이지로 이동합니다. 이동하시겠습니까?')){
+      if (confirm('정렬 기준을 변경하시면 최근 페이지로 이동합니다. 이동하시겠습니까?')){
         // 새로운 정렬 단위 저장
         const newSort = event.target.value
         this.setCommunityArticleSort(newSort)
-        // this.setHots(1)
-        // this.setReviews(1)
-        // this.setFrees(1)
-        // this.setTotals(1)
         switch (this.action) {
           case 'total':
             this.$router.push({ name: 'communityTotal', params: { page: 1 } })
+            this.setTotals(1)
+            this.setTotalPageNum(1)
             break
           case 'hot':
             this.$router.push({ name: 'communityHot', params: { page: 1 } })
+            this.setHots(1)
+            this.setHotPageNum(1)
             break
           case 'review':
             this.$router.push({ name: 'communityReview', params: { page: 1 } })
+            this.setReviews(1)
+            this.setReviewPageNum(1)
             break
           case 'free':
             this.$router.push({ name: 'communityFree', params: { page: 1 } })
+            this.setFrees(1)
+            this.setFreePageNum(1)
             break
         }
       }
