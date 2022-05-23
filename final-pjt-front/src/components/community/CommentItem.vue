@@ -80,6 +80,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+span {
+  color: $darker-gray;
+}
 </style>

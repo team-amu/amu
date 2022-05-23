@@ -19,7 +19,7 @@ import { mapGetters, mapActions } from "vuex";
 import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
 import ArticleSortSelect from '@/components/community/ArticleSortSelect';
-import ArticleReviewPagination from "@/components/common/ArticleReviewPagination";
+import ArticleReviewPagination from "@/components/pagination/ArticleReviewPagination";
 export default {
   name: "CommunityReviewView",
   components: {

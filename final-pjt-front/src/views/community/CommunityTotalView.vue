@@ -21,7 +21,7 @@ import { mapGetters, mapActions } from "vuex";
 import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
 import ArticleSortSelect from '@/components/community/ArticleSortSelect';
-import ArticleTotalPagination from "@/components/common/ArticleTotalPagination";
+import ArticleTotalPagination from "@/components/pagination/ArticleTotalPagination";
 export default {
   name: "CommunityTotalView",
   components: {

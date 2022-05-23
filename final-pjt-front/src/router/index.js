@@ -51,22 +51,22 @@ const routes = [
 
 	// profile 부분
 	{
-		path: "/profile/:username",
+		path: "/profile/:username/:page",
 		name: "profileLike",
 		component: ProfileLikeView,
 	},
 	{
-		path: "/profile/:username/bookmark",
+		path: "/profile/:username/bookmark/:page",
 		name: "profileBookmark",
 		component: ProfileBookmarkView,
 	},
 	{
-		path: "/profile/:username/article",
+		path: "/profile/:username/article/:page",
 		name: "profileArticle",
 		component: ProfileArticleView,
 	},
 	{
-		path: "/profile/:username/comment",
+		path: "/profile/:username/comment/:page",
 		name: "profileComment",
 		component: ProfileCommentView,
 	},
@@ -175,8 +175,8 @@ const router = new VueRouter({
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-	return originalPush.call(this, location).catch(err => {
-		if (err.name !== 'NavigationDuplicated') throw err;
+	return originalPush.call(this, location).catch((err) => {
+		if (err.name !== "NavigationDuplicated") throw err;
 	});
 };
 

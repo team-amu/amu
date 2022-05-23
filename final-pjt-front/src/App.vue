@@ -13,10 +13,10 @@
       <hr>
       <!-- profile 관련 -->
       <section v-if="isCurrentUser">
-        <router-link :to="{ name: 'profileLike', params: { username }}">좋아요한 영화</router-link> <br>
-        <router-link :to="{ name: 'profileBookmark',  params: { username }}">북마크한 영화</router-link> <br>
-        <router-link :to="{ name: 'profileArticle',  params: { username }}">내가 쓴 게시글</router-link> <br>
-        <router-link :to="{ name: 'profileComment',  params: { username }}">내가 쓴 댓글</router-link>
+        <router-link :to="{ name: 'profileLike', params: { username, page:1 }}">좋아요한 영화</router-link> <br>
+        <router-link :to="{ name: 'profileBookmark',  params: { username, page:1 }}">북마크한 영화</router-link> <br>
+        <router-link :to="{ name: 'profileArticle',  params: { username, page:1 }}">내가 쓴 게시글</router-link> <br>
+        <router-link :to="{ name: 'profileComment',  params: { username, page:1 }}">내가 쓴 댓글</router-link>
       </section>
       <hr>
       <section>
@@ -35,7 +35,10 @@
       </section>
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar
+      app
+      color='black'
+    >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Archive Of Movie</v-toolbar-title>
     </v-app-bar>
@@ -80,5 +83,9 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+#app {
+  background-color: $darker-gray;
+  color: white;
+}
 </style>

@@ -2,7 +2,11 @@
   <div>
     <h1>Profile Article</h1>
     <profile-user-section v-if="isRightProfile && isProfile" :profile="profile"></profile-user-section>
-    <profile-content-section v-if="isRightProfile && isProfile" :contents="profile.user.articles"></profile-content-section>
+    <profile-content-section
+      v-if="isRightProfile && isProfile"
+      :contents="profile.user.articles"
+      type="article"
+      ></profile-content-section>
   </div>
 </template>
 
