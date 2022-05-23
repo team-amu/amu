@@ -2,7 +2,11 @@
   <div>
     <h1>Profile Bookmark</h1>
     <profile-user-section v-if="isRightProfile && isProfile" :profile="profile"></profile-user-section>
-    <profile-content-section v-if="isRightProfile && isProfile" :contents="profile.user.bookmark_movies"></profile-content-section>
+    <profile-content-section
+      v-if="isRightProfile && isProfile"
+      :contents="profile.user.bookmark_movies"
+      type="bookmarkedMovie"
+    ></profile-content-section>
   </div>
 </template>
 

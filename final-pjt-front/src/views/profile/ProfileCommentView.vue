@@ -2,7 +2,11 @@
   <div>
     <h1>Profile Comment</h1>
     <profile-user-section v-if="isRightProfile && isProfile" :profile="profile"></profile-user-section>
-    <profile-content-section v-if="isRightProfile && isProfile" :contents="profile.user.comments"></profile-content-section>
+    <profile-content-section
+      v-if="isRightProfile && isProfile"
+      :contents="profile.user.comments"
+      type="comment"
+    ></profile-content-section>
   </div>
 </template>
 
