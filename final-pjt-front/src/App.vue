@@ -1,36 +1,50 @@
 <template>
   <v-app id="app">
-    <v-btn color="success">Success</v-btn>
-    <v-btn color="error">Error</v-btn>
-    <v-btn color="warning">Warning</v-btn>
-    <v-btn color="info">Info</v-btn>
-    <nav>
-      <router-link :to="{ name: 'login' }">login</router-link> |
-      <router-link :to="{ name: 'logout'}">logout</router-link> |
-      <router-link :to="{ name: 'signup'}">signup</router-link>
-    </nav>
-    <section v-if="isCurrentUser">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <!-- 계정 관련 -->
+      <section>
+        <router-link :to="{ name: 'login' }">로그인</router-link> <br>
+        <router-link :to="{ name: 'logout'}">로그아웃</router-link> <br>
+        <router-link :to="{ name: 'signup'}">회원가입</router-link>
+      </section>
+      <hr>
       <!-- profile 관련 -->
-      <router-link :to="{ name: 'profileLike', params: { username }}">ProfileLike</router-link> | 
-      <router-link :to="{ name: 'profileBookmark',  params: { username }}">ProfileBookmark</router-link> |
-      <router-link :to="{ name: 'profileArticle',  params: { username }}">ProfileArticle</router-link> | 
-      <router-link :to="{ name: 'profileComment',  params: { username }}">ProfileComment</router-link>
-    </section>
-    <section>
-      <!-- movie 관련 -->
-      <router-link :to="{ name: 'home' }">Home</router-link> |
-    </section>
-    <section>
-      <!-- community 관련 -->
-      <router-link :to="{ name: 'articleCreate' }">ArticleCreate</router-link> |
-      <router-link :to="{ name: 'communityTotal', params: {page:'1'} }">CommunityTotal</router-link> |
-      <router-link :to="{ name: 'communityHot', params: {page:'1'} }">CommunityHot</router-link> |
-      <router-link :to="{ name: 'communityReview', params: {page:'1'} }">CommunityReview</router-link> |
-      <router-link :to="{ name: 'communityFree', params: {page:'1'} }">CommunityFree</router-link>
-      
-    </section>
+      <section v-if="isCurrentUser">
+        <router-link :to="{ name: 'profileLike', params: { username }}">좋아요한 영화</router-link> <br>
+        <router-link :to="{ name: 'profileBookmark',  params: { username }}">북마크한 영화</router-link> <br>
+        <router-link :to="{ name: 'profileArticle',  params: { username }}">내가 쓴 게시글</router-link> <br>
+        <router-link :to="{ name: 'profileComment',  params: { username }}">내가 쓴 댓글</router-link>
+      </section>
+      <hr>
+      <section>
+        <!-- movie 관련 -->
+        <router-link :to="{ name: 'home' }">홈 화면</router-link> <br>
+        <router-link :to="{ name: 'movieDetail', params: { moviePk: '147'} }">147번 영화 디테일</router-link>
+      </section>
+      <hr>
+      <section>
+        <!-- community 관련 -->
+        <router-link :to="{ name: 'articleCreate' }">게시글 쓰기</router-link> <br>
+        <router-link :to="{ name: 'communityTotal', params: {page:'1'} }">전체게시판</router-link> <br>
+        <router-link :to="{ name: 'communityHot', params: {page:'1'} }">인기게시판</router-link> <br>
+        <router-link :to="{ name: 'communityReview', params: {page:'1'} }">영화게시판</router-link> <br>
+        <router-link :to="{ name: 'communityFree', params: {page:'1'} }">자유게시판</router-link>
+      </section>
+    </v-navigation-drawer>
 
-    <router-view/>
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>Archive Of Movie</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <!--  -->
+      <router-view/>
+    </v-main>
+    
   </v-app>
 </template>
 
@@ -49,6 +63,7 @@
   export default {
     name: 'App',
     components: { },
+    data: () => ({ drawer: null }),
     methods: {
       ...mapActions(['fetchCurrentUser']),
     },
