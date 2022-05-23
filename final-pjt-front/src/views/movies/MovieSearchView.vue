@@ -58,7 +58,7 @@ export default {
           this.searchedOutputs = res.data
         })
         .catch((err) => {
-          console.log(err.response.data)
+          console.error(err.response.data)
         })
     },
   }
