@@ -98,7 +98,6 @@ export default {
         this.fetchSearchMovie(payload)
         this.inputValue = this.$route.query.searchWord
         this.type = this.$route.query.type
-        console.log('sdsd')
       }
     }
   },
