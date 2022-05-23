@@ -5,11 +5,14 @@
       <option value="title">영화제목</option>
       <option value="actor">배우</option>
     </select>
+    
     <input type="text" 
     @keyup="inputChange"
     @keyup.enter="onSearch"
     v-model="inputData"
     >
+
+    <button @click="onSearch">검색</button>
   </div>
 </template>
 

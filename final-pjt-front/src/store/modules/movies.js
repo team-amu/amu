@@ -124,5 +124,23 @@ export default {
 					console.error(err.response.data);
 				});
 		},
-	},
-};
+
+		fetchSearchMovie({commit}, { searchPage, searchWord, select }) {
+			axios({
+				url: drf.movies.search(searchPage),
+        methods: "get",
+        params: {
+          searchWord,
+          select
+				}
+      })
+        .then((res) => {
+          commit("SET_SEARCHED_MOVIES", res.data)
+        })
+        .catch((err) => {
+          console.error(err.response.data)
+        })
+		}
+  },
+}
+
