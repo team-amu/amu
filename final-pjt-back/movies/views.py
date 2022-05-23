@@ -86,20 +86,7 @@ def movie_search(request, search_page):
                 rename=Func(
                     F('actors__name'), Value(' '), Value(''), function='replace'
                 )
-            ).filter(rename__icontains=search_word)
-
-            # results = Movie.objects.annotate(
-            #     rename=Func(
-            #         F('actors__name'), Value(' '), Value(''), function='replace'
-            #     )
-            # ).filter(Q(actors__name__contains=research_word))            
-
-            # results = Movie.objects.annotate(
-            #     rename=Func(
-            #         F('actors__name'), Value(' '), Value(''), function='replace'
-            #     )
-            # ).annotate(name_len=Length('actors__name')
-            # ).filter(Q(actors__name__contains=research_word) & Q(name_len=research_word_len))
+            ).filter(rename__icontains=research_word)
         else:
             results = Movie.objects.all()
             
