@@ -7,6 +7,7 @@
     </select>
     <input type="text" 
     @keyup="inputChange"
+    @keyup.enter="onSearch"
     >
   </div>
 </template>
@@ -26,6 +27,13 @@ export default {
         select: this.select,
       }
       this.$emit('input-change', data)
+    },
+    onSearch: function (event) {
+      let data = {
+        inputData: event.target.value,
+        select: this.select,
+      }
+      this.$emit('on-select', data)
     }
   }
 }

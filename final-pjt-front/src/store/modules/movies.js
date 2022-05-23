@@ -22,7 +22,7 @@ export default {
 		movieDetail: (state) => state.movieDetail,
     movieRecentTwoReviews: (state) => {
       const reverseReviews = [...state.movieDetail.article_set].reverse()
-      return reverseReviews.splice(0, 2)
+      return reverseReviews?.splice(0, 2)
     },
 	},
 

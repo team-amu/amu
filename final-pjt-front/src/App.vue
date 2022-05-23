@@ -19,6 +19,7 @@
     <section>
       <!-- movie 관련 -->
       <router-link :to="{ name: 'home' }">Home</router-link> |
+      <router-link :to="{ name: 'movieSearch', params: {page:'1'} }">Search</router-link> |
     </section>
     <section>
       <!-- community 관련 -->

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-if="isCheck">
     <!-- 왜 언디파인 되는거지?ㅠㅠ 찾아보기!-->
-    <div v-for="review in reviews" :key="review.pk">
+    <div v-for="review in movieRecentTwoReviews" :key="review.pk">
       <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
         <review-item :review="review"></review-item>
       </router-link>
@@ -13,7 +13,6 @@
 <script>
 import ReviewItem from '@/components/movies/ReviewItem.vue'
 import { mapGetters } from 'vuex'
-import _ from 'lodash'
 
 export default {
   name: 'ReviewList',
@@ -21,7 +20,7 @@ export default {
   data() {
     return {
       // recentTwoReviews: [],
-      isCheck: false,
+      // isCheck: false,
     }
   },
   props: {
@@ -41,13 +40,15 @@ export default {
     //     return false
     //   }
     // }
-  },
-  watch: {
-    movieRecentTwoReviews: {
-      handler() {
-        this.isCheck = !_.isEmpty(this.movieRecentTwoReviews)
+    isCheck() {
+      if (this?.movieRecentTwoReviews?.length !== 0) {
+        return true
+      } else {
+        return false
       }
     }
+  },
+  watch: {
   },
   created() {
 

@@ -5,6 +5,7 @@
     <hr>
     <search-bar-section
     @input-change="inputChange"
+    @on-select="onSearch"
     ></search-bar-section>
     <!-- 박스 회색이 계속 보이는거 수정하기! 검색에 커서 갔을 때만!!-->
     <div class="searched-box">
@@ -73,6 +74,9 @@ export default {
           console.log(err.response.data)
         })
     },
+    // onSearch: function({inputData, select}) {
+
+    // }
   },
   watch: {
     // 이 조건은 구글링 하다가 찾았는데 아직 잘 모름 일단 넣어놈,,
