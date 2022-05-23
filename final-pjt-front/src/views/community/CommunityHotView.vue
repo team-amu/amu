@@ -23,7 +23,7 @@ import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleHotSortSelect from '@/components/community/ArticleHotSortSelect';
 // import ArticleSortSelect from '@/components/community/ArticleSortSelect';
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
-import ArticleHotPagination from "@/components/common/ArticleHotPagination";
+import ArticleHotPagination from "@/components/pagination/ArticleHotPagination";
 export default {
   name: "CommunityHotView",
   components: {

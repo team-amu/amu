@@ -2,33 +2,33 @@ from re import L
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, JsonResponse, Http404
 
-from rest_framework import status
+from rest_framework import status, serializers
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .serializers import ProfileSerializer
 from django.contrib.auth import get_user_model
+from pprint import pprint
+import json
 
 # Create your views here.
 @api_view(['GET'])
 # @permission_classes([AllowAny])
-def profile_with_like_movies(request, username):
+def profile_with_like_movies(request, username, page):
     profile_user = get_object_or_404(get_user_model(), username=username)
+    profile_liked_movie_whole_count = profile_user.profile.user.like_movies.count()
     profile = profile_user.profile
     serializer = ProfileSerializer(profile)
-    return Response(serializer.data)
+    profile = serializer.data
+    data = {
+        'profile': profile,
+        'profileLikedMovieWholeCount': profile_liked_movie_whole_count
+    }
+    return Response(data)
 
 @api_view(['GET'])
-def profile_with_bookmark_movies(request, username):
-    profile_user = get_object_or_404(get_user_model(), username=username)
-    
-    profile = profile_user.profile
-    serializer = ProfileSerializer(profile)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def profile_with_article(request, username):
+def profile_with_bookmark_movies(request, username, page):
     profile_user = get_object_or_404(get_user_model(), username=username)
     
     profile = profile_user.profile
@@ -36,7 +36,15 @@ def profile_with_article(request, username):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def profile_with_comment(request, username):
+def profile_with_article(request, username, page):
+    profile_user = get_object_or_404(get_user_model(), username=username)
+    
+    profile = profile_user.profile
+    serializer = ProfileSerializer(profile)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def profile_with_comment(request, username, page):
     profile_user = get_object_or_404(get_user_model(), username=username)
     
     profile = profile_user.profile

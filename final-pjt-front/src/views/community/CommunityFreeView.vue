@@ -21,7 +21,7 @@ import { mapGetters, mapActions } from "vuex";
 import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
 import ArticleSortSelect from '@/components/community/ArticleSortSelect';
-import ArticleFreePagination from "@/components/common/ArticleFreePagination";
+import ArticleFreePagination from "@/components/pagination/ArticleFreePagination";
 
 export default {
   name: "CommunityFreeView",
