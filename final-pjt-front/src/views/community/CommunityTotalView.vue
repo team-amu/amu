@@ -12,7 +12,7 @@
       >
       </article-title-item>
     </ul>
-    <custom-pagination></custom-pagination>
+    <article-total-pagination></article-total-pagination>
   </div>
 </template>
 
@@ -21,17 +21,19 @@ import { mapGetters, mapActions } from "vuex";
 import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
 import ArticleSortSelect from '@/components/community/ArticleSortSelect';
-import CustomPagination from "@/components/common/CustomPagination";
+import ArticleTotalPagination from "@/components/common/ArticleTotalPagination";
 export default {
-  name: "CommunityArticleView",
+  name: "CommunityTotalView",
   components: {
     ArticleTitleItem,
     ArticleSortSelect,
     ArticleUnitSelect,
-    CustomPagination,
+    ArticleTotalPagination,
   },
   data () {
-    return {}
+    return {
+      action: "total",
+    }
   },
   computed: {
     ...mapGetters(['totals'])
@@ -41,8 +43,8 @@ export default {
   },
   created() {
     const page = this.$route.params.page;
-    this.setTotalPageNum(page)
     this.setTotals(page)
+    this.setTotalPageNum(page)
   }
 }
 </script>

@@ -10,6 +10,7 @@
         :article="article"
       ></article-title-item>
     </ul>
+    <article-review-pagination></article-review-pagination>
   </div>
 </template>
 
@@ -18,15 +19,19 @@ import { mapGetters, mapActions } from "vuex";
 import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
 import ArticleSortSelect from '@/components/community/ArticleSortSelect';
+import ArticleReviewPagination from "@/components/common/ArticleReviewPagination";
 export default {
   name: "CommunityReviewView",
   components: {
     ArticleTitleItem,
     ArticleUnitSelect,
     ArticleSortSelect,
+    ArticleReviewPagination,
   },
   data () {
-    return {}
+    return {
+      action: "review"
+    }
   },
   computed: {
     ...mapGetters(['reviews'])

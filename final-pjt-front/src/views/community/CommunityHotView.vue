@@ -13,6 +13,7 @@
       >
       </article-title-item>
     </ul>
+    <article-hot-pagination></article-hot-pagination>
   </div>
 </template>
 
@@ -22,16 +23,20 @@ import ArticleTitleItem from "@/components/community/ArticleTitleItem";
 import ArticleHotSortSelect from '@/components/community/ArticleHotSortSelect';
 // import ArticleSortSelect from '@/components/community/ArticleSortSelect';
 import ArticleUnitSelect from '@/components/community/ArticleUnitSelect';
+import ArticleHotPagination from "@/components/common/ArticleHotPagination";
 export default {
-  name: "CommunityArticleView",
+  name: "CommunityHotView",
   components: {
     ArticleTitleItem,
     ArticleHotSortSelect,
     // ArticleSortSelect,
     ArticleUnitSelect,
+    ArticleHotPagination,
   },
   data () {
-    return {}
+    return {
+      action: 'hot'
+    }
   },
   computed: {
     ...mapGetters(['hots'])
