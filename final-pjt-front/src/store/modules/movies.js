@@ -43,7 +43,7 @@ export default {
 					commit("SET_HOT_MOVIE", res.data);
 				})
 				.catch((err) => {
-					console.log(err.response.data);
+					console.error(err.response.data);
 				});
 		},
 
@@ -58,7 +58,7 @@ export default {
 					commit("SET_LIKE_MOVIE", res.data);
 				})
 				.catch((err) => {
-					console.log(err.response.data);
+					console.error(err.response.data);
 				});
 		},
 
@@ -73,74 +73,56 @@ export default {
 					commit("SET_BOOKMARK_MOVIE", res.data);
 				})
 				.catch((err) => {
-					console.log(err.response.data);
+					console.error(err.response.data);
 				});
 		},
 
-    fetchMovieDetail({commit, getters}, moviePk) {
-      axios({
-        url: drf.movies.detail(moviePk),
-        method: "get",
-        headers: getters.authHeader,
-        // data: {}
-      })
-        .then((res) => {
-          commit("SET_MOVIE_DETAIL", res.data)
-        })
-        .catch((err) => {
-          console.log(err.response.data)
-          if (err.response.status === 404) {
-            router.push({ name: 'NotFound' })
-          }
-        })
-    },
-
-    movieLike({commit, getters}, moviePk) {
-      axios({
-        url: drf.movies.like(moviePk),
-        method: "post",
-        headers: getters.authHeader,
-        // data: {}
-      })
-        .then((res) => {
-          commit("SET_MOVIE_DETAIL", res.data)
-        })
-        .catch((err) => {
-          console.log(err.response.data)
-        })
-    },
-
-    movieBookmark({commit, getters}, moviePk) {
-      axios({
-        url: drf.movies.bookmark(moviePk),
-        method: "post",
-        headers: getters.authHeader,
-        // data: {}
-      })
-        .then((res) => {
-          commit("SET_MOVIE_DETAIL", res.data)
-        })
-        .catch((err) => {
-          console.log(err.response.data)
-        })
-    },
-
-		fetchSearchMovie({commit}, { searchPage, searchWord, select }) {
-			console.log(searchWord, select)
+		fetchMovieDetail({ commit, getters }, moviePk) {
 			axios({
-        url: drf.movies.search(searchPage),
-        methods: "get",
-        params: {
-          searchWord,
-          select
-        }
-      })
-        .then((res) => {
-          commit("SET_SEARCHED_MOVIES", res.data)
-        })
-        .catch((err) => {
-          console.log(err.response.data)
-        })
-		}
-  },
-}
+				url: drf.movies.detail(moviePk),
+				method: "get",
+				headers: getters.authHeader,
+				// data: {}
+			})
+				.then((res) => {
+					commit("SET_MOVIE_DETAIL", res.data);
+				})
+				.catch((err) => {
+					console.error(err.response.data);
+					if (err.response.status === 404) {
+						router.push({ name: "NotFound" });
+					}
+				});
+		},
+
+		movieLike({ commit, getters }, moviePk) {
+			axios({
+				url: drf.movies.like(moviePk),
+				method: "post",
+				headers: getters.authHeader,
+				// data: {}
+			})
+				.then((res) => {
+					commit("SET_MOVIE_DETAIL", res.data);
+				})
+				.catch((err) => {
+					console.error(err.response.data);
+				});
+		},
+
+		movieBookmark({ commit, getters }, moviePk) {
+			axios({
+				url: drf.movies.bookmark(moviePk),
+				method: "post",
+				headers: getters.authHeader,
+				// data: {}
+			})
+				.then((res) => {
+					commit("SET_MOVIE_DETAIL", res.data);
+				})
+				.catch((err) => {
+					console.error(err.response.data);
+				});
+		},
+	},
+};

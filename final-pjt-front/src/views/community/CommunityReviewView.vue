@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Community Review</h1>
-    <article-sort-select></article-sort-select>
+    <article-sort-select :action="action"></article-sort-select>
     <article-unit-select></article-unit-select>
     <ul>
       <article-title-item

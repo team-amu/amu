@@ -101,7 +101,6 @@ export default {
 				params: params,
 			})
 				.then((res) => {
-					console.log(res.data);
 					commit("SET_TOTALS", res.data.articles);
 					commit("SET_TOTALS_WHOLE_COUNT", res.data.articlesWholeCount);
 				})

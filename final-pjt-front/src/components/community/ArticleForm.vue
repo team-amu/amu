@@ -83,7 +83,6 @@ export default {
     if (this.action === 'update') {
       this.formData.movie = this.formData.movie.title
     }
-    console.log(this.formData)
   }
 }
 </script>

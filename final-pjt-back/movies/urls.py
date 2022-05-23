@@ -12,5 +12,6 @@ urlpatterns = [
     path('<int:movie_id>/like/', views.movie_like),
     path('<int:movie_id>/bookmark/', views.movie_bookmark),
     path('search/<int:search_page>/', views.movie_search),
+    # 검색어에 맞는 내용들을 출력해줌
     path('keywordSearch/', views.print_keyword_search),
 ]

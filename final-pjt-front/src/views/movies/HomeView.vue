@@ -70,7 +70,7 @@ export default {
           this.searchedOutputs = res.data
         })
         .catch((err) => {
-          console.log(err.response.data)
+          console.error(err.response.data)
         })
     },
     onSearch: function({inputData, select}) {
@@ -82,9 +82,9 @@ export default {
     immediate: true,
   },
   created() {
-     this.fetchHotMovie()
-     this.fetchLikeMovie()
-     this.fetchBookmarkMovie()
+    this.fetchHotMovie()
+    this.fetchLikeMovie()
+    this.fetchBookmarkMovie()
   },
 }
 </script>
