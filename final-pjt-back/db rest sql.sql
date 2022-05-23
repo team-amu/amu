@@ -35,6 +35,10 @@ DELETE FROM django_content_type;
 DELETE FROM django_migrations;
 DELETE FROM django_session;
 
+-- DELETE FROM community_article WHERE id = 24;
+-- DELETE FROM community_article WHERE id = 25;
+-- DELETE FROM community_article WHERE id = 26;
+-- DELETE FROM community_article WHERE id = 27;
 
 INSERT INTO community_article_like_users (article_id, user_id)
 VALUES

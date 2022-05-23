@@ -69,23 +69,36 @@ class ArticleSerializer(serializers.ModelSerializer):
                 'comments', 'comments_count', 'like_users', 'likes_count',
                 'created_at', 'updated_at')
         read_only_fields = ('created_at', 'updated_at')
+
         
 class ArticleListSerializer(serializers.ModelSerializer):
+    
     class UserSerializer(serializers.ModelSerializer):
+        
+        class NicknameSerializer(serializers.ModelSerializer):
+            class Meta:
+                model = Profile
+                fields = ('nickname', 'profile_image')
+        
+        profile = NicknameSerializer(read_only=True)
+        
         class Meta:
             model = User
-            fields = ('pk', 'username',)
-
+            fields = ('pk', 'username', 'profile')
+    
+    class MovieSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Movie
+            fields = ('pk', 'title')
+            
     user = UserSerializer(read_only=True)
-    comments = CommentSerializer(many=True, read_only=True)
-    like_users = UserSerializer(read_only=True, many=True)
+    movie = MovieSerializer(read_only=True)
     comments_count = serializers.IntegerField(source="comments.count", read_only=True)
     likes_count = serializers.IntegerField(source="like_users.count", read_only=True)
-
+    
     class Meta:
         model = Article
-        fields = ('pk', 'user', 'category', 'title', 'comments_count', 'comments', 'likes_count', 'like_users', 'created_at', 'updated_at',)
+        fields = ('pk', 'user', 'category', 'movie', 'rank', 'title', 'content',
+                'comments_count', 'likes_count',
+                'created_at', 'updated_at')
         read_only_fields = ('created_at', 'updated_at')
-
-        
-    

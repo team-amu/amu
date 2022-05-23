@@ -32,7 +32,7 @@ def articles_total(request, page):
     
     if not articles:
         raise Http404("page does not exist")
-    serializer = ArticleSerializer(articles, many=True)
+    serializer = ArticleListSerializer(articles, many=True)
     data = {
         'articles': serializer.data,
         'articlesWholeCount': articles_whole_count
@@ -60,7 +60,7 @@ def articles_hot(request, page):
 
     if not articles:
         raise Http404("page does not exist")
-    serializer = ArticleSerializer(articles, many=True)
+    serializer = ArticleListSerializer(articles, many=True)
     data = {
         'articles': serializer.data,
         'articlesWholeCount': articles_whole_count
@@ -86,7 +86,7 @@ def articles_review(request, page):
     
     if not articles:
         raise Http404("page does not exist")
-    serializer = ArticleSerializer(articles, many=True)
+    serializer = ArticleListSerializer(articles, many=True)
     data = {
         'articles': serializer.data,
         'articlesWholeCount': articles_whole_count
@@ -113,7 +113,7 @@ def articles_free(request, page):
     
     if not articles:
         raise Http404("page does not exist")
-    serializer = ArticleSerializer(articles, many=True)
+    serializer = ArticleListSerializer(articles, many=True)
     data = {
         'articles': serializer.data,
         'articlesWholeCount': articles_whole_count
