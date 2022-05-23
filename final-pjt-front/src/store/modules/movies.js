@@ -2,7 +2,7 @@ import router from "@/router";
 import axios from "axios";
 import drf from "@/api/drf";
 
-// import _ from "lodash";
+import _ from "lodash";
 
 export default {
 	state: {
@@ -10,18 +10,33 @@ export default {
 		likeMovie: [],
 		bookmarkMovie: [],
 		movieDetail: {},
-		searchedMovies: {},
+		// 검색기능
+		keywordMovies: [],
+		searchedMovies: [],
+		genres: [],
+		selectedGenres: [],
+		searchKeywords: '',
+		type: 'title',
+		minRank: '0',
+		//
 	},
 
 	getters: {
+		isKeywordsMovie: (state) => !_.isEmpty(state.keywordMovies),
 		hotMovie: (state) => state.hotMovie,
 		likeMovie: (state) => state.likeMovie,
 		bookmarkMovie: (state) => state.bookmarkMovie,
-		// isHotMovie: (state) => !_.isEmpty(state.hotMovie),
-		// isLikeMovie: (state) => !_.isEmpty(state.likeMovie),
-		// isBookmarkMovie: (state) => !_.isEmpty(state.bookmarkMovie),
 		movieDetail: (state) => state.movieDetail,
-		searchedMovies: (state) => state.searchedMovies
+		// 검색기능
+		keywordMovies: (state) => state.keywordMovies,
+		searchedMovies: (state) => state.searchedMovies,
+		genres: (state) => state.genres,
+		isGenres: (state) => state.genres.length > 0,
+		selectedGenres: (state) => state.selectedGenres,
+		searchKeywords: (state) => state.searchKeywords,
+		type: (state) => state.type,
+		minRank: (state) => state.minRank,
+		//
 	},
 
 	mutations: {
@@ -29,7 +44,25 @@ export default {
 		SET_LIKE_MOVIE: (state, movie) => (state.likeMovie = movie),
 		SET_BOOKMARK_MOVIE: (state, movie) => (state.bookmarkMovie = movie),
 		SET_MOVIE_DETAIL: (state, movieDetail) => (state.movieDetail = movieDetail),
-		SET_SEARCHED_MOVIES: (state, searchedMovies) => {state.searchedMovies = searchedMovies}
+		// 검색기능
+		SET_KEYWORD_MOVIE: (state, keywordMovies) => (state.keywordMovies = keywordMovies),
+		SET_SEARCHED_MOVIES: (state, searchedMovies) => {state.searchedMovies = searchedMovies},
+		SET_GENRES: (state, genres) => {state.genres = genres},
+		SET_SELECTED_GENRES: (state, genreId) => {
+			if ( state.selectedGenres.every((id) =>{
+				return id !== genreId
+			})) {
+				state.selectedGenres.push(genreId)
+			} else {
+				state.selectedGenres = state.selectedGenres.filter((id) => {
+					return id !== genreId
+				})
+			}
+		},
+		SET_SEARCH_KEYWORDS: (state, searchKeywords) => {state.searchKeywords = searchKeywords},
+		SET_TYPE: (state, type) => {state.type = type},
+		SET_MIN_RANK: (state, minRank) => {state.minRank = minRank},
+		//
 	},
 
 	actions: {
@@ -124,14 +157,34 @@ export default {
 					console.error(err.response.data);
 				});
 		},
+		
+		fetchKeywordMovie({commit}, {searchKeywords, type}) {
+			console.log(searchKeywords)
+			axios({
+        url: drf.movies.keywordSearch(),
+        methods: "get",
+        params: {
+          searchKeywords,
+          type
+        }
+      })
+        .then((res) => {
+					commit("SET_KEYWORD_MOVIE", res.data)
+        })
+        .catch((err) => {
+          console.error(err.response.data)
+        })
+		},
 
-		fetchSearchMovie({commit}, { searchPage, searchWord, select }) {
+		fetchSearchMovie({commit}, { searchPage, searchKeywords, type, selectedGenres, minRank}) {
 			axios({
 				url: drf.movies.search(searchPage),
         methods: "get",
         params: {
-          searchWord,
-          select
+          searchKeywords,
+          type,
+					selectedGenres,
+					minRank, 
 				}
       })
         .then((res) => {
@@ -140,7 +193,25 @@ export default {
         .catch((err) => {
           console.error(err.response.data)
         })
-		}
+		},
+
+		fetchGenres({ commit }) {
+			axios({
+				url: drf.movies.genres(),
+				methods: "get",
+			})
+				.then((res) => {
+					commit("SET_GENRES", res.data)
+				})
+				.catch((err) => {
+					console.error(err.response.data)
+				})
+		},
+
+		changeSelectedGenres({ commit }, genreId) {
+			commit("SET_SELECTED_GENRES", genreId)
+		},
+
   },
 }
 

@@ -57,6 +57,8 @@ export default {
 		hotMovie: () => HOST + MOVIES + "hot/",
 		likeMovie: () => HOST + MOVIES + "like/",
 		bookmarkMovie: () => HOST + MOVIES + "bookmark/",
+		// db의 장르 뽑기
+		genres: () => HOST + MOVIES + "genres/",
 		//
 		detail: (moviePk) => HOST + MOVIES + `${moviePk}/`,
 		//
