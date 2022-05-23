@@ -7,7 +7,7 @@
     </select>
     
     <input type="text" 
-    @keyup="inputChange"
+    @input="inputChange"
     @keyup.enter="onSearch"
     v-model="inputData"
     >
