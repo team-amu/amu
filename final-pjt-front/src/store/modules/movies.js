@@ -10,6 +10,7 @@ export default {
 		likeMovie: {},
 		bookmarkMovie: {},
 		movieDetail: {},
+		searchedMovies: {},
 	},
 
 	getters: {
@@ -24,6 +25,7 @@ export default {
       const reverseReviews = [...state.movieDetail.article_set].reverse()
       return reverseReviews?.splice(0, 2)
     },
+		searchedMovies: (state) => state.searchedMovies
 	},
 
 	mutations: {
@@ -31,6 +33,7 @@ export default {
 		SET_LIKE_MOVIE: (state, movie) => (state.likeMovie = movie),
 		SET_BOOKMARK_MOVIE: (state, movie) => (state.bookmarkMovie = movie),
 		SET_MOVIE_DETAIL: (state, movieDetail) => (state.movieDetail = movieDetail),
+		SET_SEARCHED_MOVIES: (state, searchedMovies) => {state.searchedMovies = searchedMovies}
 	},
 
 	actions: {
@@ -126,5 +129,22 @@ export default {
         })
     },
 
+		fetchSearchMovie({commit}, { searchPage, searchWord, select }) {
+			console.log(searchWord, select)
+			axios({
+        url: drf.movies.search(searchPage),
+        methods: "get",
+        params: {
+          searchWord,
+          select
+        }
+      })
+        .then((res) => {
+          commit("SET_SEARCHED_MOVIES", res.data)
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
+		}
   },
 }

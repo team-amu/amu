@@ -6,13 +6,14 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from .serializers.movie import MovieSerializer, MovieListSerializer, MovieTitleSerializer
+from .serializers.movie import MovieSerializer, MovieListSerializer, MovieTitleSerializer, SearchedMovieSerializer
 from .serializers.actor import ActorSerializer, ActorListSerializer, ActorNameSerializer 
 from .serializers.genre import GenreSerializer
 from .serializers.character import CharacterSerializer
 
 from django.utils import timezone
 from django.db.models import Q, Sum, Count, Case, When, Avg, Value, Func, F
+from django.db.models.functions import Length
 from datetime import datetime, timedelta, date
 from .models import Movie, Genre, Actor, CastedActors
 
@@ -62,11 +63,50 @@ def bookmark_movies(request):
 
 @api_view(['GET'])
 def movie_search(request, search_page):
-    data = {
-        'search_page': search_page,
-        '정보 없음': 'request.GET.get().filter~~ 해서 선별해서 보내야 함',
-    }
-    return Response(data)
+    search_word = request.GET.get('searchWord')
+    type = request.GET.get('select')
+    research_word = search_word.replace(' ', '')
+
+    if type == 'title':
+        if research_word:
+            results = Movie.objects.annotate(
+                retitle=Func(
+                    F('title'), Value(' '), Value(''), function='replace'
+                )
+            ).filter(retitle__contains=research_word)
+        else:
+            results = Movie.objects.all()
+
+    elif type == 'actor':
+        print('sdsdsd')
+        research_word_len = len(research_word)
+        if research_word:
+            # 해당 배우가 출연한 영화를 찾는다
+            results =Movie.objects.annotate(
+                rename=Func(
+                    F('actors__name'), Value(' '), Value(''), function='replace'
+                )
+            ).filter(rename__icontains=search_word)
+
+            # results = Movie.objects.annotate(
+            #     rename=Func(
+            #         F('actors__name'), Value(' '), Value(''), function='replace'
+            #     )
+            # ).filter(Q(actors__name__contains=research_word))            
+
+            # results = Movie.objects.annotate(
+            #     rename=Func(
+            #         F('actors__name'), Value(' '), Value(''), function='replace'
+            #     )
+            # ).annotate(name_len=Length('actors__name')
+            # ).filter(Q(actors__name__contains=research_word) & Q(name_len=research_word_len))
+        else:
+            results = Movie.objects.all()
+            
+    serializer = SearchedMovieSerializer(results, many=True)
+    print(research_word)
+    print(results)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -108,25 +148,27 @@ def print_keyword_search(request): # 검색어에 맞는 내용들을 출력해�
     keyword = request.GET.get('searchWord')
     select = request.GET.get('select')
 
+    rekeyword = keyword.replace(' ', '')
+
     if select == 'title':
-        if keyword:
+        if rekeyword:
             results = Movie.objects.annotate(
                 retitle=Func(
                     F('title'), Value(' '), Value(''), function='replace'
                 )
-            ).filter(retitle__contains=keyword)
+            ).filter(retitle__contains=rekeyword)
         else:
             results = Movie.objects.all()
         
         serializer = MovieTitleSerializer(results, many=True)
 
     elif select == 'actor':
-        if keyword:
+        if rekeyword:
             results = Actor.objects.annotate(
                 retitle=Func(
                     F('name'), Value(' '), Value(''), function='replace'
                 )
-            ).filter(retitle__contains=keyword)
+            ).filter(retitle__contains=rekeyword)
         else:
             results = Actor.objects.all()
             

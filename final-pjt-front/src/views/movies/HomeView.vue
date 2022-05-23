@@ -5,21 +5,19 @@
     <hr>
     <search-bar-section
     @input-change="inputChange"
-    @on-select="onSearch"
+    @on-search="onSearch"
     ></search-bar-section>
     <!-- 박스 회색이 계속 보이는거 수정하기! 검색에 커서 갔을 때만!!-->
     <div class="searched-box">
-      <ul v-for="searchedOutput in searchedOutputs" :key="searchedOutput.id">
-        <router-link :to="{ name: 'movieDetail', params: { moviePk : searchedOutput.id } }" v-if="type==='title'">
-          <li>
+      <ul>
+        <li v-for="searchedOutput in searchedOutputs" :key="searchedOutput.id">
+          <span v-if="type==='title'">
             {{ searchedOutput.title }}
-          </li>
-        </router-link>
-        <router-link v-if="type==='actor'">
-          <li>
+          </span>
+          <span v-if="type==='actor'">
             {{ searchedOutput.name }}
-          </li>
-        </router-link>
+          </span>
+        </li>
       </ul>
     </div>
     <hr>
@@ -41,6 +39,7 @@ import SearchBarSection from '@/components/movies/SearchBarSection.vue'
 import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 import drf from "@/api/drf"
+import router from "@/router";
 
 export default {
   name: "HomeView",
@@ -74,9 +73,9 @@ export default {
           console.log(err.response.data)
         })
     },
-    // onSearch: function({inputData, select}) {
-
-    // }
+    onSearch: function({inputData, select}) {
+      router.push({ name: 'movieSearch', params: { searchPage: '1' }, query: {searchWord: inputData, type: select}})
+    }
   },
   watch: {
     // 이 조건은 구글링 하다가 찾았는데 아직 잘 모름 일단 넣어놈,,

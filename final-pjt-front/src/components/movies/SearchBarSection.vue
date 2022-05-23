@@ -1,13 +1,14 @@
 <template>
   <div>
     <h2>SearchBarSection</h2>
-    <select v-model="select">
+    <select v-model="select" @change="inputChange">
       <option value="title">영화제목</option>
       <option value="actor">배우</option>
     </select>
     <input type="text" 
     @keyup="inputChange"
     @keyup.enter="onSearch"
+    v-model="inputData"
     >
   </div>
 </template>
@@ -17,23 +18,27 @@ export default {
   name: "SearchBarSection",
   data() {
     return {
-      select: 'title'
+      select: 'title',
+      inputData: this.searchWord,
     }
   },
+  props: {
+    searchWord: String,
+  },
   methods: {
-    inputChange: function (event) {
+    inputChange: function () {
       let data = {
-        inputData: event.target.value,
+        inputData: this.inputData,
         select: this.select,
       }
       this.$emit('input-change', data)
     },
-    onSearch: function (event) {
+    onSearch: function () {
       let data = {
-        inputData: event.target.value,
+        inputData: this.inputData,
         select: this.select,
       }
-      this.$emit('on-select', data)
+      this.$emit('on-search', data)
     }
   }
 }

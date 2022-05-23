@@ -47,3 +47,16 @@ class MovieTitleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ('id', 'title')
+
+class SearchedMovieSerializer(serializers.ModelSerializer):
+
+    class GenreSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Genre
+            fields = ('id', 'name')
+            
+    genres = GenreSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Movie
+        fields = ('id', 'title', 'genres', 'release_date', 'vote_average', 'overview')

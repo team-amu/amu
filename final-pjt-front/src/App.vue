@@ -22,7 +22,7 @@
       <section>
         <!-- movie 관련 -->
         <router-link :to="{ name: 'home' }">홈 화면</router-link> <br>
-        <router-link :to="{ name: 'movieDetail', params: { moviePk: '147'} }">147번 영화 디테일</router-link>
+        <router-link :to="{ name: 'movieSearch', params: { searchPage: '1'} }">영화 검색 페이지</router-link>
       </section>
       <hr>
       <section>
