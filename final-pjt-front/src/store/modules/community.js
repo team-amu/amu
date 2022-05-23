@@ -229,7 +229,7 @@ export default {
 
 		// 게시물 생성
 		createArticle({ commit, getters }, formData) {
-			if (formData.category === "review") {
+			if (formData.category === "free") {
 				formData.movie = null;
 				formData.rank = null;
 			}
@@ -254,7 +254,7 @@ export default {
 
 		// 게시물 수정
 		updateArticle({ commit, getters }, formData) {
-			if (formData.category === "review") {
+			if (formData.category === "free") {
 				formData.movie = null;
 				formData.rank = null;
 			}
