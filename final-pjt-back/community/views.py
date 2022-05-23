@@ -21,6 +21,7 @@ def articles_total(request, page):
     
     # articles = Article.objects.filter(Q(category='review')|Q(category='free'))
     articles = Article.objects.all()
+    articles_whole_count = articles.count()
     if sort=='-comments_count':
         articles = articles.annotate(comments_count=Count('comments'))
     elif sort == '-likes_count':
@@ -32,7 +33,11 @@ def articles_total(request, page):
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
-    return Response(serializer.data)
+    data = {
+        'articles': serializer.data,
+        'articlesWholeCount': articles_whole_count
+    }
+    return Response(data)
 
 
 @api_view(['GET'])
@@ -42,7 +47,6 @@ def articles_hot(request, page):
     hot_sort = req.get('hotSort')
     hot_sort_std, hot_sort_unit = hot_sort.split('.')
     hot_sort_unit = int(hot_sort_unit)
-    # articles = Article.objects.filter(Q(category='review')|Q(category='free'))
         
     # hot에 대한 filter 추가
     if hot_sort_std == 'likes':
@@ -51,12 +55,17 @@ def articles_hot(request, page):
         articles = Article.objects.order_by('-pk').annotate(comments_count=Count('comments')).filter(comments_count__gte=hot_sort_unit)
     
     start, end = (page-1)*unit, page*unit
+    articles_whole_count = articles.count()
     articles = articles[start:end]
 
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
-    return Response(serializer.data)
+    data = {
+        'articles': serializer.data,
+        'articlesWholeCount': articles_whole_count
+    }
+    return Response(data)
 
 
 @api_view(['GET'])
@@ -66,6 +75,7 @@ def articles_review(request, page):
     sort = req.get('sort')
     
     articles = Article.objects.filter(Q(category='review'))
+    articles_whole_count = articles.count()
     if sort=='-comments_count':
         articles = articles.annotate(comments_count=Count('comments'))
     elif sort == '-likes_count':
@@ -77,7 +87,12 @@ def articles_review(request, page):
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
-    return Response(serializer.data)
+    data = {
+        'articles': serializer.data,
+        'articlesWholeCount': articles_whole_count
+    }
+    
+    return Response(data)
     
     
 @api_view(['GET'])
@@ -87,6 +102,7 @@ def articles_free(request, page):
     sort = req.get('sort')
     
     articles = Article.objects.filter(Q(category='free'))
+    articles_whole_count = articles.count()
     if sort=='-comments_count':
         articles = articles.annotate(comments_count=Count('comments'))
     elif sort == '-likes_count':
@@ -98,7 +114,12 @@ def articles_free(request, page):
     if not articles:
         raise Http404("page does not exist")
     serializer = ArticleSerializer(articles, many=True)
-    return Response(serializer.data)
+    data = {
+        'articles': serializer.data,
+        'articlesWholeCount': articles_whole_count
+    }
+    
+    return Response(data)
 
 
 # @api_view(['GET', 'POST'])

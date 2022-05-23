@@ -5,31 +5,53 @@ import _ from "lodash";
 
 export default {
 	state: {
-		communityArticleUnit: localStorage.getItem("communityArticleUnit") || 5,
-		communityArticleSort: localStorage.getItem("communityArticleSort") || "-pk",
-		communityArticleHotSort:
-			localStorage.getItem("communityArticleHotSort") || "likes.10",
-		totalPageNum: localStorage.getItem("totalPageNum") || 1,
-		reviewPageNum: localStorage.getItem("reviewPageNum") || 1,
-		freePageNum: localStorage.getItem("freePageNum") || 1,
 		totals: [],
 		hots: [],
 		reviews: [],
 		frees: [],
+
+		totalPageNum: localStorage.getItem("totalPageNum") || 1,
+		hotPageNum: localStorage.getItem("hotPageNum") || 1,
+		reviewPageNum: localStorage.getItem("reviewPageNum") || 1,
+		freePageNum: localStorage.getItem("freePageNum") || 1,
+
+		totalsWholeCount: localStorage.getItem("totalsWholeCount") || 0,
+		hotsWholeCount: localStorage.getItem("hotsWholeCount") || 0,
+		reviewsWholeCount: localStorage.getItem("reviewsWholeCount") || 0,
+		freesWholeCount: localStorage.getItem("freesWholeCount") || 0,
+
+		communityArticleUnit: localStorage.getItem("communityArticleUnit") || 5,
+		communityArticleSort: localStorage.getItem("communityArticleSort") || "-pk",
+		communityArticleHotSort:
+			localStorage.getItem("communityArticleHotSort") || "likes.10",
+
 		articleInfo: {},
 	},
 
 	getters: {
-		communityArticleUnit: (state) => state.communityArticleUnit,
-		communityArticleSort: (state) => state.communityArticleSort,
-		communityArticleHotSort: (state) => state.communityArticleHotSort,
-		articlePageNum: (state) => state.articlePageNum,
-		reviewPageNum: (state) => state.reviewPageNum,
-		freePageNum: (state) => state.freePageNum,
 		totals: (state) => state.totals,
 		hots: (state) => state.hots,
 		reviews: (state) => state.reviews,
 		frees: (state) => state.frees,
+
+		totalPageNum: (state) => state.totalPageNum,
+		hotPageNum: (state) => state.hotPageNum,
+		reviewPageNum: (state) => state.reviewPageNum,
+		freePageNum: (state) => state.freePageNum,
+
+		communityArticleUnit: (state) => state.communityArticleUnit,
+		communityArticleSort: (state) => state.communityArticleSort,
+		communityArticleHotSort: (state) => state.communityArticleHotSort,
+
+		totalsWholePageNum: (state) =>
+			Math.ceil(state.totalsWholeCount / state.communityArticleUnit),
+		hotsWholePageNum: (state) =>
+			Math.ceil(state.hotsWholeCount / state.communityArticleUnit),
+		reviewsWholePageNum: (state) =>
+			Math.ceil(state.reviewsWholeCount / state.communityArticleUnit),
+		freesWholePageNum: (state) =>
+			Math.ceil(state.freesWholeCount / state.communityArticleUnit),
+
 		articleInfo: (state) => state.articleInfo,
 		isAuthor: (state, getters) => {
 			return state.articleInfo.user?.pk === getters.currentUser.pk;
@@ -42,64 +64,31 @@ export default {
 		SET_HOTS: (state, hots) => (state.hots = hots),
 		SET_REVIEWS: (state, reviews) => (state.reviews = reviews),
 		SET_FREES: (state, frees) => (state.frees = frees),
+
 		SET_TOTAL_PAGE_NUM: (state, page) => (state.totalPageNum = page),
 		SET_HOT_PAGE_NUM: (state, page) => (state.hotPageNum = page),
 		SET_REVIEW_PAGE_NUM: (state, page) => (state.reviewPageNum = page),
 		SET_FREE_PAGE_NUM: (state, page) => (state.freePageNum = page),
+
+		SET_TOTALS_WHOLE_COUNT: (state, count) => (state.totalsWholeCount = count),
+		SET_HOTS_WHOLE_COUNT: (state, count) => (state.hotsWholeCount = count),
+		SET_REVIEWS_WHOLE_COUNT: (state, count) =>
+			(state.reviewsWholeCount = count),
+		SET_FREES_WHOLE_COUNT: (state, count) => (state.freesWholeCount = count),
+
 		SET_COMMUNITY_ARTICLE_UNIT: (state, unit) =>
 			(state.communityArticleUnit = unit),
 		SET_COMMUNITY_ARTICLE_SORT: (state, sort) =>
 			(state.communityArticleSort = sort),
 		SET_COMMUNITY_ARTICLE_HOT_SORT: (state, hotSort) =>
 			(state.communityArticleHotSort = hotSort),
+
 		SET_ARTICLE_INFO: (state, article) => (state.articleInfo = article),
 		SET_ARTICLE_COMMENTS: (state, comments) =>
 			(state.articleInfo.comments = comments),
 	},
 
 	actions: {
-		// 게시물 단위 저장
-		setCommunityArticleUnit({ commit }, unit) {
-			commit("SET_COMMUNITY_ARTICLE_UNIT", unit);
-			localStorage.setItem("communityArticleUnit", unit);
-		},
-
-		// 게시물 정렬 기준 저장
-		setCommunityArticleSort({ commit }, sort) {
-			commit("SET_COMMUNITY_ARTICLE_SORT", sort);
-			localStorage.setItem("communityArticleSort", sort);
-		},
-
-		// 인기 게시물 정렬 기준 저장
-		setCommunityArticleHotSort({ commit }, hotSort) {
-			commit("SET_COMMUNITY_ARTICLE_HOT_SORT", hotSort);
-			localStorage.setItem("communityArticleHotSort", hotSort);
-		},
-
-		// 전체게시판 게시물 페이지 저장
-		setTotalPageNum({ commit }, page) {
-			commit("SET_TOTAL_PAGE_NUM", page);
-			localStorage.setItem("totalPageNum", page);
-		},
-
-		// 인기게시판 게시물 페이지 저장
-		setHotPageNum({ commit }, page) {
-			commit("SET_HOT_PAGE_NUM", page);
-			localStorage.setItem("hotPageNum", page);
-		},
-
-		// 영화게시판 게시물 페이지 저장
-		setReviewPageNum({ commit }, page) {
-			commit("SET_REVIEW_PAGE_NUM", page);
-			localStorage.setItem("reviewPageNum", page);
-		},
-
-		// 자유게시판 게시물 페이지 저장
-		setFreePageNum({ commit }, page) {
-			commit("SET_FREE_PAGE_NUM", page);
-			localStorage.setItem("freePageNum", page);
-		},
-
 		// 전체게시판 게시물 단위별로 totals에 저장
 		setTotals({ commit, getters }, page) {
 			const params = {
@@ -112,7 +101,9 @@ export default {
 				params: params,
 			})
 				.then((res) => {
-					commit("SET_TOTALS", res.data);
+					console.log(res.data);
+					commit("SET_TOTALS", res.data.articles);
+					commit("SET_TOTALS_WHOLE_COUNT", res.data.articlesWholeCount);
 				})
 				.catch((err) => {
 					console.error(err.data);
@@ -132,7 +123,8 @@ export default {
 				params: params,
 			})
 				.then((res) => {
-					commit("SET_HOTS", res.data);
+					commit("SET_HOTS", res.data.articles);
+					commit("SET_HOTS_WHOLE_COUNT", res.data.articlesWholeCount);
 				})
 				.catch((err) => {
 					console.error(err.data);
@@ -151,7 +143,8 @@ export default {
 				params: params,
 			})
 				.then((res) => {
-					commit("SET_REVIEWS", res.data);
+					commit("SET_REVIEWS", res.data.articles);
+					commit("SET_REVIEWS_WHOLE_COUNT", res.data.articlesWholeCount);
 				})
 				.catch((err) => {
 					console.error(err.data);
@@ -170,11 +163,54 @@ export default {
 				params: params,
 			})
 				.then((res) => {
-					commit("SET_FREES", res.data);
+					commit("SET_FREES", res.data.articles);
+					commit("SET_FREES_WHOLE_COUNT", res.data.articlesWholeCount);
 				})
 				.catch((err) => {
 					console.error(err.data);
 				});
+		},
+
+		// 전체게시판 게시물 페이지 저장
+		setTotalPageNum({ commit }, page) {
+			commit("SET_TOTAL_PAGE_NUM", Number(page));
+			localStorage.setItem("totalPageNum", Number(page));
+		},
+
+		// 인기게시판 게시물 페이지 저장
+		setHotPageNum({ commit }, page) {
+			commit("SET_HOT_PAGE_NUM", Number(page));
+			localStorage.setItem("hotPageNum", Number(page));
+		},
+
+		// 영화게시판 게시물 페이지 저장
+		setReviewPageNum({ commit }, page) {
+			commit("SET_REVIEW_PAGE_NUM", Number(page));
+			localStorage.setItem("reviewPageNum", Number(page));
+		},
+
+		// 자유게시판 게시물 페이지 저장
+		setFreePageNum({ commit }, page) {
+			commit("SET_FREE_PAGE_NUM", Number(page));
+			localStorage.setItem("freePageNum", Number(page));
+		},
+
+		// 게시물 단위 저장
+		setCommunityArticleUnit({ commit }, unit) {
+			commit("SET_COMMUNITY_ARTICLE_UNIT", unit);
+			localStorage.setItem("communityArticleUnit", unit);
+		},
+
+		// 게시물 정렬 기준 저장
+		setCommunityArticleSort({ commit }, sort) {
+			commit("SET_COMMUNITY_ARTICLE_SORT", sort);
+			localStorage.setItem("communityArticleSort", sort);
+		},
+
+		// 인기 게시물 정렬 기준 저장
+		setCommunityArticleHotSort({ commit }, hotSort) {
+			commit("SET_COMMUNITY_ARTICLE_HOT_SORT", hotSort);
+			localStorage.setItem("communityArticleHotSort", hotSort);
 		},
 
 		// 게시물 상세정보 state에 저장
