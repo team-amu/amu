@@ -10,6 +10,7 @@ export default {
 		likeMovie: {},
 		bookmarkMovie: {},
 		movieDetail: {},
+		searchedMovies: {},
 	},
 
 	getters: {
@@ -20,10 +21,18 @@ export default {
 		// isLikeMovie: (state) => !_.isEmpty(state.likeMovie),
 		// isBookmarkMovie: (state) => !_.isEmpty(state.bookmarkMovie),
 		movieDetail: (state) => state.movieDetail,
+<<<<<<< HEAD
 		movieRecentTwoReviews: (state) => {
 			const reverseReviews = [...state.movieDetail.article_set].reverse();
 			return reverseReviews?.splice(0, 2);
 		},
+=======
+    movieRecentTwoReviews: (state) => {
+      const reverseReviews = [...state.movieDetail.article_set].reverse()
+      return reverseReviews?.splice(0, 2)
+    },
+		searchedMovies: (state) => state.searchedMovies
+>>>>>>> 48851691fb2938c7b099ec42054d4458c86327d7
 	},
 
 	mutations: {
@@ -31,6 +40,7 @@ export default {
 		SET_LIKE_MOVIE: (state, movie) => (state.likeMovie = movie),
 		SET_BOOKMARK_MOVIE: (state, movie) => (state.bookmarkMovie = movie),
 		SET_MOVIE_DETAIL: (state, movieDetail) => (state.movieDetail = movieDetail),
+		SET_SEARCHED_MOVIES: (state, searchedMovies) => {state.searchedMovies = searchedMovies}
 	},
 
 	actions: {
@@ -111,6 +121,7 @@ export default {
 				});
 		},
 
+<<<<<<< HEAD
 		movieBookmark({ commit, getters }, moviePk) {
 			axios({
 				url: drf.movies.bookmark(moviePk),
@@ -127,3 +138,39 @@ export default {
 		},
 	},
 };
+=======
+    movieBookmark({commit, getters}, moviePk) {
+      axios({
+        url: drf.movies.bookmark(moviePk),
+        method: "post",
+        headers: getters.authHeader,
+        // data: {}
+      })
+        .then((res) => {
+          commit("SET_MOVIE_DETAIL", res.data)
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
+    },
+
+		fetchSearchMovie({commit}, { searchPage, searchWord, select }) {
+			console.log(searchWord, select)
+			axios({
+        url: drf.movies.search(searchPage),
+        methods: "get",
+        params: {
+          searchWord,
+          select
+        }
+      })
+        .then((res) => {
+          commit("SET_SEARCHED_MOVIES", res.data)
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
+		}
+  },
+}
+>>>>>>> 48851691fb2938c7b099ec42054d4458c86327d7
