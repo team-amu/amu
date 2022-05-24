@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store";
 
 // accounts 부분
 import LoginView from "@/views/accounts/LoginView.vue";
@@ -51,22 +52,22 @@ const routes = [
 
 	// profile 부분
 	{
-		path: "/profile/:username",
+		path: "/profile/:username/:page",
 		name: "profileLike",
 		component: ProfileLikeView,
 	},
 	{
-		path: "/profile/:username/bookmark",
+		path: "/profile/:username/bookmark/:page",
 		name: "profileBookmark",
 		component: ProfileBookmarkView,
 	},
 	{
-		path: "/profile/:username/article",
+		path: "/profile/:username/article/:page",
 		name: "profileArticle",
 		component: ProfileArticleView,
 	},
 	{
-		path: "/profile/:username/comment",
+		path: "/profile/:username/comment/:page",
 		name: "profileComment",
 		component: ProfileCommentView,
 	},
@@ -134,12 +135,6 @@ const routes = [
 	},
 
 	{
-		// host 자체로 들어오면 영화 홈으로 이동
-		path: "/",
-		redirect: "/movies",
-	},
-
-	{
 		// 이상한 url인 경우 404 페이지로 redirect
 		path: "*",
 		redirect: "/404",
@@ -152,32 +147,32 @@ const router = new VueRouter({
 	routes,
 });
 
-// // Navigation Guard 설정
-// router.beforeEach((to, from, next) => {
-// 	// '/' => '/articles/1'
-// 	// 이전에 있던 '/' 가 from, '/articles/1'이 to(목적지)
+// Navigation Guard 설정
+router.beforeEach((to, from, next) => {
+	// '/' => '/articles/1'
+	// 이전에 있던 '/' 가 from, '/articles/1'이 to(목적지)
 
-// 	// 로그인 여부 확인
-// 	const { isLoggedIn } = store.getters;
+	// 로그인 여부 확인
+	const { isLoggedIn } = store.getters;
 
-// 	// Auth가 필요한 route의 name
-// 	const authPages = ["articleCreate"];
+	// Auth가 필요한 route의 name
+	const authPages = ["articleCreate", "articleDetail", "articleEdit"];
 
-// 	// 0. router에서 이동 감지
+	// 0. router에서 이동 감지
 
-// 	// 1. 현재 이동하고자 하는 페이지가 로그인이 필요한지 확인
-// 	const isAuthRequired = authPages.includes(to.name);
+	// 1. 현재 이동하고자 하는 페이지가 로그인이 필요한지 확인
+	const isAuthRequired = authPages.includes(to.name);
 
-// 	// 2. 로그인이 필요한 페이지인데 로그인이 되어있지 않다면 로그인 페이지(/login)로 이동
-// 	if (isAuthRequired && !isLoggedIn) {
-// 		next({ name: "login" });
-// 	} else {
-// 		// 3. 로그인이 되어 있다면 원래 이동할 곳으로 이동
-// 		next();
-// 	}
+	// 2. 로그인이 필요한 페이지인데 로그인이 되어있지 않다면 로그인 페이지(/login)로 이동
+	if (isAuthRequired && !isLoggedIn) {
+		next({ name: "login" });
+	} else {
+		// 3. 로그인이 되어 있다면 원래 이동할 곳으로 이동
+		next();
+	}
 
-// 	// 4. 로그인이 되어있는데 /login, /signup 페이지로 이동한다면 메인 페이지(/)로 이동
-// });
+	// 4. 로그인이 되어있는데 /login, /signup 페이지로 이동한다면 메인 페이지(/)로 이동
+});
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
