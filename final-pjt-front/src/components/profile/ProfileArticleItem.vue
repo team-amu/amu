@@ -29,11 +29,15 @@ export default {
   methods: {},
   computed: {
     ...mapGetters(['profile']),
-    nickname: () => this.content.user.profile.nickname,
-  },
+    nickname(){
+      return this.content.user.profile.nickname
+    }
+  }
 }
 </script>
 
 <style>
-
+div {
+  color: white;
+}
 </style>
