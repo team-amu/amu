@@ -98,7 +98,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['setArticleInfo', 'deleteArticle']),
+    ...mapActions(['setArticleInfo', 'deleteArticle', 'setArticleInfo']),
     // 좋아요 버튼 누르면 호출
     onClickLike(articlePk) {
       axios({
@@ -107,8 +107,8 @@ export default {
         headers: this.authHeader,
         data: {}
       })
-      .then(() => {
-        this.$router.go(this.$router.currentRoute);
+      .then((res) => {
+        this.$store.commit("SET_ARTICLE_INFO", res.data);
       })
       .catch(err => {
         console.error(err.data)
