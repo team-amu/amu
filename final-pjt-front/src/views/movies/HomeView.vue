@@ -3,7 +3,9 @@
     <h1>Home</h1>
     
     <hr>
+    <type-select-box></type-select-box>
     <search-bar-section
+    @on-search="onSearch"
     ></search-bar-section>
 
     <!-- 박스 회색이 계속 보이는거 수정하기! 검색에 커서 갔을 때만!!-->
@@ -35,21 +37,27 @@
 <script>
 import CardList from '@/components/movies/CardList.vue'
 import SearchBarSection from '@/components/movies/SearchBarSection.vue'
+import TypeSelectBox from '@/components/movies/TypeSelectBox.vue'
+import router from "@/router";
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: "HomeView",
-  components: { CardList, SearchBarSection },
+  components: { CardList, SearchBarSection, TypeSelectBox },
   data () {
     return {
     }
   },
   computed: {
     ...mapGetters(['hotMovie', 'likeMovie', 'bookmarkMovie', 
-    'isKeywordsMovie', 'keywordMovies', 'type']),
+    'isKeywordsMovie', 'keywordMovies', 'type', 'searchKeywords', 'selectedGenres', 'minRank', 'sortKeyword']),
   },
   methods: {
     ...mapActions(['fetchHotMovie', 'fetchLikeMovie', 'fetchBookmarkMovie', ]),
+    onSearch() {
+      router.push({ name: 'movieSearch', params: { searchPage: '1' }, query: {searchKeywords: this.searchKeywords, 
+      type: this.type, genres: this.selectedGenres, minRank: this.minRank, sort: this.sortKeyword}})
+    }
   },
   watch: {
     // 이 조건은 구글링 하다가 찾았는데 아직 잘 모름 일단 넣어놈,,
@@ -59,6 +67,7 @@ export default {
     this.fetchHotMovie()
     this.fetchLikeMovie()
     this.fetchBookmarkMovie()
+    this.$store.commit("RESET_SEARCH")
   },
 }
 </script>

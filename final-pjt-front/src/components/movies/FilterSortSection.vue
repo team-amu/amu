@@ -6,7 +6,7 @@
 
     <h4>장르 선택</h4>
       <span v-for="genre in genres" :key="genre.id">
-        <select-box :genre="genre" style="display: inline;"></select-box>
+        <genres-select-box :genre="genre" style="display: inline;"></genres-select-box>
       </span>
     
     <h4>최소 평점</h4>
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import SelectBox from '@/components/movies/SelectBox.vue'
+import GenresSelectBox from '@/components/movies/GenresSelectBox.vue'
 import { mapGetters } from 'vuex'
 export default {
   name: "FilterSortSection",
-  components: { SelectBox },
+  components: { GenresSelectBox },
   props: {
     genres: Array
   },

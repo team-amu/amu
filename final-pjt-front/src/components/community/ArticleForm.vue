@@ -18,7 +18,24 @@
 
       <div v-if="isReview">
         <label for="movieInput">영화 제목</label><br>
-        <input v-model="formData.movie" type="text" id="movieInput" name="movieInput"><hr>
+        <input v-model="movieTitle" type="text" id="movieInput" name="movieInput"><hr>
+        
+        <search-bar-section
+        @click="onSearch"
+        ></search-bar-section>
+        <div class="searched-box" v-if="isKeywordsMovie && !isSelect">
+          <ul>
+            <button v-for="movie in keywordMovies" :key="movie.id" 
+            @click.prevent="selectMovie(movie)"
+            style="display: block;"
+            >
+                {{ movie.title }}
+            </button>
+          </ul>
+        </div>        
+        
+        <hr>
+
         <label for="rankInput">평점</label><br>
         <input
           v-model="formData.rank"
@@ -38,14 +55,17 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import SearchBarSection from '@/components/movies/SearchBarSection.vue'
 export default {
   name: 'ArticleForm',
+  components: { SearchBarSection },
   props: {
     articleInfo: Object,
     action: String,
   },
   data () {
     return {
+      movieTitle: '',
       formData: {
         'title': this.articleInfo.title,
         'category': this.articleInfo.category,
@@ -71,22 +91,42 @@ export default {
     },
     onChangeCategory(event) {
       this.formData.category = event.target.value
+    },
+    onSearch() {
+      // 원래 상세 검색 페이지로 가는데, 막아 놓음..!! 그럼 검색 버튼이 필요가 없는데 어케 없애지?
+    },
+    selectMovie(movie) {
+      this.$store.commit("SET_SEARCH_KEYWORDS", movie.title)
+      this.formData.movie = movie.id
+      this.movieTitle = movie.title
     }
   },
   computed: {
-    ...mapGetters(['isReview']),
+    ...mapGetters(['isReview', 'isKeywordsMovie', 'keywordMovies', 'searchKeywords']),
     isReview() {
       return this.formData.category === 'review'
+    },
+    isSelect() {
+      return this.movieTitle === this.searchKeywords
     }
   },
   created() {
     if (this.action === 'update') {
-      this.formData.movie = this.formData.movie.title
+      this.movieTitle = this.formData.movie.title
+      this.formData.movie = this.formData.movie.id
     }
+    this.$store.commit("RESET_SEARCH")
   }
 }
 </script>
 
 <style>
-
+.searched-box {
+  width: 100%;
+  height: 100px;
+  margin: 5px;
+  background-color: silver;
+  float: left;
+  overflow: auto;
+}
 </style>

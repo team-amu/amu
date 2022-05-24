@@ -70,6 +70,7 @@ def movie_search(request, search_page):
     rank = request.GET.get('minRank')
     sort = request.GET.get('sort')
 
+    print(request.GET)
     if selected_genres:
         if search_word:
             research_word = search_word.replace(' ', '')
@@ -90,7 +91,6 @@ def movie_search(request, search_page):
                 ).filter(Q(rename__icontains=research_word) & Q(genres__id__in=selected_genres) & Q(vote_average__gte=rank)
                 ).distinct().order_by(sort)
         else:
-            print('sdsd')
             results = Movie.objects.all().filter(Q(genres__id__in=selected_genres) & Q(vote_average__gte=rank)).distinct().order_by(sort)
     else:
         if search_word:
