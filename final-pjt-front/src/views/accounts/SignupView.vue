@@ -1,6 +1,6 @@
 <template>
   <div>
-    <account-error-list v-if="authError"></account-error-list>
+    
 
     <form
       @submit.prevent="signup(payload)"
@@ -65,6 +65,10 @@
         placeholder="닉네임"
         v-model="profile.nickname"
         id="nickname" />
+      
+      <!-- 에러 메시지 위치 -->
+      <account-error-list v-if="authError"></account-error-list>
+
       <button class="submit-btn">회원가입</button>
       <div class="back-btn-section">
         <button
