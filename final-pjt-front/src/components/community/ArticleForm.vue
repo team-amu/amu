@@ -18,24 +18,24 @@
 
       <div v-if="isReview">
         <label for="movieInput">영화 제목</label><br>
-        <input v-model="formData.movie" type="text" id="movieInput" name="movieInput"><hr>
+        <input v-model="movieTitle" type="text" id="movieInput" name="movieInput"><hr>
         
-        <search-bar-section></search-bar-section>
-        <div class="searched-box" v-if="isKeywordsMovie">
+        <search-bar-section
+        @click="onSearch"
+        ></search-bar-section>
+        <div class="searched-box" v-if="isKeywordsMovie && !isSelect">
           <ul>
-            <li v-for="movie in keywordMovies" :key="movie.id">
-              <span v-if="type==='title'">
+            <button v-for="movie in keywordMovies" :key="movie.id" 
+            @click.prevent="selectMovie(movie)"
+            style="display: block;"
+            >
                 {{ movie.title }}
-              </span>
-              <span v-if="type==='actor'">
-                {{ movie.name }}
-              </span>
-            </li>
+            </button>
           </ul>
         </div>        
         
         <hr>
-        
+
         <label for="rankInput">평점</label><br>
         <input
           v-model="formData.rank"
@@ -65,6 +65,7 @@ export default {
   },
   data () {
     return {
+      movieTitle: '',
       formData: {
         'title': this.articleInfo.title,
         'category': this.articleInfo.category,
@@ -90,18 +91,31 @@ export default {
     },
     onChangeCategory(event) {
       this.formData.category = event.target.value
+    },
+    onSearch() {
+      // 원래 상세 검색 페이지로 가는데, 막아 놓음..!! 그럼 검색 버튼이 필요가 없는데 어케 없애지?
+    },
+    selectMovie(movie) {
+      this.$store.commit("SET_SEARCH_KEYWORDS", movie.title)
+      this.formData.movie = movie.id
+      this.movieTitle = movie.title
     }
   },
   computed: {
-    ...mapGetters(['isReview']),
+    ...mapGetters(['isReview', 'isKeywordsMovie', 'keywordMovies', 'searchKeywords']),
     isReview() {
       return this.formData.category === 'review'
+    },
+    isSelect() {
+      return this.movieTitle === this.searchKeywords
     }
   },
   created() {
     if (this.action === 'update') {
-      this.formData.movie = this.formData.movie.title
+      this.movieTitle = this.formData.movie.title
+      this.formData.movie = this.formData.movie.id
     }
+    this.$store.commit("RESET_SEARCH")
   }
 }
 </script>

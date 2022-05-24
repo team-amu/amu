@@ -12,7 +12,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import router from "@/router";
 
 export default {
   name: "SearchBarSection",
@@ -22,6 +21,7 @@ export default {
     }
   },
   props: {
+
   },
   methods: {
     ...mapActions(['fetchKeywordMovie']),
@@ -34,12 +34,11 @@ export default {
       this.$store.commit('SET_SEARCH_KEYWORDS', this.keywords)
     },
     onSearch: function () {
-      router.push({ name: 'movieSearch', params: { searchPage: '1' }, query: {searchKeywords: this.keywords, 
-      type: this.type, genres: this.selectedGenres, minRank: this.minRank, sort: this.sortKeyword}})
+      this.$emit('on-search')
     }
   },
   computed: {
-    ...mapGetters(['type', 'searchKeywords', 'selectedGenres', 'minRank', 'sortKeyword'])
+    ...mapGetters(['type', 'searchKeywords', 'selectedGenres', 'minRank', 'sortKeyword']),
   },
   created() {
     this.keywords = this.searchKeywords

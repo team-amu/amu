@@ -5,6 +5,7 @@
     <filter-sort-section :genres="genres"></filter-sort-section>
     <type-select-box></type-select-box>
     <search-bar-section
+    @on-search="onSearch"
     ></search-bar-section>
     
     <div class="searched-box" v-if="isKeywordsMovie">
@@ -37,6 +38,7 @@
 import SearchBarSection from '@/components/movies/SearchBarSection.vue'
 import FilterSortSection from '@/components/movies/FilterSortSection.vue'
 import TypeSelectBox from '@/components/movies/TypeSelectBox.vue'
+import router from "@/router";
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -49,14 +51,18 @@ export default {
   },
   computed: {
     ...mapGetters(['searchedMovies', 'genres', 'selectedGenres', 
-    'keywordMovies', 'type', 'searcKeywords', 'isKeywordsMovie']),
+    'keywordMovies', 'type', 'searcKeywords', 'isKeywordsMovie', 'searchKeywords', 'minRank', 'sortKeyword']),
 
     isType () {
       return this.type
     },
   },
   methods: {
-      ...mapActions(['fetchSearchMovie', 'fetchGenres']), 
+      ...mapActions(['fetchSearchMovie', 'fetchGenres']),
+      onSearch() {
+        router.push({ name: 'movieSearch', params: { searchPage: '1' }, query: {searchKeywords: this.searchKeywords, 
+        type: this.type, genres: this.selectedGenres, minRank: this.minRank, sort: this.sortKeyword}})
+    }
   },
   watch: {
     $route: {

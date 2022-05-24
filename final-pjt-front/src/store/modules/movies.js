@@ -64,7 +64,16 @@ export default {
 		SET_SEARCH_KEYWORDS: (state, searchKeywords) => {state.searchKeywords = searchKeywords},
 		SET_TYPE: (state, type) => {state.type = type},
 		SET_MIN_RANK: (state, minRank) => {state.minRank = minRank},
-		SET_SORT_KEYWORD: (state, sortKeyword) => {state.sortKeyword = sortKeyword}
+		SET_SORT_KEYWORD: (state, sortKeyword) => {state.sortKeyword = sortKeyword},
+		RESET_SEARCH: (state) => {
+			state.keywordMovies = [],
+			state.searchedMovies =  [],
+			state.selectedGenres = [],
+			state.searchKeywords = '',
+			state.type = 'title',
+			state.minRank = '0',
+			state.sortKeyword = '-release_date'
+		}
 		//
 	},
 
