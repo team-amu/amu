@@ -53,10 +53,6 @@ export default {
 
 <style lang="scss">
 .select-section {
-  display: flex;
-  flex-flow: wrap;
-  justify-content: right;
-  margin: .5em 0;
-  gap: .5em;
+  @include select-section;
 }
 </style>

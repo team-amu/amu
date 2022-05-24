@@ -8,6 +8,14 @@ body {
   padding: 0 !important;
 }
 
+@mixin flex-line ($grow:1, $ju-co:center) {
+  display: flex;
+  flex-basis: calc(1000px * #{$grow});
+  justify-content: $ju-co;
+  align-items: center;
+  flex-grow: $grow;
+}
+
 @mixin main-section {
   display: flex;
   flex-direction: column;

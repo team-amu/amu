@@ -1,11 +1,12 @@
 <template>
   <div>
     <h1>Community Hot</h1>
-    <article-hot-sort-select></article-hot-sort-select>
-    <!-- <article-sort-select></article-sort-select> -->
-    <article-unit-select></article-unit-select>
-    <ul>
-      
+    <div class="select-section">
+      <article-hot-sort-select></article-hot-sort-select>
+      <!-- <article-sort-select></article-sort-select> -->
+      <article-unit-select></article-unit-select>
+    </div>
+    <ul class="article-list">
       <article-title-item
         v-for="article in hots"
         :key="article.pk"
@@ -52,6 +53,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.select-section {
+  @include select-section;
+}
 </style>

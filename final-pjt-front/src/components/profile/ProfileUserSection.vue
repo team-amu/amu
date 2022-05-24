@@ -80,5 +80,7 @@ export default {
 </script>
 
 <style>
-
+div, input, button {
+  color: white;
+}
 </style>

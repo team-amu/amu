@@ -4,18 +4,18 @@
           params: { articlePk: article.pk, article: article } }">
     <div class="article-title-item">
       <li class="article-line">
-        <div class="article-id">#{{ article.pk }}</div>
+        <div class="article-id">{{ article.pk }}</div>
         <div class="article-title">
-          <div><b v-if="article.movie">[ {{ article.movie.title }} ] </b></div>
-          <div><b>{{ article.title }} 🧡{{ article.likes_count }} 💬{{ article.comments_count }}</b></div>      
-          <div><b v-if="article.movie"> ⭐{{ article.rank }}</b></div>
+          <div class="article-movie-title" v-if="article.movie">{{ article.movie.title }}</div>
+          <div>{{ article.title }} 🧡{{ article.likes_count }} 💬{{ article.comments_count }}</div>      
+          <div v-if="article.movie"> ⭐{{ article.rank }}</div>
         </div>
-        <div class="article-user"><b>{{ nickname }}</b></div>
+        <div class="article-user">{{ nickname }}</div>
       </li>
       <li class="article-line">
         <div class="article-space"></div>
-        <div class="article-content">{{ article.content }}</div>
-        <div class="article-date">{{ article.created_at }}</div>
+        <div class="article-content">{{ shortContent }}</div>
+        <div class="article-date">{{ timedelta }}</div>
       </li>
     </div>
   </router-link>
@@ -36,7 +36,46 @@ export default {
     ...mapGetters(['profile']),
     nickname () {
       return this.article.user.profile.nickname
-    }
+    },
+    timedelta () {
+      const date1 = new Date(this.article.created_at);
+      const date2 = new Date();
+      let timedelta = Math.ceil((date2 - date1)/1000)
+      if (timedelta < 60) {
+        return `${timedelta}초 전`
+      }
+      timedelta = Math.floor(timedelta/60)
+      if (timedelta < 60) {
+        return `${timedelta}분 전`
+      }
+      timedelta = Math.floor(timedelta/60)
+      if (timedelta < 24) {
+        return `${timedelta}시간 전`
+      }
+      return this.article.created_at.split('T')[0]
+      // timedelta = Math.floor(timedelta/24)
+      // if (timedelta < 7) {
+      //   return `${timedelta}일 전`
+      // }
+      // timedelta = Math.floor(timedelta/7)
+      // if (timedelta < 4) {
+      //   return `${timedelta}주 전`
+      // }
+      // timedelta = Math.floor(timedelta/4)
+      // if (timedelta < 12) {
+      //   return `${timedelta}달 전`
+      // }
+      // timedelta = Math.floor(timedelta/12)
+      // return `${timedelta}년 전`
+    },
+    shortContent () {
+      const len = 10;
+      const content = this.article.content;
+      if (content.length > len) {
+        return content.slice(0, len) + '...';
+      }
+      return content
+    },
   },
 }
 </script>
@@ -47,7 +86,7 @@ export default {
   flex-direction: column;
   text-decoration: none;
   list-style: none;
-  border: 1px solid white;
+  border: 0.5px solid mix($dm-bg-color1, white, 90%);
   padding: .5em;
   color: white;
 
@@ -67,29 +106,40 @@ export default {
   }
 
   .article-line {
+    @include f-5;
     display: flex;
     flex-direction: row;
     justify-content: right;
     width: 100%;
+    padding: .2em;
   }
-  .article-id, .article-space {
-    flex-basis: 100px;
-    display: flex;
-    justify-content: left;
-    flex-grow: 1;
+  .article-id {
+    @include flex-line(1, center);
   }
-  .article-title, .article-content {
-    flex-basis: 700px;
-    flex-grow: 7;
-    display: flex;
-    justify-content: left;
-  }
-  .article-user, .article-date {
-    flex-basis: 200px;
-    flex-grow: 2;
-    display: flex;
-    justify-content: center;
+  .article-title {
+    @include flex-line(7, left);
+
+    .article-movie-title {
+      background-color: white;
+      color: black;
+      border-radius: 5px;
+      margin-right: .5em;
+      padding: 0 .5em;
+    }
   }
 
+  .article-user {
+    @include flex-line(2, center);
+  }
+  .article-space {
+    @include flex-line(1, center);
+  }
+  .article-content {
+    @include flex-line(7, left);
+    opacity: 0.6;
+  }
+  .article-date {
+    @include flex-line(2, center);
+  }
 }
 </style>

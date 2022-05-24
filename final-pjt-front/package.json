@@ -14,6 +14,7 @@
     "bootstrap": "3.3.x",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
+    "time-delta": "^1.0.0",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
     "vuejs-paginate": "^2.1.0",

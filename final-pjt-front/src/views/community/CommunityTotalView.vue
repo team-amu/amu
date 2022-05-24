@@ -1,10 +1,11 @@
 <template>
   <div>
     <h1>Community Total</h1>
-    <article-sort-select :action="action"></article-sort-select>
-    <article-unit-select></article-unit-select>
-    <ul>
-      
+    <div class="select-section">
+      <article-sort-select :action="action"></article-sort-select>
+      <article-unit-select></article-unit-select>
+    </div>
+    <ul class="article-list">
       <article-title-item
         v-for="article in totals"
         :key="article.pk"
@@ -49,6 +50,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.select-section {
+  @include select-section;
+}
 </style>

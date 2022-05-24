@@ -1,7 +1,129 @@
 // fonts
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap');
 @mixin font ($size:1em , $weight:Regular) {
+  @include trans;
   font-family: 'IBM Plex Sans KR', sans-serif;
   font-size: $size;
   font-weight: $weight;
+}
+
+@mixin f-8 {
+  @include trans;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: $type-size-8;
+  font-weight: 100;
+}
+
+@mixin f-7 {
+  @include trans;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: $type-size-7;
+  font-weight: 200;
+
+  @media only screen and (max-width: 768px) {
+    font-size: $type-size-8;
+    font-weight: 100;
+  }
+}
+
+@mixin f-6 {
+  @include trans;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: $type-size-6;
+  font-weight: 300;
+
+  @media only screen and (max-width: 768px) {
+    font-size: $type-size-7;
+    font-weight: 200;
+  }
+
+  @media only screen and (max-width: 465px) {
+    font-size: $type-size-8;
+    font-weight: 200;
+  }
+}
+
+@mixin f-5 {
+  @include trans;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: $type-size-5;
+  font-weight: 400;
+  
+  @media only screen and (max-width: 768px) {
+    font-size: $type-size-6;
+    font-weight: 300;
+  }
+
+  @media only screen and (max-width: 465px) {
+    font-size: $type-size-7;
+    font-weight: 200;
+  }
+}
+
+@mixin f-4 {
+  @include trans;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: $type-size-4;
+  font-weight: 500;
+
+  @media only screen and (max-width: 768px) {
+    font-size: $type-size-5;
+    font-weight: 400;
+  }
+
+  @media only screen and (max-width: 465px) {
+    font-size: $type-size-6;
+    font-weight: 300;
+  }
+}
+
+@mixin f-3 {
+  @include trans;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: $type-size-3;
+  font-weight: 600;
+
+  @media only screen and (max-width: 768px) {
+    font-size: $type-size-4;
+    font-weight: 500;
+  }
+
+  @media only screen and (max-width: 465px) {
+    font-size: $type-size-5;
+    font-weight: 400;
+  }
+}
+
+@mixin f-2 {
+  @include trans;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: $type-size-2;
+  font-weight: 700;
+
+  @media only screen and (max-width: 768px) {
+    font-size: $type-size-3;
+    font-weight: 600;
+  }
+
+  @media only screen and (max-width: 465px) {
+    font-size: $type-size-4;
+    font-weight: 700;
+  }
+}
+
+@mixin f-1 {
+  @include trans;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: $type-size-1;
+  font-weight: 800;
+
+  @media only screen and (max-width: 768px) {
+    font-size: $type-size-2;
+    font-weight: 700;
+  }
+
+  @media only screen and (max-width: 465px) {
+    font-size: $type-size-3;
+    font-weight: 600;
+  }
 }

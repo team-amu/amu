@@ -27,3 +27,7 @@
     text-decoration: none;
   }
 }
+
+@mixin trans($time:0.5s, $what: all, $type:ease-in-out) {
+  transition: $time $what $type;
+}
