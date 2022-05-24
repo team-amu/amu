@@ -27,7 +27,9 @@
     <h3 v-if="isType==='actor'">해당 영화 배우가 출연한 영화</h3>
     <ul>
       <li v-for="searchedMovie in searchedMovies" :key="searchedMovie.id">
-        {{ searchedMovie }}
+        <router-link :to="{ name: 'movieDetail', params: {moviePk: searchedMovie.id}}">
+          {{ searchedMovie }}
+        </router-link>
       </li>
     </ul>
 
