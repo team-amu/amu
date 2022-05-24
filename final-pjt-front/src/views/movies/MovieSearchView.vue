@@ -2,40 +2,67 @@
   <div>
     <h1>MovieSearchView</h1>
 
-    <filter-sort-section :genres="genres"></filter-sort-section>
-    <type-select-box></type-select-box>
-    <search-bar-section
-    @on-search="onSearch"
-    ></search-bar-section>
-    
-    <div class="searched-box" v-if="isKeywordsMovie">
-      <ul>
-        <li v-for="movie in keywordMovies" :key="movie.id">
-          <button v-if="type==='title'"
-            @click.prevent="onClickMovie(movie)"
-          >
-            {{ movie.title }}
-          </button>
-          <button v-if="type==='actor'"
-            @click.prevent="onClickActor(movie)"
-          >
-            {{ movie.name }}
-          </button>
-        </li>
-      </ul>
+    <div class="search-section">
+
+      <v-container>
+        <v-row>
+          <v-col cols="2" align-self="center">
+            <type-select-box></type-select-box>
+          </v-col>
+          <v-col cols="10">
+            <search-bar-section
+            @on-search="onSearch"
+            ></search-bar-section>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <div class="searched-box" v-if="isKeywordsMovie">
+        <ul>
+          <li v-for="movie in keywordMovies" :key="movie.id">
+            <button v-if="type==='title'"
+              @click.prevent="onClickMovie(movie)"
+            >
+              {{ movie.title }}
+            </button>
+            <button v-if="type==='actor'"
+              @click.prevent="onClickActor(movie)"
+            >
+              {{ movie.name }}
+            </button>
+          </li>
+        </ul>
+      </div>
+
     </div>
-    
+
+    <v-container class="grey lighten-5 mb-6">
+      <v-row dense>
+        <v-col cols="2">
+          <v-card class="pa-3" outlined tile>
+            <div>
+              <filter-sort-section :genres="genres"></filter-sort-section>
+            </div>
+          </v-card>
+        </v-col>
+
+        <v-col cols="10">
+          <v-card class="pa-3" outlined tile>
+            
+            <div class="cards-section">
+              <!-- 검색하고 글자 바뀌게 수정 -->
+              <h3 v-if="isType==='title'">검색된 영화 결과</h3>
+              <h3 v-if="isType==='actor'">해당 영화 배우가 출연한 영화</h3>
+                <searched-card-section></searched-card-section>
+            </div>
+
+          </v-card>
+        </v-col>        
+      </v-row>  
+    </v-container>
+
+
     <hr>
-    <!-- 검색하고 글자 바뀌게 수정 -->
-    <h3 v-if="isType==='title'">검색된 영화 결과</h3>
-    <h3 v-if="isType==='actor'">해당 영화 배우가 출연한 영화</h3>
-    <ul>
-      <li v-for="searchedMovie in searchedMovies" :key="searchedMovie.id">
-        <router-link :to="{ name: 'movieDetail', params: {moviePk: searchedMovie.id}}">
-          {{ searchedMovie }}
-        </router-link>
-      </li>
-    </ul>
 
   </div>
 </template>
@@ -44,12 +71,13 @@
 import SearchBarSection from '@/components/movies/SearchBarSection.vue'
 import FilterSortSection from '@/components/movies/FilterSortSection.vue'
 import TypeSelectBox from '@/components/movies/TypeSelectBox.vue'
+import SearchedCardSection from '@/components/movies/SearchedCardSection.vue'
 import router from "@/router";
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: "MovieSearchView",
-  components: { SearchBarSection, FilterSortSection, TypeSelectBox },
+  components: { SearchBarSection, FilterSortSection, TypeSelectBox, SearchedCardSection },
 
   data () {
     return {
@@ -107,7 +135,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .searched-box {
   width: 100%;
   height: 100px;

@@ -65,4 +65,4 @@ class SearchedMovieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'genres', 'release_date', 'vote_average', 'overview')
+        fields = ('id', 'title', 'genres', 'release_date', 'vote_average', 'overview', 'poster_path')

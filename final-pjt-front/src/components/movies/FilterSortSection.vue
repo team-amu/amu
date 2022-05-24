@@ -1,29 +1,48 @@
 <template>
   <div>
+
     <h3>
       FilterSortSection
     </h3>
 
-    <h4>장르 선택</h4>
-      <span v-for="genre in genres" :key="genre.id">
-        <genres-select-box :genre="genre" style="display: inline;"></genres-select-box>
-      </span>
-    
+      <select v-model="sort" @change="sortChange">
+        <option value="-release_date">최신 순</option>
+        <option value="release_date">오래된 순</option>
+        <option value="-vote_average">평점 순</option>
+        <option value="vote_average">평점 낮은 순</option>
+        <option value="title">제목 오름차순</option>
+        <option value="-title">제목 내림차순</option>
+      </select>
+      
+    <!-- <div class="accordion">
+      <div class="accordion-item">
+        <a href="#" class="heading">
+          <div class="icon"></div>
+          <div class="acco-title"> 장르 </div>
+        </a>
+        <div class="acco-content">
+          <button>드라마</button>
+          <button>범죄</button>
+        </div>
+      </div>
+
+    </div> -->
+
+
     <h4>최소 평점</h4>
     <input style="background-color: tomato;" @change="bindNumber" 
     :value="minRank" type="number" min="0" max="10"
     step="1"
     />
 
-    <select v-model="sort" @change="sortChange">
-      <option value="-release_date">최신 순</option>
-      <option value="release_date">오래된 순</option>
-      <option value="-vote_average">평점 순</option>
-      <option value="vote_average">평점 낮은 순</option>
-      <option value="title">제목 오름차순</option>
-      <option value="-title">제목 내림차순</option>
-    </select>
+    <h4>장르 선택</h4>
+      <span v-for="genre in genres" :key="genre.id">
+        <genres-select-box :genre="genre" style="display: inline;"></genres-select-box>
+      </span>
+    
+
   </div>
+
 </template>
 
 <script>
@@ -62,6 +81,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

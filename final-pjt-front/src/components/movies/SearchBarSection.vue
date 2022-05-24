@@ -1,12 +1,21 @@
 <template>
   <div>
-    <input type="text" 
-    @input="inputChange"
-    @keyup.enter="onSearch"
-    v-model="keywords"
-    >
 
-    <button @click="onSearch">검색</button>
+    <v-container>
+      <v-row>
+        <v-col cols="10">          
+          <input type="text" 
+          @input="inputChange"
+          @keyup.enter="onSearch"
+          :value="keywords"
+          >
+        </v-col>
+        <v-col cols="2">
+          <button @click="onSearch">검색</button>
+        </v-col>
+      </v-row>
+    </v-container>
+
   </div>
 </template>
 
@@ -25,13 +34,13 @@ export default {
   },
   methods: {
     ...mapActions(['fetchKeywordMovie']),
-    inputChange: function () {
+    inputChange: function (event) {
       const data = {
-        searchKeywords : this.keywords,
+        searchKeywords : event.target.value,
         type : this.type
       }
       this.fetchKeywordMovie(data)
-      this.$store.commit('SET_SEARCH_KEYWORDS', this.keywords)
+      this.$store.commit('SET_SEARCH_KEYWORDS', event.target.value)
     },
     onSearch: function () {
       this.$emit('on-search')
@@ -46,6 +55,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  input[type="text"] {
+    width: 100%;
+    border: 1px solid white;
+  }
 </style>

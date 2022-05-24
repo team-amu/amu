@@ -1,6 +1,6 @@
 <template>
   <div> 
-    <p style="display: inline;">
+    <p style="color: black;">
       <input type="checkbox" name="genre" :value="genre.id" 
       @change="onCheck"
       :checked="isChecked"
