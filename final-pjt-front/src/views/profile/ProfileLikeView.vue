@@ -7,18 +7,16 @@
       :contents="profile.user.like_movies"
       type="likedMovie"
     ></profile-content-section>
-    <profile-liked-movie-pagination></profile-liked-movie-pagination>
   </div>
 </template>
 
 <script>
   import ProfileUserSection from '@/components/profile/ProfileUserSection.vue'
   import ProfileContentSection from '@/components/profile/ProfileContentSection.vue'
-  import ProfileLikedMoviePagination from '@/components/pagination/ProfileLikedMoviePagination'
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    components: { ProfileUserSection, ProfileContentSection, ProfileLikedMoviePagination },
+    components: { ProfileUserSection, ProfileContentSection },
     name: "ProfileLikeView",
     data() {
       return {
@@ -29,7 +27,7 @@
       ...mapGetters(['isProfile', 'profile'])
     },
     methods: {
-      ...mapActions(['fetchProfileLike', 'setProfileLikedMoviePageNum'])
+      ...mapActions(['fetchProfileLike'])
     },
     watch: {
       // 이 조건은 구글링 하다가 찾았는데 아직 잘 모름 일단 넣어놈,,
@@ -50,9 +48,7 @@
     },
     created() {
       const params = this.$route.params
-      console.log('ㅋㅋㅋ아 짜증나!!', params)
-      this.setProfileLikedMoviePageNum(params.page)
-      this.fetchProfileLike(params)
+      this.fetchProfileLike(params.username)
     }
   }
 </script>

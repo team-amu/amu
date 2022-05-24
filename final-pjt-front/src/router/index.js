@@ -51,22 +51,22 @@ const routes = [
 
 	// profile 부분
 	{
-		path: "/profile/:username/:page",
+		path: "/profile/:username",
 		name: "profileLike",
 		component: ProfileLikeView,
 	},
 	{
-		path: "/profile/:username/bookmark/:page",
+		path: "/profile/:username/bookmark",
 		name: "profileBookmark",
 		component: ProfileBookmarkView,
 	},
 	{
-		path: "/profile/:username/article/:page",
+		path: "/profile/:username/article",
 		name: "profileArticle",
 		component: ProfileArticleView,
 	},
 	{
-		path: "/profile/:username/comment/:page",
+		path: "/profile/:username/comment",
 		name: "profileComment",
 		component: ProfileCommentView,
 	},
@@ -131,6 +131,12 @@ const routes = [
 		path: "/404",
 		name: "NotFound",
 		component: NotFound404,
+	},
+
+	{
+		// host 자체로 들어오면 영화 홈으로 이동
+		path: "/",
+		redirect: "/movies",
 	},
 
 	{

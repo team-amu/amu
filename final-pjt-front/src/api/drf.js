@@ -16,14 +16,14 @@ export default {
 		// // Token 으로 현재 user 판단
 		currentUserInfo: () => HOST + ACCOUNTS + "user/", // login, logout 등등 처럼 제공되는 주소임!
 		// 프로필 출력
-		profileLike: (username, page) =>
-			HOST + ACCOUNTS + "profile/" + `${username}/` + `${page}/`,
-		profileBookmark: (username, page) =>
-			HOST + ACCOUNTS + "profile/" + `${username}/` + "bookmark/" + `${page}/`,
-		profileAritcle: (username, page) =>
-			HOST + ACCOUNTS + "profile/" + `${username}/` + "article/" + `${page}/`,
-		profileComment: (username, page) =>
-			HOST + ACCOUNTS + "profile/" + `${username}/` + "comment/" + `${page}/`,
+		profileLike: (username) => HOST + ACCOUNTS + "profile/" + `${username}/`,
+		profileBookmark: (username) =>
+			HOST + ACCOUNTS + "profile/" + `${username}/` + "bookmark/",
+		profileAritcle: (username) =>
+			HOST + ACCOUNTS + "profile/" + `${username}/` + "article/",
+		profileComment: (username) =>
+			HOST + ACCOUNTS + "profile/" + `${username}/` + "comment/",
+
 		// 프로필 정보 업데이트
 		profileUpdate: (username) =>
 			HOST + ACCOUNTS + "profile/" + `${username}/` + "update/",

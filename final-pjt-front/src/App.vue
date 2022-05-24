@@ -13,10 +13,10 @@
       <hr>
       <!-- profile 관련 -->
       <section v-if="isCurrentUser">
-        <router-link :to="{ name: 'profileLike', params: { username, page:1 }}">좋아요한 영화</router-link> <br>
-        <router-link :to="{ name: 'profileBookmark',  params: { username, page:1 }}">북마크한 영화</router-link> <br>
-        <router-link :to="{ name: 'profileArticle',  params: { username, page:1 }}">내가 쓴 게시글</router-link> <br>
-        <router-link :to="{ name: 'profileComment',  params: { username, page:1 }}">내가 쓴 댓글</router-link>
+        <router-link :to="{ name: 'profileLike', params: { username: currentUser.username }}">좋아요한 영화</router-link> <br>
+        <router-link :to="{ name: 'profileBookmark',  params: { username: currentUser.username }}">북마크한 영화</router-link> <br>
+        <router-link :to="{ name: 'profileArticle',  params: { username: currentUser.username }}">내가 쓴 게시글</router-link> <br>
+        <router-link :to="{ name: 'profileComment',  params: { username: currentUser.username }}">내가 쓴 댓글</router-link>
       </section>
       <hr>
       <section>

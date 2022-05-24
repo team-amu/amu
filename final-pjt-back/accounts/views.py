@@ -16,38 +16,29 @@ import json
 # Create your views here.
 @api_view(['GET'])
 # @permission_classes([AllowAny])
-def profile_with_like_movies(request, username, page):
+def profile_with_like_movies(request, username):
     profile_user = get_object_or_404(get_user_model(), username=username)
-    profile_liked_movie_whole_count = profile_user.profile.user.like_movies.count()
-    profile = profile_user.profile
-    serializer = ProfileSerializer(profile)
-    profile = serializer.data
-    data = {
-        'profile': profile,
-        'profileLikedMovieWholeCount': profile_liked_movie_whole_count
-    }
-    return Response(data)
-
-@api_view(['GET'])
-def profile_with_bookmark_movies(request, username, page):
-    profile_user = get_object_or_404(get_user_model(), username=username)
-    
     profile = profile_user.profile
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def profile_with_article(request, username, page):
+def profile_with_bookmark_movies(request, username):
     profile_user = get_object_or_404(get_user_model(), username=username)
-    
     profile = profile_user.profile
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def profile_with_comment(request, username, page):
+def profile_with_article(request, username):
     profile_user = get_object_or_404(get_user_model(), username=username)
-    
+    profile = profile_user.profile
+    serializer = ProfileSerializer(profile)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def profile_with_comment(request, username):
+    profile_user = get_object_or_404(get_user_model(), username=username)
     profile = profile_user.profile
     serializer = ProfileSerializer(profile)
     return Response(serializer.data)
