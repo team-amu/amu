@@ -8,7 +8,6 @@
     @on-search="onSearch"
     ></search-bar-section>
 
-    <!-- 박스 회색이 계속 보이는거 수정하기! 검색에 커서 갔을 때만!!-->
     <div class="searched-box" v-if="isKeywordsMovie">
       <ul>
         <li v-for="movie in keywordMovies" :key="movie.id">

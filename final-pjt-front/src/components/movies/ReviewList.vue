@@ -1,17 +1,31 @@
 <template>
   <div>
-    <router-link :to="{ name: 'communityReview', params: {page:'1'} }">
-      <button>더보기(게시판의 리뷰페이지로 가기(현재 영화의 리뷰만 보게 할 수도 있나?))</button>
-    </router-link>
+    <!-- <router-link :to="{ name: 'communityReview', params: {page:'1'} }"> -->
+      <!-- <button @click="onClick">리뷰 더보기</button> -->
+    <!-- </router-link> -->
     <hr>
-    <div v-for="review in reviews" :key="review.pk">
-    <!-- 최신 순으로 자르려고 했는데 버튼 구현 되면! -->
-    <!-- <div v-for="review in recentTwoReviews" :key="review.pk"> -->
-      <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
-        <review-item :review="review"></review-item>
-      </router-link>
-      <hr>
+
+    <div v-if="isMore">
+      <div v-for="review in recentReviews" :key="review.pk">
+        <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
+          <review-item :review="review"></review-item>
+        </router-link>
+        <hr>
+      </div>
+      <button @click="onClick">접기</button>
     </div>
+
+    <div v-if="!isMore">
+      <button @click="onClick">리뷰 더보기</button>
+      <hr>
+      <div v-for="review in recentTwoReviews" :key="review.pk">
+        <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
+          <review-item :review="review"></review-item>
+        </router-link>
+        <hr>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -24,6 +38,8 @@ export default {
   data() {
     return {
       recentTwoReviews: [],
+      recentReviews: [],
+      isMore: false,
     }
   },
   props: {
@@ -31,11 +47,17 @@ export default {
   },
   computed: {
   },
+  methods: {
+    onClick () {
+      this.isMore = !this.isMore
+    }
+  },
   watch: {
     reviews: {
       handler() {
         const reverseArray = [...this?.reviews]?.reverse()
         this.recentTwoReviews = reverseArray.splice(0, 2)
+        this.recentReviews = [...this?.reviews]?.reverse()
       }
     }
   },
