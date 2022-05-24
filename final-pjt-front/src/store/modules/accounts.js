@@ -29,7 +29,7 @@ export default {
 		profile: (state) => state.profile,
 		isProfile: (state) => !_.isEmpty(state.profile), // 객체는 {}도 True기 때문에 lodash의 힘을 빌린다!
 		authError: (state) => state.authError,
-		authHeader: (state) => ({ Authorization: `Token ${state.token}` }),
+		authHeader: (state) => ({ Authorization: `Token ${state.token}`}),
 		profileError: (state) => state.profileError,
 		currentUserProfile: (state) => state.currentUserProfile,
 
@@ -72,7 +72,7 @@ export default {
 			localStorage.setItem("token", "");
 		},
 
-		signup({ commit, getters, dispatch }, payload) {
+		signup({ commit, dispatch, state }, payload) {
 			/* 
         POST: 사용자 입력정보를 signup URL로 보내기
         성공하면
@@ -92,13 +92,17 @@ export default {
 					const token = res.data.key;
 					dispatch("saveToken", token); // 로컬 스토리지에 토큰 저장
 					dispatch("fetchCurrentUser"); // 로컬 스토리지에 유저 정보 저장
-
+					console.log('sdsdds')
+					console.log(payload.profile.profile_image)
 					// 프로필 생성!
 					axios({
 						url: drf.accounts.createProfile(payload.credentials.username),
 						method: "post",
 						data: payload.profile,
-						headers: getters.authHeader,
+						headers: {
+							Authorization: `Token ${state.token}`, 
+							'Content-Type' : 'multipart/form-data'				
+						},
 					})
 						.then((res) => {
 							commit("SET_PROFILE", res.data);
@@ -305,7 +309,7 @@ export default {
 		},
 
 		profileUpdate(
-			{ commit, getters },
+			{ commit, state },
 			{ username, nickname, profile_image, introduce }
 		) {
 			const profile = { nickname, profile_image, introduce };
@@ -313,14 +317,17 @@ export default {
 				url: drf.accounts.profileUpdate(username),
 				method: "put",
 				data: profile,
-				headers: getters.authHeader,
+				headers: {
+					Authorization: `Token ${state.token}`, 
+					'Content-Type' : 'multipart/form-data'				
+				},
 			})
 				.then((res) => {
 					commit("SET_PROFILE", res.data);
 				})
 				.catch((err) => {
 					console.error(err.response.data);
-					commit("SER_PROFILE_ERROR", err.response.data);
+					commit("SET_PROFILE_ERROR", err.response.data);
 				});
 		},
 
