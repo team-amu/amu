@@ -3,6 +3,7 @@
     <h1>Home</h1>
     
     <hr>
+    <type-select-box></type-select-box>
     <search-bar-section
     ></search-bar-section>
 
@@ -35,11 +36,12 @@
 <script>
 import CardList from '@/components/movies/CardList.vue'
 import SearchBarSection from '@/components/movies/SearchBarSection.vue'
+import TypeSelectBox from '@/components/movies/TypeSelectBox.vue'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: "HomeView",
-  components: { CardList, SearchBarSection },
+  components: { CardList, SearchBarSection, TypeSelectBox },
   data () {
     return {
     }

@@ -22,7 +22,9 @@
       <section>
         <!-- movie 관련 -->
         <router-link :to="{ name: 'home' }">홈 화면</router-link> <br>
-        <router-link :to="{ name: 'movieSearch', params: { searchPage: '1'} }">영화 검색 페이지</router-link>
+        <!-- params 없이 들어갔을 때 막아주기 -->
+        <router-link :to="{ name: 'movieSearch', params: { searchPage: '1'}, query: {searchKeywords: '', 
+      type: 'title', genres: [], minRank: 0, sort: '-release_date'}}">영화 검색 페이지</router-link>
       </section>
       <hr>
       <section>

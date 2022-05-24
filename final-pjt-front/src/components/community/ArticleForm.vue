@@ -19,6 +19,23 @@
       <div v-if="isReview">
         <label for="movieInput">영화 제목</label><br>
         <input v-model="formData.movie" type="text" id="movieInput" name="movieInput"><hr>
+        
+        <search-bar-section></search-bar-section>
+        <div class="searched-box" v-if="isKeywordsMovie">
+          <ul>
+            <li v-for="movie in keywordMovies" :key="movie.id">
+              <span v-if="type==='title'">
+                {{ movie.title }}
+              </span>
+              <span v-if="type==='actor'">
+                {{ movie.name }}
+              </span>
+            </li>
+          </ul>
+        </div>        
+        
+        <hr>
+        
         <label for="rankInput">평점</label><br>
         <input
           v-model="formData.rank"
@@ -38,8 +55,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import SearchBarSection from '@/components/movies/SearchBarSection.vue'
 export default {
   name: 'ArticleForm',
+  components: { SearchBarSection },
   props: {
     articleInfo: Object,
     action: String,
@@ -88,5 +107,12 @@ export default {
 </script>
 
 <style>
-
+.searched-box {
+  width: 100%;
+  height: 100px;
+  margin: 5px;
+  background-color: silver;
+  float: left;
+  overflow: auto;
+}
 </style>
