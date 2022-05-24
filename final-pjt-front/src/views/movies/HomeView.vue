@@ -8,16 +8,19 @@
     @on-search="onSearch"
     ></search-bar-section>
 
-    <!-- 박스 회색이 계속 보이는거 수정하기! 검색에 커서 갔을 때만!!-->
     <div class="searched-box" v-if="isKeywordsMovie">
       <ul>
         <li v-for="movie in keywordMovies" :key="movie.id">
-          <span v-if="type==='title'">
+          <button v-if="type==='title'"
+            @click.prevent="onClickMovie(movie)"
+          >
             {{ movie.title }}
-          </span>
-          <span v-if="type==='actor'">
+          </button>
+          <button v-if="type==='actor'"
+            @click.prevent="onClickActor(movie)"
+          >
             {{ movie.name }}
-          </span>
+          </button>
         </li>
       </ul>
     </div>
@@ -56,6 +59,13 @@ export default {
     ...mapActions(['fetchHotMovie', 'fetchLikeMovie', 'fetchBookmarkMovie', ]),
     onSearch() {
       router.push({ name: 'movieSearch', params: { searchPage: '1' }, query: {searchKeywords: this.searchKeywords, 
+      type: this.type, genres: this.selectedGenres, minRank: this.minRank, sort: this.sortKeyword}})
+    },
+    onClickMovie(movie) {
+      router.push({name: 'movieDetail', params: {moviePk: movie.id}})
+    },
+    onClickActor(actor) {
+      router.push({ name: 'movieSearch', params: { searchPage: '1' }, query: {searchKeywords: actor.name, 
       type: this.type, genres: this.selectedGenres, minRank: this.minRank, sort: this.sortKeyword}})
     }
   },

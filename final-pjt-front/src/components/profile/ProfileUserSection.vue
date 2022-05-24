@@ -2,7 +2,12 @@
   <div>
     <h2>ProfileUserSection</h2>
     <hr>
-    <!-- <img :src="payload.profileInfo.profile_image" alt="프로필사진"> -->
+    <span v-if="!isEditing">
+      <img :src="imageSrc" alt="프로필사진">
+    </span>
+    <span v-if="isEditing">
+      <v-file-input v-model="payload.profile_image" label="File input"></v-file-input>
+    </span>
     
     <span v-if="!isEditing">
       <h2>닉네임 : {{ profile.nickname }}</h2>    
@@ -47,16 +52,24 @@ export default {
       payload: {
         username: this.$route.params.username,
         nickname: this.profile.nickname,
-        // profile_image: this.profile.profile.profile_image,
+        profile_image: this.profile.profile_image,
         introduce: this.profile.introduce,
       }
     }
   },
   computed: {
-    ...mapGetters(['currentUser']),
+    ...mapGetters(['currentUser', 'isProfile']),
     profileUsername() {
       return this.$route.params.username
     },
+    imageSrc() {
+      if (this.isProfile && this.profile.profile_image) {
+        return `http://localhost:8000${this.profile.profile_image}`
+      } 
+      else {
+        return 'http://localhost:8000/media/images/default.png'
+      }
+    }
   },
   methods: {
     ...mapActions(['follow', 'profileUpdate']),
@@ -74,7 +87,7 @@ export default {
     onUpdate() {
       this.profileUpdate(this.payload)
       this.isEditing = false
-    }
+    },
   },
 }
 </script>

@@ -5,6 +5,7 @@
     <account-error-list v-if="authError"></account-error-list>
 
     <form @submit.prevent="signup(payload)">
+      <v-file-input v-model="payload.profile.profile_image" label="File input"></v-file-input>
       <div>
         <label for="username">Username: </label>
         <input  v-model="payload.credentials.username" type="text" id="username" required/>
@@ -49,6 +50,7 @@ export default {
           email: '',
       },
         profile: {
+          profile_image: null,
           nickname: '',
         },
       }
