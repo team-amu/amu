@@ -1,3 +1,4 @@
+from importlib.metadata import files
 from re import L
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, JsonResponse, Http404
@@ -88,4 +89,6 @@ def update_profile(request, username):
             if serializer.is_valid(raise_exception=True):
                 serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
 
