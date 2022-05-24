@@ -1,33 +1,47 @@
 <template>
   <div>
-    <h1>회원가입</h1>
-
     <account-error-list v-if="authError"></account-error-list>
 
-    <form @submit.prevent="signup(payload)">
-      <v-file-input v-model="payload.profile.profile_image" label="File input"></v-file-input>
-      <div>
-        <label for="username">Username: </label>
-        <input  v-model="payload.credentials.username" type="text" id="username" required/>
-      </div>
-      <div>
-        <label for="password1">Password: </label>
-        <input v-model="payload.credentials.password1" type="password" id="password1" required/>
-      </div>
-      <div>
-        <label for="password2">Password Confirmation:</label>
-        <input v-model="payload.credentials.password2" type="password" id="password2" required />
-      </div>
-      <div>
-        <label for="email">email:</label>
-        <input v-model="payload.credentials.email" type="email" id="email" required />
-      </div>
-      <div>
-        <label for="nickname">nickname:</label>
-        <input v-model="payload.profile.nickname" type="text" id="nickname" required />
-      </div>
-      <div>
-        <button>Signup</button>
+    <form
+      @submit.prevent="signup(payload)"
+      class="profile-form"
+    >
+      <h1>회원가입</h1>
+      <v-file-input 
+        v-model="profile.profile_image"
+        class="file-input"
+        label="프로필 사진 추가"></v-file-input>
+      <input
+        required type="text"
+        placeholder="아이디"
+        v-model="credentials.username"
+        id="username" />
+      <input
+        required type="password"
+        placeholder="비밀번호"
+        v-model="credentials.password1"
+        id="password1" />
+      <input
+        required type="password"
+        placeholder="비밀번호 확인"
+        v-model="credentials.password2"
+        id="password2" />
+      <input
+        required type="email"
+        placeholder="이메일"
+        v-model="credentials.email"
+        id="email" />
+      <input
+        required type="text"
+        placeholder="닉네임"
+        v-model="profile.nickname"
+        id="nickname" />
+      <button class="submit-btn">회원가입</button>
+      <div class="back-btn-section">
+        <button
+          class="back-btn"
+          @click.prevent="goBack"
+        >BACK</button>
       </div>
     </form>
 
@@ -57,14 +71,49 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['authError'])
+    ...mapGetters(['authError']),
+    profile () {
+      return this.payload.profile
+    },
+    credentials () {
+      return this.payload.credentials
+    },
   },
   methods: {
-    ...mapActions(['signup']),
+    ...mapActions(['signup', 'goBack']),
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.profile-form {
+  @include profile-form;
+  @include trans;
+  @include f-5;
 
+  h1 {
+    margin-bottom: 1em;
+  }
+
+  input {
+    @include input-style1;
+  }
+
+  .submit-btn {
+    @include pt-btn1;
+  }
+
+  .back-btn-section {
+    display: flex;
+    justify-content: right;
+    align-self: flex-end;
+    .back-btn {
+      @include back-btn1;
+    }
+  }
+
+  .file-input {
+    @include input-style1;
+  }
+}
 </style>

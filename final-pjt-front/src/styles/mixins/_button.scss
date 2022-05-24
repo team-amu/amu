@@ -1,0 +1,46 @@
+@mixin input-style1 {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+  width: 100%;
+  margin: .5em 1em;
+  padding: .7em;
+  border-radius: 10px;
+  outline: none;
+
+  background-color: white;
+  color: $dm-bg-color1;
+}
+
+@mixin back-btn1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+
+  width: 100%;
+  padding: .2em 2em;
+  border: 1px solid white;
+  border-radius: 25px;
+  color: white;
+
+  &:active {
+    background-color: white;
+    color: black;
+  }
+}
+
+
+@mixin pt-btn1 {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+  width: 100%;
+  margin: 2em .5em .5em .5em;
+  padding: 1em;
+  border-radius: 10px;
+
+  background-color: $dm-pt-color1;
+  color: $dm-bg-color1;
+}
