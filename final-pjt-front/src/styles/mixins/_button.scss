@@ -1,7 +1,6 @@
 @mixin input-style1 {
   display: flex;
   justify-content: center;
-  margin: 0 auto;
 
   width: 100%;
   margin: .5em 1em;
@@ -11,6 +10,16 @@
 
   background-color: white;
   color: $dm-bg-color1;
+}
+
+@mixin password-section1 {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  margin: .5em 1em;
+  border-radius: 10px;
+  background-color: white;
 }
 
 @mixin back-btn1 {

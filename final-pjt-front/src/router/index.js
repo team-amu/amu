@@ -135,6 +135,12 @@ const routes = [
 	},
 
 	{
+		// 홈 화면
+		path: "*",
+		redirect: "/404",
+	},
+
+	{
 		// 이상한 url인 경우 404 페이지로 redirect
 		path: "*",
 		redirect: "/404",
