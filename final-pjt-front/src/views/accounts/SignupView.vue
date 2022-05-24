@@ -1,31 +1,54 @@
 <template>
   <div>
-    <account-error-list v-if="authError"></account-error-list>
-
     <form
       @submit.prevent="signup(payload)"
       class="profile-form"
     >
       <h1>회원가입</h1>
-      <v-file-input 
-        v-model="profile.profile_image"
-        class="file-input"
-        label="프로필 사진 추가"></v-file-input>
       <input
         required type="text"
         placeholder="아이디"
         v-model="credentials.username"
         id="username" />
-      <input
-        required type="password"
-        placeholder="비밀번호"
-        v-model="credentials.password1"
-        id="password1" />
-      <input
-        required type="password"
-        placeholder="비밀번호 확인"
-        v-model="credentials.password2"
-        id="password2" />
+      
+      <div class="password-section">
+        <input
+          required :type="pw1"
+          placeholder="비밀번호"
+          v-model="credentials.password1"
+          class="password-input"
+          id="password1" />
+        <v-icon
+          class="visiable-icon"
+          v-if="showPW1"
+          @click.prevent="toggleShow1()"
+        >mdi-eye-off</v-icon>
+        <v-icon
+          class="visiable-icon"
+          v-if="!showPW1"
+          @click.prevent="toggleShow1()"
+        >mdi-eye</v-icon>
+      </div>
+
+      <div class="password-section">
+        <input
+          required :type="pw2"
+          placeholder="비밀번호 확인"
+          v-model="credentials.password2"
+          class="password-input"
+          id="password2" />
+        <v-icon
+          class="visiable-icon"
+          v-if="showPW2"
+          @click.prevent="toggleShow2()"
+        >mdi-eye-off</v-icon>
+        <v-icon
+          class="visiable-icon"
+          v-if="!showPW2"
+          @click.prevent="toggleShow2()"
+        >mdi-eye</v-icon>
+      </div>
+
       <input
         required type="email"
         placeholder="이메일"
@@ -36,6 +59,16 @@
         placeholder="닉네임"
         v-model="profile.nickname"
         id="nickname" />
+
+      <v-file-input 
+        v-model="profile.profile_image"
+        class="file-input"
+        label="프로필 사진 등록">
+      </v-file-input>
+      
+      <!-- 에러 메시지 위치 -->
+      <account-error-list v-if="authError"></account-error-list>
+
       <button class="submit-btn">회원가입</button>
       <div class="back-btn-section">
         <button
@@ -56,6 +89,10 @@ export default {
   name: "SignupView",
   data() {
     return {
+      pw1: 'password',
+      pw2: 'password',
+      showPW1: 'false',
+      showPW2: 'false',
       payload: {
         credentials: {
           username: '',
@@ -81,6 +118,22 @@ export default {
   },
   methods: {
     ...mapActions(['signup', 'goBack']),
+    toggleShow1() {
+      this.showPW1 = !this.showPW1;
+      if (this.showPW1) {
+        this.pw1 = 'password'
+      } else {
+        this.pw1 = 'text'
+      }
+    },
+    toggleShow2() {
+      this.showPW2 = !this.showPW2;
+      if (this.showPW2) {
+        this.pw2 = 'password'
+      } else {
+        this.pw2 = 'text'
+      }
+    }
   }
 }
 </script>
@@ -95,12 +148,30 @@ export default {
     margin-bottom: 1em;
   }
 
-  input {
+  & > input {
     @include input-style1;
+  }
+
+  .password-section {
+    @include password-section1;
+    gap: .5em;
+
+    .password-input {
+      @include input-style1;
+      margin: 0;
+      width: 3000px;
+      flex-shrink: 1;
+    }
+
+    .visiable-icon {
+      padding-right: .5em;
+      opacity: .5;
+    }
   }
 
   .submit-btn {
     @include pt-btn1;
+    margin-top: 2em;
   }
 
   .back-btn-section {

@@ -6,7 +6,10 @@ import store from "./store";
 // Vuetify
 import Vuetify from "vuetify";
 // import "vuetify/dist/vuetify.min.css";
-Vue.use(Vuetify);
+import "font-awesome/css/font-awesome.min.css";
+Vue.use(Vuetify, {
+	iconfont: "fa4",
+});
 
 // Vue Bootstrap
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
