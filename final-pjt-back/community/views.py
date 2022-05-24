@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Q, Count
+from django.utils import timezone
+from datetime import datetime, timedelta
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -9,7 +11,6 @@ from rest_framework.decorators import api_view
 from .serializers.article import ArticleSerializer, ArticleSaveSerializer, ArticleListSerializer
 from .serializers.comment import CommentSerializer
 
-from django.core import serializers
 from .models import Article, Comment
 from django.http import Http404
 

@@ -40,11 +40,14 @@ $info-color: #3b9cba !default;
 $focus-color: $primary-color !default;
 $active-color: mix(#fff, $primary-color, 80%) !default;
 
-/* YIQ color contrast */
-$yiq-contrasted-dark-default: $dark-gray !default;
-$yiq-contrasted-light-default: #fff !default;
-$yiq-contrasted-threshold: 175 !default;
-$yiq-debug: false !default;
+
+$dm-nav-color: #212121;
+$dm-bg-color1: #343235;
+$dm-bg-color2: #2A2550;
+$dm-bg-color3: #251D3A;
+$dm-pt-color1: #FFC531;
+$dm-pt-color2: #fc8230;
+
 
 /* brands */
 $behance-color: #1769ff !default;

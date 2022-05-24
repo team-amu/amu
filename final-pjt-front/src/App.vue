@@ -39,7 +39,7 @@
 
     <v-app-bar
       app
-      color='black'
+      color='#212121'
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Archive Of Movie</v-toolbar-title>
@@ -86,8 +86,5 @@
 </script>
 
 <style lang="scss">
-#app {
-  background-color: $darker-gray;
-  color: white;
-}
+@import '@/styles/_app.scss';
 </style>

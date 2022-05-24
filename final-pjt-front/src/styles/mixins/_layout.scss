@@ -1,0 +1,30 @@
+@import "@/styles/mixins/_pagination.scss";
+
+body {
+  background-color: $dm-bg-color1;
+}
+
+.v-application .article-list {
+  padding: 0 !important;
+}
+
+@mixin main-section {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 0 auto;
+  justify-content: center;
+  transition: 0.5s all ease-in-out;
+
+  @media (max-width: 767px) {
+    width: 90%;
+    
+  }
+  
+  // background-color: black;
+}
+
+
+
+
+

@@ -1,0 +1,11 @@
+#app {
+  @include main-section;
+  @include li-none;
+  @include link-none;
+  background-color: $dm-bg-color1;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+}
+

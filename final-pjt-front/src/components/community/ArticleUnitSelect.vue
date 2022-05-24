@@ -54,6 +54,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+@include select-style1;
+select {
+  @include font;
+}
 </style>

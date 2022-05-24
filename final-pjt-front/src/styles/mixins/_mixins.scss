@@ -1,0 +1,29 @@
+@import '@/styles/mixins/_layout.scss';
+@import '@/styles/mixins/_select.scss';
+@import '@/styles/mixins/_font.scss';
+
+
+
+@mixin li-none {
+  text-decoration: none;
+  list-style: none;
+  color: white;
+}
+
+@mixin li-title {
+  @include li-none;
+  @include link-none;
+  // border: 1px solid white;
+  padding: 0.5em;
+}
+
+
+
+@mixin link-none {
+  a:link {
+    text-decoration: none;
+  }
+  a:visited {
+    text-decoration: none;
+  }
+}
