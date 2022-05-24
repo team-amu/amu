@@ -46,10 +46,44 @@
   margin: 0 auto;
 
   width: 100%;
-  margin: 2em .5em .5em .5em;
+  margin: .5em;
   padding: 1em;
   border-radius: 10px;
 
   background-color: $dm-pt-color1;
   color: $dm-bg-color1;
+}
+
+@mixin pt-btn2 {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+  width: 100%;
+  margin: .5em;
+  padding: 1em;
+  border-radius: 10px;
+
+  background-color: white;
+  color: $dm-bg-color1;
+}
+
+@mixin blank-btn1 {
+  @include trans($time: .15s);
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+  width: 100%;
+  margin: .5em;
+  padding: 1em;
+  border: 1px solid white;
+  border-radius: 10px;
+
+  color: white;
+
+  &:hover {
+    background-color: white;
+    color: $dm-bg-color1;
+  }
 }

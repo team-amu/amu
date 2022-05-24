@@ -1,16 +1,10 @@
 <template>
   <div>
-    
-
     <form
       @submit.prevent="signup(payload)"
       class="profile-form"
     >
       <h1>회원가입</h1>
-      <v-file-input 
-        v-model="profile.profile_image"
-        class="file-input"
-        label="프로필 사진 등록"></v-file-input>
       <input
         required type="text"
         placeholder="아이디"
@@ -65,6 +59,12 @@
         placeholder="닉네임"
         v-model="profile.nickname"
         id="nickname" />
+
+      <v-file-input 
+        v-model="profile.profile_image"
+        class="file-input"
+        label="프로필 사진 등록">
+      </v-file-input>
       
       <!-- 에러 메시지 위치 -->
       <account-error-list v-if="authError"></account-error-list>
@@ -171,6 +171,7 @@ export default {
 
   .submit-btn {
     @include pt-btn1;
+    margin-top: 2em;
   }
 
   .back-btn-section {
@@ -186,9 +187,4 @@ export default {
     @include input-style1;
   }
 }
-
-// .visiable-icon {
-//   position : absolute;
-//   transform : translatey(-5%);
-// }
 </style>
