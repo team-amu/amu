@@ -1,0 +1,23 @@
+@mixin select-style1 {
+  select {
+    width: 10em;
+    min-width: 100px;
+    background-color: white;
+    margin: 0;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+  }
+  select:active {
+    border: none;
+  }
+
+  @include option-style1(white, $dm-bg-color1);
+}
+
+@mixin option-style1 ($color:white, $bg-color:$dm-bg-color1) {
+  option {
+    color: $color;
+    background-color: $bg-color;
+    // padding: 3em;
+  }
+}

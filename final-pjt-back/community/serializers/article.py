@@ -96,6 +96,8 @@ class ArticleListSerializer(serializers.ModelSerializer):
     comments_count = serializers.IntegerField(source="comments.count", read_only=True)
     likes_count = serializers.IntegerField(source="like_users.count", read_only=True)
     
+    # created_date = serializers.DateField(source="created_at")
+    
     class Meta:
         model = Article
         fields = ('pk', 'user', 'category', 'movie', 'rank', 'title', 'content',
