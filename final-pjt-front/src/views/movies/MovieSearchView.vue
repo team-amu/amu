@@ -66,7 +66,8 @@ export default {
           searchKeywords: this.$route.query.searchKeywords,
           type: this.$route.query.type,
           selectedGenres: this.$route.query.genres,
-          minRank : this.$route.query.minRank
+          minRank : this.$route.query.minRank,
+          sort: this.$route.query.sort
         }
         this.fetchSearchMovie(payload)
       }
@@ -78,7 +79,8 @@ export default {
       searchKeywords: this.$route.query.searchKeywords,
       type: this.$route.query.type,
       selectedGenres: this.$route.query.genres,
-      minRank : this.$route.query.minRank
+      minRank : this.$route.query.minRank,
+      sort: this.$route.query.sort
     }
     this.fetchSearchMovie(payload)
     this.fetchGenres()

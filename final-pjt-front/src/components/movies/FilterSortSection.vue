@@ -14,6 +14,15 @@
     :value="minRank" type="number" min="0" max="10"
     step="1"
     />
+
+    <select v-model="sort" @change="sortChange">
+      <option value="-release_date">최신 순</option>
+      <option value="release_date">오래된 순</option>
+      <option value="-vote_average">평점 순</option>
+      <option value="vote_average">평점 낮은 순</option>
+      <option value="title">제목 오름차순</option>
+      <option value="-title">제목 내림차순</option>
+    </select>
   </div>
 </template>
 
@@ -28,21 +37,27 @@ export default {
   },
   data() {
     return {
-      rank : this.minRank
+      rank : this.minRank,
+      sort: this.sortKeyword
     }
   },
   computed: {
-    ...mapGetters(['minRank'])
+    ...mapGetters(['minRank', 'sortKeyword'])
   },
   methods: {
     bindNumber(event) {
-      console.log(event.target.value)
       this.rank = event.target.value
       this.$store.commit('SET_MIN_RANK', this.rank)
+    },
+    sortChange(event) {
+      this.sort = event.target.value
+      console.log(event.target.value)
+      this.$store.commit('SET_SORT_KEYWORD', this.sort)
     }
   },
   created() {
     this.rank = this.minRank
+    this.sort = this.sortKeyword
   }
 }
 </script>

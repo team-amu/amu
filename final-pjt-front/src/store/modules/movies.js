@@ -18,6 +18,7 @@ export default {
 		searchKeywords: '',
 		type: 'title',
 		minRank: '0',
+		sortKeyword: '-release_date'
 		//
 	},
 
@@ -36,6 +37,7 @@ export default {
 		searchKeywords: (state) => state.searchKeywords,
 		type: (state) => state.type,
 		minRank: (state) => state.minRank,
+		sortKeyword: (state) => state.sortKeyword,
 		//
 	},
 
@@ -62,6 +64,7 @@ export default {
 		SET_SEARCH_KEYWORDS: (state, searchKeywords) => {state.searchKeywords = searchKeywords},
 		SET_TYPE: (state, type) => {state.type = type},
 		SET_MIN_RANK: (state, minRank) => {state.minRank = minRank},
+		SET_SORT_KEYWORD: (state, sortKeyword) => {state.sortKeyword = sortKeyword}
 		//
 	},
 
@@ -176,7 +179,8 @@ export default {
         })
 		},
 
-		fetchSearchMovie({commit}, { searchPage, searchKeywords, type, selectedGenres, minRank}) {
+		fetchSearchMovie({commit}, { searchPage, searchKeywords, type, 
+			selectedGenres, minRank, sort}) {
 			axios({
 				url: drf.movies.search(searchPage),
         methods: "get",
@@ -185,6 +189,7 @@ export default {
           type,
 					selectedGenres,
 					minRank, 
+					sort,
 				}
       })
         .then((res) => {

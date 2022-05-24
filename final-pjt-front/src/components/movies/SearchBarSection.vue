@@ -43,11 +43,11 @@ export default {
     },
     onSearch: function () {
       router.push({ name: 'movieSearch', params: { searchPage: '1' }, query: {searchKeywords: this.keywords, 
-      type: this.selected, genres: this.selectedGenres, rank: this.minRank}})
+      type: this.selected, genres: this.selectedGenres, minRank: this.minRank, sort: this.sortKeyword}})
     }
   },
   computed: {
-    ...mapGetters(['type', 'searchKeywords', 'selectedGenres', 'minRank'])
+    ...mapGetters(['type', 'searchKeywords', 'selectedGenres', 'minRank', 'sortKeyword'])
   },
   created() {
     this.keywords = this.searchKeywords,

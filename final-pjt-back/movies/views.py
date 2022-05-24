@@ -68,15 +68,7 @@ def movie_search(request, search_page):
     type = request.GET.get('type')
     selected_genres = request.GET.getlist('selectedGenres[]')
     rank = request.GET.get('minRank')
-    print(selected_genres)
-    print(request.GET)
-    print(rank)
-
-    # q = Q()
-    # for genre in selected_genres:
-    #     print(genre)
-    #     q &= Q(genres__id=genre)
-    #     print(q)
+    sort = request.GET.get('sort')
 
     if selected_genres:
         if search_word:
@@ -87,17 +79,19 @@ def movie_search(request, search_page):
                     retitle=Func(
                         F('title'), Value(' '), Value(''), function='replace'
                     )
-                ).filter(Q(retitle__contains=research_word) & Q(genres__id__in=selected_genres))
+                ).filter(Q(retitle__contains=research_word) & Q(genres__id__in=selected_genres) & Q(vote_average__gte=rank)
+                ).distinct().order_by(sort)
 
             else: # 해당 배우가 출연한 영화를 찾는다
                 results =Movie.objects.annotate(
                     rename=Func(
                         F('actors__name'), Value(' '), Value(''), function='replace'
                     )
-                ).filter(Q(rename__icontains=research_word) & Q(genres__id__in=selected_genres))
+                ).filter(Q(rename__icontains=research_word) & Q(genres__id__in=selected_genres) & Q(vote_average__gte=rank)
+                ).distinct().order_by(sort)
         else:
             print('sdsd')
-            results = Movie.objects.all().filter(Q(genres__id__in=selected_genres))
+            results = Movie.objects.all().filter(Q(genres__id__in=selected_genres) & Q(vote_average__gte=rank)).distinct().order_by(sort)
     else:
         if search_word:
             research_word = search_word.replace(' ', '')
@@ -107,16 +101,16 @@ def movie_search(request, search_page):
                     retitle=Func(
                         F('title'), Value(' '), Value(''), function='replace'
                     )
-                ).filter(Q(retitle__contains=research_word))
+                ).filter(Q(retitle__contains=research_word) & Q(vote_average__gte=rank)).distinct().order_by(sort)
 
             else: # 해당 배우가 출연한 영화를 찾는다
                 results =Movie.objects.annotate(
                     rename=Func(
                         F('actors__name'), Value(' '), Value(''), function='replace'
                     )
-                ).filter(Q(rename__icontains=research_word))
+                ).filter(Q(rename__icontains=research_word) & Q(vote_average__gte=rank)).distinct().order_by(sort)
         else:
-            results = Movie.objects.all()        
+            results = Movie.objects.all().filter(Q(vote_average__gte=rank)).distinct().order_by(sort)        
 
 
     serializer = SearchedMovieSerializer(results, many=True)
