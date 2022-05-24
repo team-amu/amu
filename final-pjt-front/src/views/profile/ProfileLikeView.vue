@@ -7,18 +7,16 @@
       :contents="profile.user.like_movies"
       type="likedMovie"
     ></profile-content-section>
-    <profile-liked-movie-pagination></profile-liked-movie-pagination>
   </div>
 </template>
 
 <script>
   import ProfileUserSection from '@/components/profile/ProfileUserSection.vue'
   import ProfileContentSection from '@/components/profile/ProfileContentSection.vue'
-  import ProfileLikedMoviePagination from '@/components/pagination/ProfileLikedMoviePagination'
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    components: { ProfileUserSection, ProfileContentSection, ProfileLikedMoviePagination },
+    components: { ProfileUserSection, ProfileContentSection },
     name: "ProfileLikeView",
     data() {
       return {

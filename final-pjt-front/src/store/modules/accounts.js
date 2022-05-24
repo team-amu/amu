@@ -14,11 +14,11 @@ export default {
 		authError: null,
 		profileError: null,
 
-		profileLikedMoviePageNum:
-			localStorage.getItem("profileLikedMoviePageNum") || 1,
+		// 	profileLikedMoviePageNum:
+		// 		localStorage.getItem("profileLikedMoviePageNum") || 1,
 
-		profileLikedMovieWholeCount:
-			localStorage.getItem("profileLikedMovieWholeCount") || 1,
+		// 	profileLikedMovieWholeCount:
+		// 		localStorage.getItem("profileLikedMovieWholeCount") || 1,
 	},
 
 	getters: {
@@ -29,14 +29,9 @@ export default {
 		profile: (state) => state.profile,
 		isProfile: (state) => !_.isEmpty(state.profile), // 객체는 {}도 True기 때문에 lodash의 힘을 빌린다!
 		authError: (state) => state.authError,
-		authHeader: (state) => ({ Authorization: `Token ${state.token}`}),
+		authHeader: (state) => ({ Authorization: `Token ${state.token}` }),
 		profileError: (state) => state.profileError,
 		currentUserProfile: (state) => state.currentUserProfile,
-
-		profileLikedMoviePageNum: (state) => state.profileLikedMoviePageNum,
-
-		profileLikedMovieWholePageNum: (state) =>
-			Math.ceil(state.profileLikedMovieWholeCount / 12),
 	},
 
 	mutations: {
@@ -46,11 +41,11 @@ export default {
 		SET_AUTH_ERROR: (state, error) => (state.authError = error),
 		SET_PROFILE_ERROR: (state, error) => (state.profileError = error),
 
-		SET_PROFILE_LIKED_MOVIE_PAGE_NUM: (state, page) =>
-			(state.profileLikedMoviePageNum = page),
+		// 	SET_PROFILE_LIKED_MOVIE_PAGE_NUM: (state, page) =>
+		// 		(state.profileLikedMoviePageNum = page),
 
-		SET_PROFILE_LIKED_MOVIE_WHOLE_COUNT: (state, count) =>
-			(state.profileLikedMovieWholeCount = count),
+		// 	SET_PROFILE_LIKED_MOVIE_WHOLE_COUNT: (state, count) =>
+		// 		(state.profileLikedMovieWholeCount = count),
 	},
 
 	actions: {
@@ -92,16 +87,16 @@ export default {
 					const token = res.data.key;
 					dispatch("saveToken", token); // 로컬 스토리지에 토큰 저장
 					dispatch("fetchCurrentUser"); // 로컬 스토리지에 유저 정보 저장
-					console.log('sdsdds')
-					console.log(payload.profile.profile_image)
+					console.log("sdsdds");
+					console.log(payload.profile.profile_image);
 					// 프로필 생성!
 					axios({
 						url: drf.accounts.createProfile(payload.credentials.username),
 						method: "post",
 						data: payload.profile,
 						headers: {
-							Authorization: `Token ${state.token}`, 
-							'Content-Type' : 'multipart/form-data'				
+							Authorization: `Token ${state.token}`,
+							"Content-Type": "multipart/form-data",
 						},
 					})
 						.then((res) => {
@@ -200,28 +195,13 @@ export default {
 			}
 		},
 
-		fetchProfileLike({ commit }, { username, page }) {
-			console.log("205", username, page);
+		fetchProfileLike({ commit }, username) {
 			axios({
-				url: drf.accounts.profileLike(username, page),
+				url: drf.accounts.profileLike(username),
 				method: "get",
 			})
 				.then((res) => {
-					console.log("accounts.js 202 ", res.data);
-					// page로 나눠서 저장
-					const profile = res.data.profile;
-					const [start, end] = [(page - 1) * 12, page * 12];
-					profile.user.like_movies = profile.user.like_movies.slice(start, end);
-					console.log(profile);
-					commit("SET_PROFILE", profile);
-					commit(
-						"SET_PROFILE_LIKED_MOVIE_WHOLE_COUNT",
-						res.data.profileLikedMovieWholeCount
-					);
-					// localStorage.setItem(
-					// 	"profile_liked_movie_whole_count",
-					// 	res.data.profile_liked_movie_whole_count
-					// );
+					commit("SET_PROFILE", res.data);
 				})
 				.catch((err) => {
 					console.error(err.response.data);
@@ -232,11 +212,6 @@ export default {
 		},
 
 		fetchProfileBookmark({ commit }, username) {
-			/*
-      GET: profile URL로 요청보내기
-        성공하면
-          state.profile에 저장
-      */
 			axios({
 				url: drf.accounts.profileBookmark(username),
 				method: "get",
@@ -253,11 +228,6 @@ export default {
 		},
 
 		fetchProfileArticle({ commit }, username) {
-			/*
-      GET: profile URL로 요청보내기
-        성공하면
-          state.profile에 저장
-      */
 			axios({
 				url: drf.accounts.profileAritcle(username),
 				method: "get",
@@ -274,11 +244,6 @@ export default {
 		},
 
 		fetchProfileComment({ commit }, username) {
-			/*
-      GET: profile URL로 요청보내기
-        성공하면
-          state.profile에 저장
-      */
 			axios({
 				url: drf.accounts.profileComment(username),
 				method: "get",
@@ -318,8 +283,8 @@ export default {
 				method: "put",
 				data: profile,
 				headers: {
-					Authorization: `Token ${state.token}`, 
-					'Content-Type' : 'multipart/form-data'				
+					Authorization: `Token ${state.token}`,
+					"Content-Type": "multipart/form-data",
 				},
 			})
 				.then((res) => {
