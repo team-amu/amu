@@ -63,6 +63,7 @@ def bookmark_movies(request):
 
 # 나중에 리팩토링하기!! 너무 더러움!!;ㅠ
 @api_view(['GET'])
+# 검색한 영화 정렬, 필터 해서 출력!
 def movie_search(request, search_page):
     search_word = request.GET.get('searchKeywords')
     type = request.GET.get('type')
@@ -154,7 +155,8 @@ def movie_bookmark(request, movie_id):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def print_keyword_search(request): # 검색어에 맞는 내용들을 출력해줌
+# 검색어에 맞는 내용들을 출력해줌
+def print_keyword_search(request): 
     keyword = request.GET.get('searchKeywords')
     select = request.GET.get('type')        
 

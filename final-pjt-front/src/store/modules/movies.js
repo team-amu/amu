@@ -122,11 +122,10 @@ export default {
 				});
 		},
 
-		fetchMovieDetail({ commit, getters }, moviePk) {
+		fetchMovieDetail({ commit }, moviePk) {
 			axios({
 				url: drf.movies.detail(moviePk),
 				method: "get",
-				headers: getters.authHeader,
 				// data: {}
 			})
 				.then((res) => {
