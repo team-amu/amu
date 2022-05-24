@@ -134,6 +134,12 @@ const routes = [
 	},
 
 	{
+		// host 자체로 들어오면 영화 홈으로 이동
+		path: "/",
+		redirect: "/movies",
+	},
+
+	{
 		// 이상한 url인 경우 404 페이지로 redirect
 		path: "*",
 		redirect: "/404",
