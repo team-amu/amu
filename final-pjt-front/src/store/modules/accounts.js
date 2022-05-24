@@ -296,9 +296,9 @@ export default {
 				});
 		},
 
-		setProfileLikedMoviePageNum({ commit }, page) {
-			commit("SET_PROFILE_LIKED_MOVIE_PAGE_NUM", Number(page));
-			localStorage.setItem("profileLikedMoviePageNum", Number(page));
-		},
+		// setProfileLikedMoviePageNum({ commit }, page) {
+		// 	commit("SET_PROFILE_LIKED_MOVIE_PAGE_NUM", Number(page));
+		// 	localStorage.setItem("profileLikedMoviePageNum", Number(page));
+		// },
 	},
 };

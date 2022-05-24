@@ -27,7 +27,7 @@
       ...mapGetters(['isProfile', 'profile'])
     },
     methods: {
-      ...mapActions(['fetchProfileLike', 'setProfileLikedMoviePageNum'])
+      ...mapActions(['fetchProfileLike'])
     },
     watch: {
       // 이 조건은 구글링 하다가 찾았는데 아직 잘 모름 일단 넣어놈,,
@@ -48,9 +48,7 @@
     },
     created() {
       const params = this.$route.params
-      console.log('ㅋㅋㅋ아 짜증나!!', params)
-      this.setProfileLikedMoviePageNum(params.page)
-      this.fetchProfileLike(params)
+      this.fetchProfileLike(params.username)
     }
   }
 </script>
