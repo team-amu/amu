@@ -15,7 +15,7 @@ export default {
 			router.go(-1);
 		},
 		goBackCheck() {
-			if (alert("이전으로 이동하시겠습니까?")) {
+			if (confirm("이전으로 이동하시겠습니까?")) {
 				router.go(-1);
 			}
 		},

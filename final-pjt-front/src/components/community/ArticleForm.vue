@@ -109,7 +109,7 @@ export default {
   methods: {
     ...mapActions(['createArticle', 'updateArticle', 'goBackCheck']),
     addRating(value, id){
-      console.log(value, id);
+      id
       this.formData.rank = Number(value)*2;
     },
     onSubmit() {
@@ -135,7 +135,7 @@ export default {
       this.$store.commit("SET_SEARCH_KEYWORDS", movie.title)
       this.formData.movie = movie.id
       this.movieTitle = movie.title
-    }
+    },
   },
   computed: {
     ...mapGetters(['isReview', 'isKeywordsMovie', 'keywordMovies', 'searchKeywords']),
