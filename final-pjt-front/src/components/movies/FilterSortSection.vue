@@ -1,46 +1,46 @@
 <template>
   <div>
+    
+    <div class="filter-sort-section">
+      <div class="filter-box">
+        <select v-model="sort" @change="sortChange">
+          <option value="-release_date">최신 순</option>
+          <option value="release_date">오래된 순</option>
+          <option value="-vote_average">평점 순</option>
+          <option value="vote_average">평점 낮은 순</option>
+          <option value="title">제목 오름차순</option>
+          <option value="-title">제목 내림차순</option>
+        </select>
+      </div>
 
-    <h3>
-      FilterSortSection
-    </h3>
+        
+      <div class="rank-box">
 
-      <select v-model="sort" @change="sortChange">
-        <option value="-release_date">최신 순</option>
-        <option value="release_date">오래된 순</option>
-        <option value="-vote_average">평점 순</option>
-        <option value="vote_average">평점 낮은 순</option>
-        <option value="title">제목 오름차순</option>
-        <option value="-title">제목 내림차순</option>
-      </select>
-      
-    <!-- <div class="accordion">
-      <div class="accordion-item">
-        <a href="#" class="heading">
-          <div class="icon"></div>
-          <div class="acco-title"> 장르 </div>
-        </a>
-        <div class="acco-content">
-          <button>드라마</button>
-          <button>범죄</button>
+        <div class="title">평점</div>
+        <hr>
+        <div class="rank">
+          <input class="rank-input" @change="onChange" 
+          type="number" min="0" max="10"
+          step="1" placeholder="최소" v-model="rank"
+        />
+          <v-icon class="down" @click="onDown">mdi-chevron-down</v-icon>
+          <v-icon class="up" @click="onUp">mdi-chevron-up</v-icon>
         </div>
       </div>
 
-    </div> -->
+      <hr>
 
-
-    <h4>최소 평점</h4>
-    <input style="background-color: tomato;" @change="bindNumber" 
-    :value="minRank" type="number" min="0" max="10"
-    step="1"
-    />
-
-    <h4>장르 선택</h4>
-      <span v-for="genre in genres" :key="genre.id">
-        <genres-select-box :genre="genre" style="display: inline;"></genres-select-box>
-      </span>
+      <div class="genres-box">
+        <div class="title">장르</div>
+        <hr>
+        <div class="genre">
+          <span v-for="genre in genres" :key="genre.id">
+          <genres-select-box :genre="genre" style="display: inline;"></genres-select-box>
+        </span>
+        </div>
+      </div>
+    </div>
     
-
   </div>
 
 </template>
@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      rank : this.minRank,
+      rank : null,
       sort: this.sortKeyword
     }
   },
@@ -64,18 +64,36 @@ export default {
     ...mapGetters(['minRank', 'sortKeyword'])
   },
   methods: {
-    bindNumber(event) {
+    onChange(event) {
       this.rank = event.target.value
-      this.$store.commit('SET_MIN_RANK', this.rank)
+      this.bindNumber(this.rank)
+    },
+    bindNumber(value) {
+      this.$store.commit('SET_MIN_RANK', value)
     },
     sortChange(event) {
       this.sort = event.target.value
       console.log(event.target.value)
       this.$store.commit('SET_SORT_KEYWORD', this.sort)
+    },
+    onUp() {
+      if (parseInt(this.minRank) >= 10) {
+        return 
+      } else {
+        this.rank = parseInt(this.minRank) + 1
+        this.bindNumber(this.rank)
+      }
+    },
+    onDown() {
+      if (parseInt(this.minRank) <= 0) {
+        return
+      } else {
+        this.rank = parseInt(this.minRank) - 1
+        this.bindNumber(this.rank)
+      }
     }
   },
   created() {
-    this.rank = this.minRank
     this.sort = this.sortKeyword
   }
 }
@@ -83,4 +101,103 @@ export default {
 
 <style lang="scss" scoped>
 
+.filter-sort-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;;
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+
+  .filter-sort-section::before {
+    content: "";
+    background-color: rgb(173, 20, 20);
+    border: 1px solid white;
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    opacity: 0.5;
+  }
+
+  .filter-box {
+    @include select-style1;
+    display: flex;
+    justify-content: center;
+    select {
+      width: 100%;
+      background-color: #fff;
+      color: $dm-bg-color1;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    select::-ms-expand { 
+      display: none;
+    }
+    .select {
+      -o-appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+  }
+
+  .rank-box {
+
+    .title {
+      @include f-3;
+    }
+
+    .input {
+      @include input-style1;
+      width: 100px;
+      border: 1px solid white;
+    }
+
+    // @media screen and (max-width: 768px) {
+    //   flex-direction: column;
+    // }
+
+    .rank {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-evenly;
+
+      .up {
+        color: white;
+
+        &:hover {
+          color: $dm-pt-color1;
+        }
+      }
+      .down {
+        color: white;
+
+        &:hover {
+          color: $dm-pt-color1;
+        }
+      }
+    }
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .genres-box {
+    display: flex;
+    flex-direction: column;
+    word-break:break-all;
+    margin-top: 0.5rem;
+    .title {
+      @include f-3;
+    }
+  }
+}
 </style>

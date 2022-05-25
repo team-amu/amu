@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// Basic Grid for Demo;
+
 .grid {
   float: none;
   width: 100%;

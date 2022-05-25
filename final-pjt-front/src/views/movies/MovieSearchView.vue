@@ -48,9 +48,11 @@
             
             <div class="cards-section">
               <!-- 검색하고 글자 바뀌게 수정 -->
-              <h3 v-if="isType==='title'">검색된 영화 결과</h3>
-              <h3 v-if="isType==='actor'">해당 영화 배우가 출연한 영화</h3>
+              <div class="section-container">
+                <h3 class="title" v-if="isType==='title'">검색한 영화 결과</h3>
+                <h3 class="title" v-if="isType==='actor'">검색한 배우가 출연한 영화</h3>
                 <searched-card-section></searched-card-section>
+              </div>
             </div>
 
         </v-col>        
@@ -131,7 +133,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .searched-box {
   width: 100%;
   height: 100px;
@@ -140,4 +142,16 @@ export default {
   float: left;
   overflow: auto;
 }
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+
+  .h3 {
+    @include f-3;
+    border : 1px solid white;
+  }
+}
+
 </style>

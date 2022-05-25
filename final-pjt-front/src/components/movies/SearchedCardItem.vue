@@ -147,7 +147,7 @@ img {
 <style lang="scss" scoped>
 
   .card {
-    background-color: #fff5e3;
+    background-color: #e6e6e6;
 
     border-radius: 15px;
     display: block;
@@ -166,7 +166,7 @@ img {
       border-radius: 15px;
       width: 28%;
       height: 100%;
-      border: 5px solid black;
+      border: 3px solid black;
       position: absolute;
       top: -13%;
       left: 5%;
@@ -231,7 +231,7 @@ img {
       display: flex;
       
       .title {
-        @include f-2;
+        @include f-3;
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
@@ -241,10 +241,10 @@ img {
       }
 
       .rank {
-        @include f-5;
+        @include f-6;
         font-weight: 500;
-        padding-top: 0.09rem;
-        padding-left: 0.2rem;
+        padding-top: 0.3rem;
+        padding-left: 0.1rem;
         color: $dm-bg-color1;
       }
     }
@@ -253,7 +253,7 @@ img {
       display: flex;
       .release-date {
         padding-left: 0.2rem;
-        @include f-5;
+        @include f-6;
         font-weight: 600;
         color: $dm-bg-color1;
         margin-right: 0.5rem;
@@ -262,7 +262,7 @@ img {
       .genres {
         display: flex;
         flex-wrap: wrap;
-        @include f-7;
+        @include f-8;
         color: $light-gray;
         font-weight: 300;
         .genre {
@@ -277,7 +277,8 @@ img {
     }
 
     .overview {
-      @include f-6;
+      @include f-7;
+      margin-top: 0.5rem;
       font-weight: 500;
       padding-top: 0.4rem;
       color: $dm-bg-color1;
