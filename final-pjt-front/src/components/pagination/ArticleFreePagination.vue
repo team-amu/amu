@@ -2,9 +2,11 @@
   <div class="text-center">
     <v-pagination
       circle
+			class="custom-pagination"
       v-model="freePageNum"
       :length="freesWholePageNum"
 			@input="handlePageChange"
+			
     ></v-pagination>
   </div>
 </template>
@@ -31,3 +33,16 @@ export default {
 	created() {}
 }
 </script>
+
+<style lang="scss" scoped>
+.custom-pagination {
+	background-color: white;
+}
+.v-pagination-item--active {
+	color: red;
+}
+
+.v-pagination-item {
+	color: red;
+}
+</style>

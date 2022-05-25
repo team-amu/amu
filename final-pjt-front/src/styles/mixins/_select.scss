@@ -16,9 +16,7 @@
     border-radius: 5px;
     background-color: mix($dm-bg-color1, white, 90%);
     color: white;
-  }
-  select:active {
-    border: none;
+    outline: none;
   }
 
   @include option-style1(white, $dm-bg-color1);

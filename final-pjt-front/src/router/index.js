@@ -136,8 +136,8 @@ const routes = [
 
 	{
 		// 홈 화면
-		path: "*",
-		redirect: "/404",
+		path: "/",
+		redirect: "/movies",
 	},
 
 	{
@@ -165,7 +165,7 @@ router.beforeEach((to, from, next) => {
 	const authPages = ["articleCreate", "articleDetail", "articleEdit"];
 
 	// 로그인이 되어있지 않을 때만 가능한 route의 name
-	const notAuthPages = ["signup", "login", ];
+	const notAuthPages = ["signup", "login"];
 
 	// 0. router에서 이동 감지
 
@@ -183,7 +183,7 @@ router.beforeEach((to, from, next) => {
 
 	// 4. 로그인이 되어있는데 /login, /signup 페이지로 이동한다면 메인 페이지(/)로 이동
 	if (isNotAuthRequired && isLoggedIn) {
-		next({name: "home"});
+		next({ name: "home" });
 	} else {
 		next();
 	}
