@@ -70,7 +70,7 @@
     components: { },
     data: () => ({ drawer: null }),
     methods: {
-      ...mapActions(['fetchCurrentUser']),
+      ...mapActions(['fetchCurrentUser', 'fetchMyProfile']),
     },
     computed: {
       ...mapGetters(['currentUser', 'isCurrentUser']),
@@ -80,6 +80,7 @@
     },
     created() {
       this.fetchCurrentUser()
+      this.fetchMyProfile()
       this.drawer = false;
     }
   }
