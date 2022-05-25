@@ -3,19 +3,12 @@
     <h1>MovieSearchView</h1>
 
     <div class="search-section">
-
-      <v-container>
-        <v-row>
-          <v-col cols="2" align-self="center">
-            <type-select-box></type-select-box>
-          </v-col>
-          <v-col cols="10">
-            <search-bar-section
-            @on-search="onSearch"
-            ></search-bar-section>
-          </v-col>
-        </v-row>
-      </v-container>
+      <div class="search-bar">
+        <type-select-box></type-select-box>
+        <search-bar-section
+        @on-search="onSearch"
+        ></search-bar-section>
+      </div>
 
       <div class="searched-box" v-if="isKeywordsMovie">
         <ul>
@@ -152,6 +145,10 @@ export default {
     @include f-3;
     border : 1px solid white;
   }
+}
+
+.search-bar {
+  @include flex-gap(row, 1);
 }
 
 </style>

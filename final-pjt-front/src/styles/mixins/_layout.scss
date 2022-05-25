@@ -37,5 +37,12 @@ body {
   flex-direction: $fd;
 }
 
+@mixin flex-gap($fd:row, $gap:0.5) {
+  @include flex($fd);
+  gap: calc(#{$gap}*1em);
+}
 
 
+@mixin wh-ratio($w:1, $h:1){
+  aspect-ratio: $w / $h;
+}

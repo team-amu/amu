@@ -1,10 +1,12 @@
 <template>
-  <div>
-    <select v-model="selected" @change="inputChange">
-      <option value="title">영화제목</option>
-      <option value="actor">배우</option>
-    </select>    
-  </div>
+  <select
+    id="type-select"
+    v-model="selected"
+    @change="inputChange"
+  >
+    <option value="title">영화제목</option>
+    <option value="actor">배우</option>
+  </select>    
 </template>
 
 <script>
@@ -30,10 +32,12 @@ export default {
 }
 </script>
 
-<style scoped>
-
-select {
-  width: 100%;
-  border: 1px solid white;
+<style lang="scss" scoped>
+#type-select {
+  @include select-style2;
+  @include f-5;
+  flex-shrink: 1;
+  border-radius: 10px;
+  width: 3000px;
 }
 </style>

@@ -22,6 +22,21 @@
   @include option-style1(white, $dm-bg-color1);
 }
 
+@mixin select-style2 {
+  @include f-6;
+  width: 10em;
+  min-width: 100px;
+  margin: .5em 0;
+  padding: 0.2em 0.5em;
+  border-radius: 5px;
+  background-color: mix($dm-bg-color1, white, 90%);
+  color: white;
+  outline: none;
+  text-align: center;
+
+  @include option-style1(white, $dm-bg-color1);
+}
+
 @mixin option-style1 ($color:white, $bg-color:$dm-bg-color1) {
   option {
     @include f-5;
