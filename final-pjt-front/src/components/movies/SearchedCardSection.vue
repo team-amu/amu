@@ -1,11 +1,13 @@
 <template>
   <div>
     <ul>
-      <li v-for="searchedMovie in searchedMovies" :key="searchedMovie.id">
+      <span v-for="searchedMovie in searchedMovies" :key="searchedMovie.id">
         <router-link :to="{ name: 'movieDetail', params: {moviePk: searchedMovie.id}}">
-          <searched-card-item :movie="searchedMovie"></searched-card-item>
+          <div class="grid">
+            <searched-card-item :movie="searchedMovie"></searched-card-item>
+          </div>
         </router-link>
-      </li>
+      </span>
     </ul>
   </div>
 </template>
@@ -27,6 +29,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+// Basic Grid for Demo;
+.grid {
+  float: none;
+  width: 100%;
+  padding-left: 0.5em;
+  // padding-bottom: 0.4em;
 
+  @media screen and (min-width: 1024px) {
+    float: left;
+    width: 50%;
+  }
+}
 </style>

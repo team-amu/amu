@@ -1,12 +1,16 @@
 <template>
-  <div> 
-    <p style="color: black;">
-      <input type="checkbox" name="genre" :value="genre.id" 
+  <div>
+
+    <div class="genres-box">
+      <input type="checkbox" name="genre" 
+      class="check-box"
       @change="onCheck"
+      :value="genre.id" 
       :checked="isChecked"
       >
       {{genre.name}}
-    </p>
+    </div>
+
   </div>
 </template>
 
@@ -39,6 +43,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+.genres-box {
+  @include f-5;
+
+  .check-box {
+
+  }
+
+}
 
 </style>
