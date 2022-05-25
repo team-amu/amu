@@ -30,6 +30,8 @@ export default {
 		// follow
 		follow: (username) =>
 			HOST + ACCOUNTS + "profile/" + `${username}/` + "follow/",
+		
+		myProfile: () => HOST + ACCOUNTS + 'profile/'
 	},
 	community: {
 		// article 조작 또는 이벤트 관련

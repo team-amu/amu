@@ -40,6 +40,10 @@ export default {
 		SET_PROFILE: (state, profile) => (state.profile = profile),
 		SET_AUTH_ERROR: (state, error) => (state.authError = error),
 		SET_PROFILE_ERROR: (state, error) => (state.profileError = error),
+		SET_CURRENT_USER_PROFILE: (state, myProfile) => (state.currentUserProfile = myProfile),
+		DELETE_CURRENT_USER_PROFILE: (state) => {
+			console.log('sdsdsdsdsd')
+			state.currentUserProfile = null}
 
 		// 	SET_PROFILE_LIKED_MOVIE_PAGE_NUM: (state, page) =>
 		// 		(state.profileLikedMoviePageNum = page),
@@ -134,6 +138,7 @@ export default {
 					const token = res.data.key;
 					dispatch("saveToken", token);
 					dispatch("fetchCurrentUser");
+					dispatch("fetchMyProfile")
 					router.push({ name: "home" });
 				})
 				.catch((err) => {
@@ -161,6 +166,7 @@ export default {
 				.then((res) => {
 					dispatch("removeToken");
 					commit("SET_CURRENT_USER", res.data);
+					commit("DELETE_CURRENT_USER_PROFILE");
 					alert("성공적으로 logout!");
 					router.push({ name: "login" }); // login 으로 보내지 말고 추후 수정 필요 220519
 				})
@@ -294,6 +300,23 @@ export default {
 					console.error(err.response.data);
 					commit("SET_PROFILE_ERROR", err.response.data);
 				});
+		},
+
+		fetchMyProfile ({commit, getters},) {
+			if (getters.isLoggedIn){
+				console.log('들어오나?')
+				axios({
+					url: drf.accounts.myProfile(),
+					method: "get",
+					headers: getters.authHeader,
+				})
+					.then((res) => {
+						commit("SET_CURRENT_USER_PROFILE", res.data)
+					})
+					.catch((err) => {
+						console.error(err.response.data);
+					});
+			}
 		},
 
 		// setProfileLikedMoviePageNum({ commit }, page) {
