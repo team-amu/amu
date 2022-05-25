@@ -1,22 +1,17 @@
 <template>
-  <div>
-
-    <v-container>
-      <v-row>
-        <v-col cols="10">          
-          <input type="text" 
-          @input="inputChange"
-          @keyup.enter="onSearch"
-          :value="keywords"
-          >
-        </v-col>
-        <v-col cols="2">
-          <button @click="onSearch">검색</button>
-        </v-col>
-      </v-row>
-    </v-container>
-
-  </div>
+  <section id="searchbar-section">        
+    <input
+      id="search-title-input"
+      type="text" 
+      @input="inputChange"
+      @keyup.enter="onSearch"
+      :value="keywords"
+    >
+    <button
+      id="search-title-btn"
+      @click="onSearch"
+    >검색</button>
+  </section>
 </template>
 
 <script>
@@ -55,9 +50,30 @@ export default {
 }
 </script>
 
-<style scoped>
-  input[type="text"] {
-    width: 100%;
-    border: 1px solid white;
+<style lang="scss" scoped>
+input[type="text"] {
+  width: 100%;
+  border: 1px solid white;
+}
+
+#searchbar-section {
+  @include flex-gap(row, 0.5);
+  align-items: center;
+  width: 100%;
+
+  #search-title-input {
+    @include input-style1;
+    margin: 0;
+    width: 9000px;
+    height: auto;
+    flex-shrink: 1;  
   }
+
+  #search-title-btn {
+    @include pt-btn2;
+    padding: 0.7em;
+    width: 1000px;
+    flex-shrink: 1;  
+  }
+}
 </style>

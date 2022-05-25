@@ -14,5 +14,10 @@ export default {
 		goBack() {
 			router.go(-1);
 		},
+		goBackCheck() {
+			if (alert("이전으로 이동하시겠습니까?")) {
+				router.go(-1);
+			}
+		},
 	},
 };

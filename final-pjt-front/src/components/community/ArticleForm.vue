@@ -1,29 +1,40 @@
 <template>
   <div>
+    <h2>게시글 작성</h2>
     <form
+      id="article-form"
       @submit.prevent="onSubmit"
     >
-      <label for="categorySelect">카테고리 선택</label><br>
-      <select
-        v-model="formData.category"
-        name="categorySelect"
-        id="categorySelect"
-        @change="onChangeCategory"
-      ><hr>
-        <option value="review" selected>영화게시판</option>
-        <option value="free">자유게시판</option>
-      </select><hr>
-      <label for="titleInput">글 제목</label><br>
-      <input v-model="formData.title" type="text" id="titleInput" name="titleInput"><hr>
+      <section id="article-title-section">
+        <select
+          v-model="formData.category"
+          name="categorySelect"
+          id="article-category-select"
+          @change="onChangeCategory"
+        >
+          <option value="review" selected>영화게시판</option>
+          <option value="free">자유게시판</option>
+        </select>
+        <input
+          v-model="formData.title"
+          type="text"
+          id="article-title-input">
+      </section>
 
-      <div v-if="isReview">
-        <label for="movieInput">영화 제목</label><br>
-        <input v-model="movieTitle" type="text" id="movieInput" name="movieInput"><hr>
+      <!-- 영화 제목 검색창 -->
+      <search-bar-section
+      @click="onSearch"
+      class="movie-search-part"
+      ></search-bar-section>
+
+      <section v-if="isReview" id="movie-info-section">
         
-        <search-bar-section
-        @click="onSearch"
-        ></search-bar-section>
-        <div class="searched-box" v-if="isKeywordsMovie && !isSelect">
+
+        <!-- 영화 제목 검색 결과 드롭다운 -->
+        <div
+          v-if="isKeywordsMovie && !isSelect"
+          id="searched-title-part"
+        >
           <ul>
             <button v-for="movie in keywordMovies" :key="movie.id" 
             @click.prevent="selectMovie(movie)"
@@ -32,23 +43,43 @@
                 {{ movie.title }}
             </button>
           </ul>
-        </div>        
-        
-        <hr>
+        </div>    
 
-        <label for="rankInput">평점</label><br>
-        <input
-          v-model="formData.rank"
-          type="number"
-          id="rankInput"
-          name="rankInput"
-          max=10 min=1 step=1>
-        <hr>
-      </div>
+        <div id="movie-info-part">
+          <!-- 영화 제목 결과창 -->
+          <input
+            disabled
+            v-model="movieTitle"
+            id="movie-title-part"
+            type="text"
+          >
 
-      <label for="contentInput">내용</label><br>
-      <textarea v-model="formData.content" name="contentInput" id="contentInput" placeholder="내용을 적습니다."></textarea><hr>
-      <button>작성 완료</button>
+          <v-rating
+            background-color="grey lighten-2"
+            color="red lighten-3"
+            :empty-icon="$mdiStarOutline"
+            :full-icon="$mdiStar"
+            :half-icon="$mdiStarHalfFull"
+            half-increments
+            hover
+            length="5"
+            size="30"
+            v-model="formData.rank"
+            @input="addRating($event, rating.id)"
+          ></v-rating>
+        </div>    
+      </section>
+
+      <textarea
+        v-model="formData.content"
+        id="article-content-input"
+        placeholder="내용">
+      </textarea>
+
+      <section id="btn-section">
+        <button class="btn" @click.prevent="goBackCheck">이전</button>
+        <button class="btn">완료</button>
+      </section>
     </form>
   </div>
 </template>
@@ -76,8 +107,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['createArticle', 'updateArticle']),
+    ...mapActions(['createArticle', 'updateArticle', 'goBackCheck']),
+    addRating(value, id){
+      console.log(value, id);
+      this.formData.rank = Number(value)*2;
+    },
     onSubmit() {
+      this.formData.rank = Number(this.rank1)*2;
       if (this.action === 'create') {
         // this.formData.movie = Number(this.formData.movie)
         this.createArticle(this.formData)
@@ -108,6 +144,9 @@ export default {
     },
     isSelect() {
       return this.movieTitle === this.searchKeywords
+    },
+    rank1() {
+      return this.formData.rank
     }
   },
   created() {
@@ -120,13 +159,91 @@ export default {
 }
 </script>
 
-<style>
-.searched-box {
-  width: 100%;
-  height: 100px;
-  margin: 5px;
-  background-color: silver;
-  float: left;
-  overflow: auto;
+<style lang="scss" scoped>
+#article-form {
+  @include f-5;
+  @include flex-gap(column, 1.5);
+  color: white;
+
+  #article-title-section {
+    @include flex-gap(row, 0.5);
+
+    #article-category-select {
+      @include select-style2;
+      @include f-5;
+      background-color: white;
+      border-radius: 10px;
+      margin: 0;
+      
+      color: $dm-bg-color1;
+      text-align: center;
+
+    }
+
+    #article-title-input {
+      @include input-style1;
+      margin: 0;
+    }
+  }
+
+  #movie-info-section {
+    @include flex-gap(column, 0.5);
+
+    #searched-title-part{
+      width: 100%;
+      height: 100px;
+      margin: 5px;
+      background-color: silver;
+      float: left;
+      overflow: auto;
+    }
+
+    #movie-info-part {
+      @include flex-gap(row, 0.5);
+
+      #movie-title-part {
+        @include input-style1;
+        background-color: mix($dm-bg-color1, white, 90%);
+        color: white;
+        margin: 0;
+        flex-shrink:1;
+        width: 2000px;
+      }
+    }
+  }
+
+  #article-content-input {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1em;
+    outline: none;
+    width: 100%;
+    @include wh-ratio(16, 5);
+    @include f-5;
+
+    @media only screen and (max-width:768px){
+      @include wh-ratio(1, 1);
+    }
+    @media only screen and (max-width:465px){
+      @include wh-ratio(5, 16);
+    }
+  }
+
+  #btn-section {
+    @include flex-gap(row, 0.5);
+    justify-content: flex-end;
+
+    .btn {
+      @include pt-btn1;
+      width: 10%;
+      padding: 0.4em;
+    }
+  }
 }
+
+.test {
+  background-color: white;
+  color: black;
+}
+
 </style>
