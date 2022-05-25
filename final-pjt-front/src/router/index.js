@@ -164,11 +164,15 @@ router.beforeEach((to, from, next) => {
 	// Auth가 필요한 route의 name
 	const authPages = ["articleCreate", "articleDetail", "articleEdit"];
 
+	// 로그인이 되어있지 않을 때만 가능한 route의 name
+	const notAuthPages = ["signup", "login", ];
+
 	// 0. router에서 이동 감지
 
 	// 1. 현재 이동하고자 하는 페이지가 로그인이 필요한지 확인
 	const isAuthRequired = authPages.includes(to.name);
 
+	const isNotAuthRequired = notAuthPages.includes(to.name);
 	// 2. 로그인이 필요한 페이지인데 로그인이 되어있지 않다면 로그인 페이지(/login)로 이동
 	if (isAuthRequired && !isLoggedIn) {
 		next({ name: "login" });
@@ -178,6 +182,11 @@ router.beforeEach((to, from, next) => {
 	}
 
 	// 4. 로그인이 되어있는데 /login, /signup 페이지로 이동한다면 메인 페이지(/)로 이동
+	if (isNotAuthRequired && isLoggedIn) {
+		next({name: "home"});
+	} else {
+		next();
+	}
 });
 
 const originalPush = VueRouter.prototype.push;

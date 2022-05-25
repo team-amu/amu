@@ -32,7 +32,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     nickname = models.CharField(max_length=20, blank=True) 
-    profile_image = models.ImageField(default='media/images/default.png', upload_to='images/', blank=True, null=True) 
+    profile_image = models.ImageField(upload_to='images/', blank=True, null=True) 
     # 문자열 기반 필드는 null True 금지!
     introduce = models.CharField(max_length=100, blank=True)
 
