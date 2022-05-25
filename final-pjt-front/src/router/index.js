@@ -136,7 +136,7 @@ const routes = [
 
 	{
 		// 홈 화면
-		path: "*",
+		path: "/",
 		redirect: "/404",
 	},
 
