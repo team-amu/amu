@@ -32,7 +32,10 @@ body {
   // background-color: black;
 }
 
-
+@mixin flex($fd:row) {
+  display: flex;
+  flex-direction: $fd;
+}
 
 
 
