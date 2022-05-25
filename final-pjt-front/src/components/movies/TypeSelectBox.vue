@@ -30,10 +30,24 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
-select {
-  width: 100%;
-  border: 1px solid white;
-}
+  @include select-style1;
+  select {
+    @include f-5;
+    width: 100%;
+    background-color: #fff;
+    color: $dm-bg-color1;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  select::-ms-expand { 
+    display: none;
+  }
+  .select {
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 </style>

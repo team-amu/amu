@@ -70,7 +70,12 @@ export default {
   button {
     margin-top: -0.5rem;
     display: inline;
+    transition: all .4s ease-in-out;
+    &:hover {
+      color: $dm-pt-color1;
+    }
   }
+
 }
 
 label {

@@ -110,17 +110,12 @@ export default {
 
   position: relative;
 
-  .filter-sort-section::before {
+  .filter-sort-section-overlay {
     content: "";
     background-color: rgb(173, 20, 20);
     border: 1px solid white;
-    background-size: cover;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    opacity: 0.5;
+    width: 100%;
+    height: 100%;
   }
 
   .filter-box {
@@ -128,6 +123,7 @@ export default {
     display: flex;
     justify-content: center;
     select {
+      @include f-5;
       width: 100%;
       background-color: #fff;
       color: $dm-bg-color1;
@@ -149,6 +145,7 @@ export default {
 
     .title {
       @include f-3;
+      color: $dm-pt-color1;
     }
 
     .input {
@@ -196,6 +193,7 @@ export default {
     word-break:break-all;
     margin-top: 0.5rem;
     .title {
+      color: $dm-pt-color1;
       @include f-3;
     }
   }
