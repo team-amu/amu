@@ -68,6 +68,7 @@ export default {
 
 <style lang="scss" scoped>
 @include select-style1;
+
 select {
   @include font;
 }

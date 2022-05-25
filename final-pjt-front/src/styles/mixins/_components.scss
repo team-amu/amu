@@ -1,0 +1,25 @@
+@mixin color-rotation ($border-size:3) {
+  border: calc(#{$border-size}*1px) solid;
+  border-image:
+  linear-gradient(
+    #ff512f,
+    #dd2476,
+    #1c64ff) 1;
+    animation: rotate
+    2.5s
+    ease-in
+    infinite;
+}
+
+@mixin rotate {
+  @keyframes rotate {
+    50% {
+      border-image:
+      linear-gradient(
+        360deg,
+        #ff512f,
+        #dd2476,
+        #1c64ff) 1;
+    }
+  }
+}

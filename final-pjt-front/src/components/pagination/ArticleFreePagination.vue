@@ -35,14 +35,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.custom-pagination {
-	background-color: white;
-}
-.v-pagination-item--active {
-	color: red;
-}
-
-.v-pagination-item {
-	color: red;
-}
 </style>

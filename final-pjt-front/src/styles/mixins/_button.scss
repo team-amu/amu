@@ -40,35 +40,35 @@
 }
 
 
-@mixin pt-btn1 {
+@mixin pt-btn1($p:1) {
   display: flex;
   justify-content: center;
   margin: 0 auto;
 
   width: 100%;
   margin: .5em;
-  padding: 1em;
+  padding: calc(#{$p}*1em);
   border-radius: 10px;
 
   background-color: $dm-pt-color1;
   color: $dm-bg-color1;
 }
 
-@mixin pt-btn2 {
+@mixin pt-btn2($p:1) {
   display: flex;
   justify-content: center;
   margin: 0 auto;
 
   width: 100%;
   margin: .5em;
-  padding: 1em;
+  padding: calc(#{$p}*1em);
   border-radius: 10px;
 
   background-color: white;
   color: $dm-bg-color1;
 }
 
-@mixin blank-btn1 {
+@mixin blank-btn1($p:1) {
   @include trans($time: .15s);
   display: flex;
   justify-content: center;
@@ -76,7 +76,7 @@
 
   width: 100%;
   margin: .5em;
-  padding: 1em;
+  padding: calc(#{$p}*1em);
   border: 1px solid white;
   border-radius: 10px;
 
@@ -85,5 +85,11 @@
   &:hover {
     background-color: white;
     color: $dm-bg-color1;
+  }
+}
+
+@mixin icon($color:white){
+  i {
+    color: $color;
   }
 }
