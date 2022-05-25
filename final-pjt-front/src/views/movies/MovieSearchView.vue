@@ -36,18 +36,15 @@
 
     </div>
 
-    <v-container class="grey lighten-5 mb-6">
+    <v-container class="">
       <v-row dense>
         <v-col cols="2">
-          <v-card class="pa-3" outlined tile>
             <div>
               <filter-sort-section :genres="genres"></filter-sort-section>
             </div>
-          </v-card>
         </v-col>
 
         <v-col cols="10">
-          <v-card class="pa-3" outlined tile>
             
             <div class="cards-section">
               <!-- 검색하고 글자 바뀌게 수정 -->
@@ -56,7 +53,6 @@
                 <searched-card-section></searched-card-section>
             </div>
 
-          </v-card>
         </v-col>        
       </v-row>  
     </v-container>

@@ -137,8 +137,8 @@ export default {
 				.then((res) => {
 					const token = res.data.key;
 					dispatch("saveToken", token);
-					dispatch("fetchCurrentUser");
-					dispatch("fetchMyProfile")
+					dispatch("fetchCurrentUser"); 
+					dispatch("fetchMyProfile"); // 로그인 시 프로필 정보도 가져오기
 					router.push({ name: "home" });
 				})
 				.catch((err) => {
@@ -166,7 +166,7 @@ export default {
 				.then((res) => {
 					dispatch("removeToken");
 					commit("SET_CURRENT_USER", res.data);
-					commit("DELETE_CURRENT_USER_PROFILE");
+					commit("DELETE_CURRENT_USER_PROFILE"); // 로그아웃시 프로필 정보도 삭제
 					alert("성공적으로 logout!");
 					router.push({ name: "login" }); // login 으로 보내지 말고 추후 수정 필요 220519
 				})
@@ -303,6 +303,7 @@ export default {
 		},
 
 		fetchMyProfile ({commit, getters},) {
+			// 로그인 되어있을 때만 실행
 			if (getters.isLoggedIn){
 				console.log('들어오나?')
 				axios({

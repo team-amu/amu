@@ -111,7 +111,8 @@ def movie_search(request, search_page):
                     )
                 ).filter(Q(rename__icontains=research_word) & Q(vote_average__gte=rank)).distinct().order_by(sort)
         else:
-            results = Movie.objects.all().filter(Q(vote_average__gte=rank)).distinct().order_by(sort)        
+            results = Movie.objects.all().filter(Q(id="13") | Q(id="28")| Q(id="38")| Q(id="58")| Q(id="70"))
+            # results = Movie.objects.all().filter(Q(vote_average__gte=rank)).distinct().order_by(sort)        
 
 
     serializer = SearchedMovieSerializer(results, many=True)

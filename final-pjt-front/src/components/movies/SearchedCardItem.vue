@@ -1,27 +1,56 @@
 <template>
   <div>
-    <div class="card">
+  
+    <!-- <div class="card">
       <div class="card__image">
         <img :src="posterSrc" alt="">
 
-        <div class="card__overlay card__overlay--indigo">
+        <div class="card__overlay card__overlay--black">
           <div class="card__overlay-content">
-            <ul class="card__meta">
-              <li><a href="#0"><i class="fa fa-tag"></i> {{movie.release_date}}</a></li>
-              <li><a href="#0"><i class="fa fa-clock-o"></i> 2 min ago</a></li>
+            <ul class="card__detail">
+              <p v-for="genre in movie.genres" :key="genre.id"> {{genre.name}}</p>
+              <p> {{movie.release_date}}</p>
             </ul>
 
-            <a href="#0" class="card__title">{{ movie.title }}</a>
+            <h2 class="title">{{ movie.title }}</h2>
 
-            <ul class="card__meta card__meta--last">
-              <li><a href="#0"><i class="fa fa-user"></i> {{movie.vote_average}}</a></li>
-              <li><a href="#0"><i class="fa fa-facebook-square"></i> Share</a></li>
+            <ul class="card__detail card__detail--last">
+              <li>⭐ {{ movie.vote_average}}</li>
             </ul>
           </div>
         </div>
+
+      </div>
+    </div> -->
+
+    <div class="card">
+      <div class="poster-section">
+        <div class="poster-overlay"></div>
+        <div class="poster-shadow"></div>
+        <div class="poster">
+          <img :src="posterSrc" alt="포스터">
+        </div>
+      </div>
+      <div class="detail">
+        <div class="up-title">
+          <div class="title">{{ movie.title }}</div>
+          <div class="rank">⭐{{ movie.vote_average }}</div>
+        </div>
+        <div class="sub-detail">
+          <div class="release-date">({{ movie.release_date.substring(0,4) }})</div>
+          <div class="genres">
+            <div v-for="genre in movie.genres" :key="genre.id"
+              class="genre">
+              {{genre.name}}
+            </div>
+          </div>
+        </div>
+        <div class="overview">{{ movie.overview }}</div>
+        
       </div>
     </div>
-  </div>
+
+</div>
 </template>
 
 <script>
@@ -31,102 +60,26 @@ export default {
   computed: {
     posterSrc () {
       return `https://image.tmdb.org/t/p/w600_and_h900_bestv2${this.movie.poster_path}`
-    }
+    },
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
+
 // Color Variables
-$indigo: #5C6BC0; 
-$blue: #29B6F6;
-$black: #717171;
+$black: #000000;
 
 $body-font-family: "Lato";
 $header-font-family: "Montserrat";
-
-// Basic Styles for Demo
-*,*:after,*:before {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 100%;
-}
-
-body {
-  font-size: 1em;
-  font-family: $body-font-family;
-  font-weight: 400;
-  line-height: 1.5;
-
-  word-wrap: break-word;
-    -webkit-hyphens: auto;
-       -moz-hyphens: auto;
-            hyphens: auto;  
-}
 
 img {
   height: auto;
   max-width: 100%;
 }
 
-a {
-  color: $blue;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-// Basics demo styles
-.site__wrapper {
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-  padding-top: 1.5em;
-  padding-bottom: 1.5em;
-}
-
-.site__info {
-  clear: both;
-  display: block;
-  font-variant: small-caps;
-  letter-spacing: 2px;
-  padding-top: 1.5em;
-  padding-bottom: 1.5em;
-  text-align: center;
-}
-
-// Basic Grid for Demo;
-.grid {
-  float: none;
-  width: 100%;
-  padding-left: 0.2em;
-  padding-right: 0.2em;
-  padding-bottom: 0.4em;
-
-  @media screen and (min-width: 40.063em) {
-    float: left;
-    width: 33.333%;
-  }
-}
-
-// Card Article
-.card {
-  
-}
-
 .card__image {
-  -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-      border-radius: 3px;
+  border-radius: 30px;
   display: block;
   min-height: 240px; 
   overflow: hidden;
@@ -135,63 +88,30 @@ a {
   > img {
     display: block;
     margin-bottom: 0;
-
-    -webkit-transition: all .25s ease-in-out;
-       -moz-transition: all .25s ease-in-out;
-        -ms-transition: all .25s ease-in-out;
-         -o-transition: all .25s ease-in-out;
-            transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
   }
 
   &:hover > img {
-    -webkit-transform: scale(1.2);
-       -moz-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-         -o-transform: scale(1.2);
-            transform: scale(1.2);
+    transform: scale(1.2);
   }
-}
 
-.card__title {
-  color: white;
-  display: inline-block;
-  font-family: $header-font-family;
-  font-size: 1.5em;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 0.75em;
-  text-decoration: none;
-
-  -webkit-transition: all 0.3s ease-out;
-     -moz-transition: all 0.3s ease-out;
-      transition: all 0.3s ease-out;
-
-  &:hover {
-    color: rgba(white, 0.7);
-    text-decoration: none;
-  }
+  box-shadow: 3px 2px 20px 1px rgba(0, 0, 0, 0.781);
 }
 
 .card__overlay {
-  content: "";
-  bottom: 0;
   display: block;
   height: 100%;
   left: 0;
-  position: absolute;
   right: 0;
   top: 0;
+  bottom: 0;
+  position: absolute;
   width: 100%;
   z-index: 1;
 }
 
-.card__overlay--indigo {
-  background-image: linear-gradient(to bottom, rgba($indigo, 0.1), rgba($indigo, 0.8));
-  z-index: 2;
-}
-
-.card__overlay--blue {
-  background-image: linear-gradient(to bottom, rgba($blue, 0.1), rgba($blue, 0.8));
+.card__overlay--black {
+  background-image: linear-gradient(to bottom, rgba($black, 0.01), rgba($black, 0.6));
   z-index: 2;
 }
 
@@ -202,38 +122,175 @@ a {
   z-index: 3;
 }
 
-.card__meta {
-  margin: 0;
-  margin-right: -1em;
-  margin-bottom: 0.75em;
-
-  &.card__meta--last {
-    margin-bottom: 0;
-  }
+.card__detail {
    
   li {
     color: #f8f8f8;
     display: inline;
     list-style-type: none;
-    margin-bottom: 0;
-    padding-right: 1em;
-
-    font-size: 0.85em;
-    font-variant: small-caps;
+    padding-right: 0.5em;
+    font-size: 1em;
     letter-spacing: 1px;
+  }
 
-    &:not(:last-child):after {
-      content: "\25cf";
-      font-style: normal;
-      position: relative;
-      color: rgba(white, 0.25);
-      right: -0.6em;
+}
+
+.title {
+  &:hover {
+    color: rgba(rgb(247, 181, 0), 0.7);
+    text-decoration: none;
+  }
+}
+
+</style> -->
+
+<style lang="scss" scoped>
+
+  .card {
+    background-color: #fff5e3;
+
+    border-radius: 15px;
+    display: block;
+    width: 95%;
+    height: 20vh;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin: 1rem auto;
+    transition: all .4s ease-in-out;
+  
+  .poster-section {
+
+    .poster-overlay{
+      border-radius: 15px;
+      width: 28%;
+      height: 100%;
+      border: 5px solid black;
+      position: absolute;
+      top: -13%;
+      left: 5%;
+      background-color: $dm-pt-color2;
+      opacity: 0.1;
+      z-index: 2;
     }
-
-    > a {
-      color: #f8f8f8;
+  
+    .poster-shadow {
+      border-radius: 15px;
+      width: 28%;
+      height: 100%;
+      position: absolute;
+      top: -13%;
+      left: 5%;
+      box-shadow: 5px 5px 10px 1px $dm-nav-color;
+      opacity: 0.4;
+      z-index: 0;
+    }
+  
+    .poster {
+      border-radius: 15px;
+      width: 28%;
+      height: 100%;
+      position: absolute;
+      top: -13%;
+      left: 5%;
+      overflow: hidden;
+    }
+    .poster > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
-}   
+
+  &.card:hover {
+    transform: scale(1.1);
+    .poster-overlay {
+      border-radius: 15px;
+      width: 28%;
+      height: 100%;
+      border: 5px solid black;
+      position: absolute;
+      top: -13%;
+      left: 5%;
+      background-color: $dm-pt-color2;
+      opacity: 0;
+      z-index: 2;
+    }
+    background-color: white;
+  }
+
+  .detail {
+    margin-left: 38%;
+    width: 57%;
+    height: 93%;
+    margin-top: 2%;
+
+
+    .up-title {
+      display: flex;
+      
+      .title {
+        @include f-2;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        line-height: 1.5;
+        overflow: hidden;
+        color: $dm-bg-color1;
+      }
+
+      .rank {
+        @include f-5;
+        font-weight: 500;
+        padding-top: 0.09rem;
+        padding-left: 0.2rem;
+        color: $dm-bg-color1;
+      }
+    }
+
+    .sub-detail {
+      display: flex;
+      .release-date {
+        padding-left: 0.2rem;
+        @include f-5;
+        font-weight: 600;
+        color: $dm-bg-color1;
+        margin-right: 0.5rem;
+      }
+
+      .genres {
+        display: flex;
+        flex-wrap: wrap;
+        @include f-7;
+        color: $light-gray;
+        font-weight: 300;
+        .genre {
+          padding-top: 3px;
+          padding-bottom: 0px;
+          background-color: $dm-bg-color1;
+          border-radius: 5px;
+          margin-right: 0.3rem;
+          letter-spacing: 2px;
+        }
+      }
+    }
+
+    .overview {
+      @include f-6;
+      font-weight: 500;
+      padding-top: 0.4rem;
+      color: $dm-bg-color1;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      line-height: 1.5;
+      overflow: hidden;
+      letter-spacing: 1px;
+    }
+  }
+
+  box-shadow: 5px 5px 10px 1px $dm-nav-color;
+}
 
 </style>
