@@ -1,17 +1,19 @@
 <template>
-  <div>
+  <section id="comment-section">
     <comment-form></comment-form>
-    <hr>
-    댓글 {{ articleInfo.comments.length }}
-    <hr>
-    <ul>
+    <div id="comment-count-part">
+      <div id="comment-count">
+        댓글 {{ articleInfo.comments.length }}
+      </div>
+    </div>
+    <ul id="comment-list-part">
       <comment-item
         v-for="comment in comments"
         :key="comment.pk"
         :comment="comment"
       ></comment-item>
     </ul>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -28,6 +30,22 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+#comment-section {
+  @include flex-gap(column, 1);
+  @include f-5;
+  color: white;
 
+  #comment-count-part {
+    @include flex;
+    justify-content: flex-start;
+
+    // #comment-count {}
+  }
+
+  #comment-list-part {
+    @include flex-gap(column, 1);
+    padding: 0;
+  }
+}
 </style>

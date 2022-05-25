@@ -338,5 +338,14 @@ export default {
 					.catch((err) => console.error(err.response));
 			}
 		},
+
+		cutDate({ commit }, data) {
+			commit;
+			const [date, time] = data.split("T");
+			const [Y, M, D] = date.split("-");
+			const [h, m, etc] = time.split(":");
+			const [s, ms] = etc.split(".");
+			return { Y, M, D, h, m, s, ms };
+		},
 	},
 };

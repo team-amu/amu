@@ -93,3 +93,11 @@
     color: $color;
   }
 }
+
+@mixin icon-size($color:white, $size:1){
+  i {
+    color: $color;
+    font-size: calc(#{$size}*1em);
+  }
+}
+

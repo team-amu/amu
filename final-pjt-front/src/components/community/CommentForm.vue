@@ -1,17 +1,17 @@
 <template>
   <form
+    id="comment-form"
     @submit.prevent="onSubmit"
     @keyup.enter="onSubmit"
   >
     <textarea
-        v-model="content"
-        name="commentInput"
-        id="commentInput"
-        placeholder="댓글 작성..."
-        required
-        ></textarea>
-    <br>
-    <button>등록</button>
+      id="comment-input"
+      v-model="content"
+      name="commentInput"
+      placeholder="댓글 작성..."
+      required
+    ></textarea>
+    <button id="comment-btn">등록</button>
   </form>
 </template>
 
@@ -37,6 +37,24 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+#comment-form {
+  @include flex-gap(column, 1);
 
+  #comment-input {
+    @include f-6;
+    @include wh-ratio(16, 3);
+    width: 100%;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: white;
+    outline: none;
+  }
+
+  #comment-btn {
+    @include pt-btn1;
+    margin: 0;
+    padding: .2em 0;
+  }
+}
 </style>
