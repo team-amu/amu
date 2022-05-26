@@ -1,18 +1,14 @@
 <template>
   <div>
-
-    
     <div class="background-overlay background-overlay--black"></div>
     <div class="background">
       <img :src="posterSrc" alt="">
     </div>
-
     <div class="whole">
-        <div class="title">
-          <div>{{ movieDetail.title }} ({{ movieDetail.release_date.substring(0,4) }})</div>
-        </div>
-    
-        <div class="upside-section">
+      <section class="content">
+        <h3 id="main-title">{{ movieDetail.title }} ({{ movieDetail.release_date.substring(0,4) }})</h3>
+
+        <section class="upside-section">
           <div class="left-section">
             <div class="poster">
               <img :src="posterSrc" :alt="movieDetail.title" />
@@ -24,59 +20,64 @@
               <iframe :src="videoURI" frameborder="0"></iframe> 
             </div>
           </div>
-        </div>
-    
-        <div class="content">
-          <div class="vote">
-            <div class="rank"><h2>평점 : {{ movieDetail.vote_average }} </h2></div>
-            <div class="click">
+        </section>
 
-              <div class="icon-count-part">
-                <v-icon class="clicked-btn-icon"
-                v-if="isLike && isLoggedIn" @click="movieLike(movieDetail.id)"
-                >mdi-heart</v-icon>
-                <v-icon class="btn-icon"
-                v-if="!isLike && isLoggedIn" @click="movieLike(movieDetail.id)"
-                >mdi-heart-outline</v-icon>
-                <v-icon class="btn-icon"
+        <div class="vote">
+          <h2 class="rank">⭐{{ movieDetail.vote_average }} </h2>
+          <div class="click">
+            <div class="icon-count-part">
+
+              <!-- 좋아요 아이콘+숫자 -->
+              <v-icon class="clicked-btn-icon"
+                v-if="isLike && isLoggedIn"
+                @click="movieLike(movieDetail.id)"
+              >mdi-heart</v-icon>
+
+              <!-- 좋아요 아이콘+숫자 -->
+              <v-icon class="btn-icon"
+                v-if="!isLike && isLoggedIn"
+                @click="movieLike(movieDetail.id)"
+              >mdi-heart-outline</v-icon>
+
+              <!-- 북마크 아이콘+숫자 -->
+              <v-icon class="btn-icon"
                 v-if="!isLoggedIn">mdi-heart-outline</v-icon>
-                <span class="btn-count">{{ movieDetail.likes_count }}</span>
-              </div>
+              <span class="btn-count">{{ movieDetail.likes_count }}</span>
+            </div>
 
-              <div class="icon-count-part">
-                <v-icon class="clicked-btn-icon"
-                v-if="isBookmark && isLoggedIn" @click="movieBookmark(movieDetail.id)"
-                >mdi-book-heart</v-icon>
-                <v-icon class="btn-icon"
-                v-if="!isBookmark && isLoggedIn" @click="movieBookmark(movieDetail.id)"
-                >mdi-book-heart-outline</v-icon>
-                <v-icon class="btn-icon"
+            <div class="icon-count-part">
+              <v-icon class="clicked-btn-icon"
+              v-if="isBookmark && isLoggedIn" @click="movieBookmark(movieDetail.id)"
+              >mdi-book-heart</v-icon>
+              <v-icon class="btn-icon"
+              v-if="!isBookmark && isLoggedIn" @click="movieBookmark(movieDetail.id)"
+              >mdi-book-heart-outline</v-icon>
+              <v-icon class="btn-icon"
                 v-if="!isLoggedIn">mdi-book-heart-outline</v-icon>
-                <span class="btn-count">{{ movieDetail.bookmarks_count }}</span>
-              </div>
+              <span class="btn-count">{{ movieDetail.bookmarks_count }}</span>
             </div>
           </div>
-    
-          <div class="overview">
-            <h2>개요</h2>
-            <hr>
-            <p>{{ movieDetail.overview}}</p>
-          </div>
-    
-          <h2>주요 출연진</h2>
-          <hr>
-          <div class="actors">
-            <actor-item v-for="actor in movieDetail.castedactors_set" :key="actor.id" :actor="actor" class="actor"></actor-item>
-          </div>
+        </div>
 
-          <div class="reviews">
-            <h2>리뷰 ({{ movieDetail.article_count }})</h2>
-            <review-list :reviews="movieDetail.article_set" class="review"></review-list>
+        <div class="overview">
+          <h2 class="subtitle">개요</h2>
+          <p>{{ movieDetail.overview}}</p>
+        </div>
+  
+        <div class="actors">
+          <h2 class="subtitle">주요 출연진</h2>
+          <div class="actor-images">
+            <actor-item v-for="actor in movieDetail.castedactors_set" :key="actor.id" :actor="actor" class="actor"></actor-item>
           </div>
         </div>
 
-      </div>
+        <div class="reviews">
+          <h2 class="subtitle">리뷰 ({{ movieDetail.article_count }})</h2>
+          <review-list :reviews="movieDetail.article_set" class="review"></review-list>
+        </div>
+      </section>
     </div>
+  </div>
 
 </template>
 
@@ -151,6 +152,13 @@ export default {
 
 <style lang="scss" scoped>
 
+.subtitle {
+  @include f-4;
+  border-bottom: 1px solid white;
+  padding-bottom: .5em;
+  margin-bottom: .5em;
+}
+
 .background {
 
   width: 100%;
@@ -185,7 +193,7 @@ export default {
 .title {
   div {
     letter-spacing: 0.5rem;
-    @include f-1;
+    @include f-3;
   }
   z-index: 1;
   width: 100%;
@@ -276,7 +284,9 @@ export default {
   }
 }
 
+
 .content {
+  @include flex-gap(column, 2);
   width: 86%;
   left: 8%;
   height: auto;
@@ -284,10 +294,11 @@ export default {
   position: relative;
   
   .vote {
+    @include flex;
     width: 100%;
+    justify-content: center;
     align-items: center;
-    height: auto;
-    display: flex;
+    
     .rank {
       @include f-3;
       margin-top: 1rem;
@@ -307,7 +318,7 @@ export default {
       cursor: pointer;
 
       .btn-icon {
-        @include f-2;
+        @include f-4;
         color: white;
         margin-right: 0.3rem;
         font-size:2.5rem;
@@ -345,12 +356,14 @@ export default {
     }
 
   }
+
   .overview {
-    @include f-3;
+    @include f-5;
+    @include flex(column);
     letter-spacing: 3px;
     p {
       letter-spacing: 1px;
-      @include f-4;
+      @include f-5;
       font-weight: 350;
     }
     width: 100%;
@@ -360,19 +373,18 @@ export default {
     white-space: wrap;
   }
 
-  h2 {
-    @include f-2;
-  }
   .actors {
-    display: flex;
+    @include flex(column);
     flex-wrap: wrap;
-    flex-direction: row;
     justify-content: space-around;
     position: relative;
     width: 100%;
     margin-top: 1rem;
-    .actor {
-      display: inline-block;
+
+    .actor-images {
+      @include flex-gap(row, .5);
+      justify-content: space-around;
+      flex-wrap: wrap;
     }
   }
 
@@ -391,4 +403,9 @@ export default {
   }
 }
 
+#main-title {
+  @include f-1;
+  margin-top: 1.5em;
+  border-bottom: 1px solid white; 
+}
 </style>
