@@ -23,7 +23,7 @@
       <li id="article-list-header">
         <div class="article-id">글 번호</div>
         <div class="article-title">글 제목</div>
-        <div class="article-user">닉네임</div>
+        <div class="article-user">작성자</div>
       </li>
       <profile-article-item
         v-for="content in contentsr"
@@ -99,13 +99,14 @@ li {
   @include li-title;
 }
 
+#article-list-header {
+  @include article-list-header
+}
+
 #profile-content-section {
   // #profile-liked-movie-list {}
   // #profile-bookmarked-movie-list {}
-  #article-list-header {
-    @include article-list-header
-  }
-  
+
   #profile-article-list {
     border: 2px solid white;
     border-radius: 10px;

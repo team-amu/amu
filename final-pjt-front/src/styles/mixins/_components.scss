@@ -99,10 +99,11 @@
 
 @mixin article-list-header {
   @include flex;
-  padding: 1em 0;
+  padding: 1em;
   background-color: $dm-bg-color1-light;
   border-radius: 10px 10px 0 0;
   border-bottom: 2px solid white;
+  font-weight: 600;
   
 
   .article-id {
