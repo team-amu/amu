@@ -14,7 +14,7 @@
     margin: .5em 0;
     padding: 0.2em 0.5em;
     border-radius: 5px;
-    background-color: mix($dm-bg-color1, white, 90%);
+    background-color: $dm-bg-color1-light;
     color: white;
     outline: none;
   }
@@ -29,7 +29,7 @@
   margin: .5em 0;
   padding: 0.2em 0.5em;
   border-radius: 5px;
-  background-color: mix($dm-bg-color1, white, 90%);
+  background-color: $dm-bg-color1-light;
   color: white;
   outline: none;
   text-align: center;

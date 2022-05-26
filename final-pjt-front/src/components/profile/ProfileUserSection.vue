@@ -338,6 +338,7 @@ export default {
     }
 
     .profile-btn {
+      color: white;
       $profile-btn-color: white;
       @include icon;
       @include flex(column);

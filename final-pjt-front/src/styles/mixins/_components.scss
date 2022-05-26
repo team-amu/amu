@@ -95,3 +95,24 @@
   justify-content: center;
   align-items: center;
 }
+
+
+@mixin article-list-header {
+  @include flex;
+  padding: 1em 0;
+  background-color: $dm-bg-color1-light;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 2px solid white;
+  
+
+  .article-id {
+    @include flex-line(1, center);
+  }
+  .article-title {
+    @include flex-line(7, center);
+  }
+
+  .article-user {
+    @include flex-line(2, center);
+  }
+}

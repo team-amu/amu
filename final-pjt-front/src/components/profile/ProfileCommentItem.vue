@@ -2,18 +2,19 @@
   <router-link
   :to="{ name: 'articleDetail',
           params: { articlePk: content.article.pk } }">
-    <li>
-      <b>{{ content.content }}</b>
-      <br>
-      <span>#{{ content.article.pk }} | </span>
-      <span v-if="content.article.movie">{{ content.article.movie.title }} | </span>
-      <span v-if="content.movie">{{ content.rank }}</span>
-      <span>{{ content.article.title }} </span>
-      <span>🧡{{ content.article.likes_count }} </span>
-      <span>💬{{ content.article.comments_count }} </span>
-      <p>{{ content.created_at }}</p>
-    </li>
-    <hr>
+    <div class=article-title-item>
+      <li>
+        <b>{{ content.content }}</b>
+        <br>
+        <span>#{{ content.article.pk }} | </span>
+        <span v-if="content.article.movie">{{ content.article.movie.title }} | </span>
+        <span v-if="content.movie">{{ content.rank }}</span>
+        <span>{{ content.article.title }} </span>
+        <span>🧡{{ content.article.likes_count }} </span>
+        <span>💬{{ content.article.comments_count }} </span>
+        <p>{{ content.created_at }}</p>
+      </li>
+    </div>
   </router-link>
 </template>
 
