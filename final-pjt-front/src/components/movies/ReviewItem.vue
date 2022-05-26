@@ -108,8 +108,8 @@ export default {
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    width: 92%;
-    margin-left: 4%;
+    width: 94%;
+    margin-left: 3%;
   }
   #review-date {
       
@@ -146,8 +146,11 @@ export default {
     justify-content: start;
     border-bottom: 1px solid lightgray;
     padding: .5em, .1em, .5em, .5em;
+    width: 94%;
+    margin-left: 3%;
 
     #review-profile {
+      margin-left: 4%;
       @include flex-gap;
       align-items: center;
 
@@ -159,7 +162,7 @@ export default {
 
       #review-profile-nickname {
         font-weight: 700;
-        color: black;
+        color: $dm-pt-color2;
       }
     }
 
