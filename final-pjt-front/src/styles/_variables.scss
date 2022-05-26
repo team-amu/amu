@@ -43,6 +43,7 @@ $active-color: mix(#fff, $primary-color, 80%) !default;
 
 $dm-nav-color: #212121;
 $dm-bg-color1: #343235;
+$dm-bg-color1-light: mix($dm-bg-color1, white, 90%);
 $dm-bg-color2: #2A2550;
 $dm-bg-color3: #251D3A;
 $dm-pt-color1: #FFC531;

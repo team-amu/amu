@@ -15,6 +15,11 @@
       </div>
     </section>
     <ul class="article-list">
+      <li id="article-list-header">
+        <div class="article-id">글 번호</div>
+        <div class="article-title">글 제목</div>
+        <div class="article-user">작성자</div>
+      </li>
       <article-title-item
         v-for="article in reviews"
         :key="article.pk"
@@ -61,5 +66,16 @@ export default {
 <style lang="scss" scoped>
 #article-list-header-section {
   @include article-list-header-section;
+}
+
+#article-list-header {
+  @include article-list-header;
+}
+
+.article-list {
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 0;
+  margin: 1em 0;
 }
 </style>

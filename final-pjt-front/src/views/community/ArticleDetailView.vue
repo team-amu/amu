@@ -251,6 +251,7 @@ export default {
 
     #user-info-part {
       @include flex-gap;
+      @include li-none;
       display: inline-flex;
       align-items: center;
 

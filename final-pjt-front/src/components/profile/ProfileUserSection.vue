@@ -83,7 +83,7 @@
     >
       <router-link
         class="profile-btn-link"
-        :to="{ name: 'profileLike', params: { username: currentUser.username }}"
+        :to="{ name: 'profileLike', params: { username: profile.user.username }}"
       >
         <div class="profile-btn">
           <div class="profile-btn-title">좋아요한 영화</div>
@@ -96,7 +96,7 @@
 
       <router-link
         class="profile-btn-link"
-        :to="{ name: 'profileBookmark', params: { username: currentUser.username }}"
+        :to="{ name: 'profileBookmark', params: { username: profile.user.username }}"
       >
         <div class="profile-btn">
           <div class="profile-btn-title">북마크한 영화</div>
@@ -109,7 +109,7 @@
 
       <router-link
         class="profile-btn-link"
-        :to="{ name: 'profileArticle', params: { username: currentUser.username }}"
+        :to="{ name: 'profileArticle', params: { username: profile.user.username }}"
       >
         <div class="profile-btn">
           <div class="profile-btn-title">작성한 게시글</div>
@@ -122,7 +122,7 @@
 
       <router-link
         class="profile-btn-link"
-        :to="{ name: 'profileComment', params: { username: currentUser.username }}"
+        :to="{ name: 'profileComment', params: { username: profile.user.username }}"
       >
         <div class="profile-btn">
           <div class="profile-btn-title">작성한 댓글</div>
@@ -207,6 +207,7 @@ export default {
 #profile-user-section {
   @include f-5;
   @include flex(column);
+  margin: 2em 0;
 
   #edit-section{
     .input-label {
@@ -338,6 +339,7 @@ export default {
     }
 
     .profile-btn {
+      color: white;
       $profile-btn-color: white;
       @include icon;
       @include flex(column);

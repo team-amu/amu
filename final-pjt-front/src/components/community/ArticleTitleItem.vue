@@ -53,20 +53,6 @@ export default {
         return `${timedelta}시간 전`
       }
       return this.article.created_at.split('T')[0]
-      // timedelta = Math.floor(timedelta/24)
-      // if (timedelta < 7) {
-      //   return `${timedelta}일 전`
-      // }
-      // timedelta = Math.floor(timedelta/7)
-      // if (timedelta < 4) {
-      //   return `${timedelta}주 전`
-      // }
-      // timedelta = Math.floor(timedelta/4)
-      // if (timedelta < 12) {
-      //   return `${timedelta}달 전`
-      // }
-      // timedelta = Math.floor(timedelta/12)
-      // return `${timedelta}년 전`
     },
     shortContent () {
       const len = 10;
@@ -86,12 +72,12 @@ export default {
   flex-direction: column;
   text-decoration: none;
   list-style: none;
-  border: 0.5px solid mix($dm-bg-color1, white, 90%);
+  border: 0.5px solid $dm-bg-color1-light;
   padding: .5em;
   color: white;
 
   &:hover {
-    background-color: mix($dm-bg-color1, white, 90%);
+    background-color: $dm-bg-color1-light;
     transition: 0.3s all ease-in-out;
   }
 

@@ -206,7 +206,7 @@ export default {
 
         #movie-title-part {
           @include input-style1;
-          background-color: mix($dm-bg-color1, white, 90%);
+          background-color: $dm-bg-color1-light;
           color: white;
           margin: 0;
           flex-shrink:1;
