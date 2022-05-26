@@ -27,13 +27,14 @@ class MovieSerializer(serializers.ModelSerializer):
     bookmark_users = UserSerializer(read_only=True, many=True)
     bookmarks_count = serializers.IntegerField(source="bookmark_users.count")
     article_set = ArticleSerializer(read_only=True, many=True)
+    article_count = serializers.IntegerField(source="article_set.count")
 
     class Meta:
         model = Movie
         fields = ('id', 'genres','title', 'release_date', 'popularity',
                 'vote_count', 'vote_average', 'overview', 'homepage', 'runtime',
                 'poster_path', 'video_key', 'image_key', 'actors', 'castedactors_set',
-                'likes_count', 'like_users', 'bookmarks_count', 'bookmark_users', 'article_set',)
+                'likes_count', 'like_users', 'bookmarks_count', 'bookmark_users', 'article_set', 'article_count')
         
         
 class MovieListSerializer(serializers.ModelSerializer):

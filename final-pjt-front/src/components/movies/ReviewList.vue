@@ -5,7 +5,17 @@
     <!-- </router-link> -->
     <hr>
 
-    <div v-if="isMore">
+
+    <div v-for="review in reviews" :key="review.pk">
+      <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
+        <review-item :review="review"></review-item>
+      </router-link>
+      <hr>
+    </div>
+
+
+    <!-- 리뷰가 갑자기 안나와서 일단 바꿔놓음..ㅠㅠ -->
+    <!-- <div v-if="isMore">
       <div v-for="review in recentReviews" :key="review.pk">
         <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
           <review-item :review="review"></review-item>
@@ -23,8 +33,8 @@
           <review-item :review="review"></review-item>
         </router-link>
         <hr>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
 
   </div>
 </template>
@@ -46,6 +56,9 @@ export default {
     reviews: Array,
   },
   computed: {
+    isArticle() {
+      return this?.reviews?.length > 2
+    }
   },
   methods: {
     onClick () {
@@ -55,8 +68,8 @@ export default {
   watch: {
     reviews: {
       handler() {
-        const reverseArray = [...this?.reviews]?.reverse()
-        this.recentTwoReviews = reverseArray.splice(0, 2)
+        // const reverseArray = [...this?.reviews]?.reverse()
+        // this.recentTwoReviews = reverseArray.splice(0, 2)
         this.recentReviews = [...this?.reviews]?.reverse()
       }
     }

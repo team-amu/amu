@@ -1,27 +1,5 @@
 <template>
   <div>
-  
-    <!-- <div class="card">
-      <div class="card__image">
-        <img :src="posterSrc" alt="">
-
-        <div class="card__overlay card__overlay--black">
-          <div class="card__overlay-content">
-            <ul class="card__detail">
-              <p v-for="genre in movie.genres" :key="genre.id"> {{genre.name}}</p>
-              <p> {{movie.release_date}}</p>
-            </ul>
-
-            <h2 class="title">{{ movie.title }}</h2>
-
-            <ul class="card__detail card__detail--last">
-              <li>⭐ {{ movie.vote_average}}</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div> -->
 
     <div class="card">
       <div class="poster-section">
@@ -65,85 +43,6 @@ export default {
 }
 </script>
 
-<!-- <style lang="scss" scoped>
-
-// Color Variables
-$black: #000000;
-
-$body-font-family: "Lato";
-$header-font-family: "Montserrat";
-
-img {
-  height: auto;
-  max-width: 100%;
-}
-
-.card__image {
-  border-radius: 30px;
-  display: block;
-  min-height: 240px; 
-  overflow: hidden;
-  position: relative;
-
-  > img {
-    display: block;
-    margin-bottom: 0;
-    transition: all .25s ease-in-out;
-  }
-
-  &:hover > img {
-    transform: scale(1.2);
-  }
-
-  box-shadow: 3px 2px 20px 1px rgba(0, 0, 0, 0.781);
-}
-
-.card__overlay {
-  display: block;
-  height: 100%;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-}
-
-.card__overlay--black {
-  background-image: linear-gradient(to bottom, rgba($black, 0.01), rgba($black, 0.6));
-  z-index: 2;
-}
-
-.card__overlay-content {
-  position: absolute;
-  bottom: 0;
-  padding: 1.5em;
-  z-index: 3;
-}
-
-.card__detail {
-   
-  li {
-    color: #f8f8f8;
-    display: inline;
-    list-style-type: none;
-    padding-right: 0.5em;
-    font-size: 1em;
-    letter-spacing: 1px;
-  }
-
-}
-
-.title {
-  &:hover {
-    color: rgba(rgb(247, 181, 0), 0.7);
-    text-decoration: none;
-  }
-}
-
-</style> -->
-
 <style lang="scss" scoped>
 
   .card {
@@ -153,7 +52,7 @@ img {
     display: block;
     width: 95%;
     height: 20vh;
-    border: 2px solid black;
+    border: 1px solid black;
     display: flex;
     flex-direction: row;
     position: relative;
@@ -161,7 +60,6 @@ img {
     transition: all .4s ease-in-out;
   
   .poster-section {
-
     .poster-overlay{
       border-radius: 15px;
       width: 28%;
