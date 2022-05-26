@@ -161,10 +161,15 @@ export default {
 				headers: getters.authHeader,
 			})
 				.then((res) => {
+					console.log('1')
 					dispatch("removeToken");
+					console.log('2')
 					commit("SET_CURRENT_USER", res.data);
+					console.log('3')
 					commit("DELETE_CURRENT_USER_PROFILE"); // 로그아웃시 프로필 정보도 삭제
+					console.log('4')
 					alert("성공적으로 logout!");
+					console.log('5')
 					router.push({ name: "Home" });
 				})
 				.error((err) => {
