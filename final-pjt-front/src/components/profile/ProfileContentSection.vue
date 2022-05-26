@@ -34,6 +34,11 @@
 
     <!-- 내가 쓴 댓글 목록 -->
     <ul id="profile-comment-list" v-if="isComment">
+      <li id="comment-list-header">
+        <div class="article-id">글 번호</div>
+        <div class="article-title">글 내용</div>
+        <div class="article-user">작성 시각</div>
+      </li>
       <profile-comment-item
         v-for="content in contentsr"
         :key="content.pk"
@@ -97,15 +102,28 @@ li {
 #profile-content-section {
   // #profile-liked-movie-list {}
   // #profile-bookmarked-movie-list {}
+  #article-list-header {
+    @include article-list-header
+  }
+  
   #profile-article-list {
     border: 2px solid white;
     border-radius: 10px;
     padding: 0;
     margin: 1em 0;
   }
+
 }
 
-#article-list-header {
-  @include article-list-header
+#profile-comment-list {
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 0;
+  margin: 1em 0;
+
+  #comment-list-header {
+    @include article-list-header
+  }
 }
+
 </style>
