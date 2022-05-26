@@ -104,8 +104,17 @@ li {
 }
 
 #profile-content-section {
-  // #profile-liked-movie-list {}
-  // #profile-bookmarked-movie-list {}
+  #profile-liked-movie-list {
+    @include flex;
+    gap: .5em;
+    flex-wrap: wrap;
+  }
+
+  #profile-bookmarked-movie-list {
+    @include flex;
+    gap: .5em;
+    flex-wrap: wrap;
+  }
 
   #profile-article-list {
     border: 2px solid white;
