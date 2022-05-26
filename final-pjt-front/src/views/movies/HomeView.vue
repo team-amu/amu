@@ -10,59 +10,186 @@
     @on-search="onSearch"
     ></search-bar-section>
 
+    <div class="background">
 
-    <div class="searched-box" v-if="isKeywordsMovie">
-      <ul>
-        <li v-for="movie in keywordMovies" :key="movie.id">
-          <button v-if="type==='title'"
-            @click.prevent="onClickMovie(movie)"
-          >
-            {{ movie.title }}
-          </button>
-          <button v-if="type==='actor'"
-            @click.prevent="onClickActor(movie)"
-          >
-            {{ movie.name }}
-          </button>
-        </li>
-      </ul>
-    </div>
-    <hr>
-    
-    <h2>최근 HOT한 영화 </h2>
-    <card-list :movies="hotMovie"></card-list>
-    
-    <div v-if="isLoggedIn">
-      <h2>팔로우한 사람들이 좋아하는 영화</h2>
-      <card-list :movies="likeMovie"></card-list>
+      <div class="searched-box" v-if="isKeywordsMovie">
+        <ul>
+          <li v-for="movie in keywordMovies" :key="movie.id">
+            <button v-if="type==='title'"
+              @click.prevent="onClickMovie(movie)"
+            >
+              {{ movie.title }}
+            </button>
+            <button v-if="type==='actor'"
+              @click.prevent="onClickActor(movie)"
+            >
+              {{ movie.name }}
+            </button>
+          </li>
+        </ul>
+      </div>
+      <hr>
       
-      <h2>팔로우한 사람들이 북마크한 영화</h2>
-      <card-list :movies="bookmarkMovie"></card-list>
-    </div>
+      <div class="slides">
+  
+        <div class="hot">
+          <div class="title">
+            <h2>최근 HOT한 영화 </h2>
+          </div>
+          <div class="slide">
+            <vueper-slides
+                class="no-shadow"
+                :visible-slides="5"
+                :slide-ratio="1 / 4"
+                :dragging-distance="300"
+                :breakpoints="{ 
+                  1500: { visibleSlides: 4, slideMultiple: 1 },
+                  1100: { visibleSlides: 3, slideMultiple: 1 },
+                  800: { visibleSlides: 2, slideMultiple: 1 } ,
+                  450: { visibleSlides: 1, slideMultiple: 1 } }"
+                >
+                <vueper-slide v-for="movie in hotMovie" :key="movie.id ">
+                  <template v-slot:content >
+                    <card-item :movie="movie" class="vueperslide__content-wrapper"></card-item>
+                  </template>
+                </vueper-slide>
+              </vueper-slides>
+          </div>
+        </div>
+        
+        <div v-if="isLoggedIn">
+          <div class="follow-like">
+            <div class="title">
+              <h2>팔로우한 사람들이 좋아하는 영화</h2>
+            </div>
+            <div class="slide">
+              <vueper-slides
+                 class="no-shadow"
+                :visible-slides="5"
+                :slide-ratio="1 / 4"
+                :dragging-distance="300"
+                :breakpoints="{ 
+                  1500: { visibleSlides: 4, slideMultiple: 1 },
+                  1100: { visibleSlides: 3, slideMultiple: 1 },
+                  800: { visibleSlides: 2, slideMultiple: 1 } ,
+                  450: { visibleSlides: 1, slideMultiple: 1 } }"
+                >
+                <vueper-slide v-for="movie in likeMovie" :key="movie.id">
+                  <template v-slot:content >
+                    <card-item :movie="movie" class="vueperslide__content-wrapper"></card-item>
+                  </template>
+                </vueper-slide>
+              </vueper-slides>
+            </div>
+          </div>
+          
+          <div class="follow-bookmark">
+            <div class="title">
+              <h2>팔로우한 사람들이 북마크한 영화</h2>
+            </div>
+            <div class="slide">
+              <vueper-slides
+                class="no-shadow"
+                :visible-slides="5"
+                :slide-ratio="1 / 4"
+                :dragging-distance="300"
+                :breakpoints="{ 
+                  1500: { visibleSlides: 4, slideMultiple: 1 },
+                  1100: { visibleSlides: 3, slideMultiple: 1 },
+                  800: { visibleSlides: 2, slideMultiple: 1 } ,
+                  450: { visibleSlides: 1, slideMultiple: 1 } }"
+                >
+                <vueper-slide v-for="movie in bookmarkMovie" :key="movie.id">
+                  <template v-slot:content >
+                    <card-item :movie="movie" class="vueperslide__content-wrapper"></card-item>
+                  </template>
+                </vueper-slide>
+              </vueper-slides>
+            </div>
+          </div>
+        </div>
+    
+        <div v-if="!isLoggedIn">
+    
+          <div class="recent">
+            <div class="title">
+              <h2>최근 개봉 영화</h2>
+            </div>
+            <div class="slide">
+              <vueper-slides
+                class="no-shadow"
+                :visible-slides="5"
+                :slide-ratio="1 / 4"
+                :dragging-distance="300"
+                :breakpoints="{ 
+                  1500: { visibleSlides: 4, slideMultiple: 1 },
+                  1100: { visibleSlides: 3, slideMultiple: 1 },
+                  800: { visibleSlides: 2, slideMultiple: 1 } ,
+                  450: { visibleSlides: 1, slideMultiple: 1 } }"
+                >
+                <vueper-slide v-for="movie in recentMovie" :key="movie.id">
+                  <template v-slot:content >
+                    <card-item :movie="movie" class="vueperslide__content-wrapper"></card-item>
+                  </template>
+                </vueper-slide>
+              </vueper-slides>
+            </div>
+          </div>
+          
+          <div class="popular">
+            <div class="title">
+              <h2>인기 있는 영화</h2>
+            </div>
+            <div class="slide">
+              <vueper-slides
+                class="no-shadow"
+                :visible-slides="5"
+                :slide-ratio="1 / 4"
+                :dragging-distance="300"
+                :breakpoints="{ 
+                  1500: { visibleSlides: 4, slideMultiple: 1 },
+                  1100: { visibleSlides: 3, slideMultiple: 1 },
+                  800: { visibleSlides: 2, slideMultiple: 1 } ,
+                  450: { visibleSlides: 1, slideMultiple: 1 } }"
+                >
+                <vueper-slide v-for="movie in popularMovie" :key="movie.id">
+                  <template v-slot:content>
+                    <card-item :movie="movie" class="vueperslide__content-wrapper"></card-item>
+                  </template>
+                </vueper-slide>
+              </vueper-slides>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div v-if="!isLoggedIn">
-      <h2>최근 개봉 영화</h2>
-      <card-list :movies="recentMovie"></card-list>
-      
-      <h2>인기 있는 영화</h2>
-      <card-list :movies="popularMovie"></card-list>
-    </div>
+    </div>  
+
   </div>
 
 </template>
 
 <script>
-import CardList from '@/components/movies/CardList.vue'
+import CardItem from '@/components/movies/CardItem.vue'
 import SearchBarSection from '@/components/movies/SearchBarSection.vue'
 import TypeSelectBox from '@/components/movies/TypeSelectBox.vue'
 import router from "@/router";
 import { mapActions, mapGetters } from 'vuex'
+// vueper slides
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: "HomeView",
-  components: { CardList, SearchBarSection, TypeSelectBox },
+  components: { CardItem, SearchBarSection, TypeSelectBox, VueperSlides, VueperSlide },
   data () {
     return {
+      slides: [
+        {
+          title: 'Slide#1',
+          content: 'Slide content'
+        }
+      ]
     }
   },
   computed: {
@@ -88,6 +215,7 @@ export default {
   watch: {
     // 이 조건은 구글링 하다가 찾았는데 아직 잘 모름 일단 넣어놈,,
     immediate: true,
+    
   },
   created() {
     this.fetchHotMovie()
@@ -104,6 +232,49 @@ export default {
 .searched-box {
   @include searched-box;
 }
+
+.slides {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+}
+
+.background {
+  display: flex;
+  flex-direction: column;
+
+    .title {
+      @media only screen and (max-width:1100px){
+        text-align: center;
+      }
+      margin-top: 1rem;
+      margin-left: 1rem;
+    }
+
+  .hot {
+    display: flex;
+    flex-direction: column;   
+  }
+  .follow-like {
+    display: flex;
+    flex-direction: column;
+  }
+  .follower-follow {
+    display: flex;
+    flex-direction: column;
+  }
+  .recent {
+    display: flex;
+    flex-direction: column;
+  }
+  .popular {
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
 
 </style>
 

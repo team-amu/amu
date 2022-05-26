@@ -1,17 +1,24 @@
 <template>
 <div>
-  <!-- 라우터 링크를 밖에 넣어야 하나? -->
+
   <router-link
+  :to="{name: 'movieDetail', params: {moviePk: movie.id}}">
+    <div class="card">
+      <img :src="posterSrc" :alt="`${movie.title}포스터`">
+    </div>
+  </router-link>
+
+  <!-- 라우터 링크를 밖에 넣어야 하나? -->
+  <!-- <router-link
     :to="{ name: 'movieDetail', params: {moviePk: movie.id}}">
     <div id="movieCard">
-      <!-- {{ movie }} -->
       <img :src="posterSrc" alt="poster" class="movie-poster">
       <div id="titleSection">
         <span id="score">{{ movie.vote_average }}</span>
         <span id="title">{{ movie.title }}</span>
       </div>
     </div>
-  </router-link>
+  </router-link> -->
 </div>
 </template>
 
@@ -30,44 +37,36 @@ export default {
 }
 </script>
 
-<style>
-/* 예전에 승훈이가 만들어 놓은 것 임의로 가져옴~ */
-#movieCard {
-  width: 10%;
-  height: auto;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color:whitesmoke;
-  border: 1px solid gray;
-  border-radius: 5px;
-  margin: 3px;
-  padding: 3px;
-  box-shadow: 2px 2px 4px lightgray;
-}
+<style lang="scss" scoped>
 
-.movie-poster {
-  width: 100%;
-  margin: 0 auto 10px auto;
-}
+  .card {
+    width: 20vh;
+    height: 28vh;
+    border-radius: 10px;
+    outline: 1px solid rgba(255, 255, 255, .5);
+    outline-offset: -8px;
+    box-shadow: 5px 5px 10px 1px $dm-nav-color;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 
-#score {
-  padding: 3px 5px;
-  margin: 5px;
-  background-color: lightsalmon;
-  border-radius: 5px;
-}
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .6;
+      transition: transform .75s;
+    }
 
-#titleSection {
-  text-align: center;
-  height: 3em;
-  
-}
+    &:hover img{
+      transform: scale(1.15);
+      opacity: .9;
+    }
+  }
 
-#title {
-  font-weight: bold;
-  font-size: 0.9em;
-}
 
 </style>

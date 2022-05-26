@@ -195,7 +195,6 @@ export default {
   top: 2rem;
   left: 8%;
   color: white;
-  box-shadow: 5px 5px 30px 1px $dm-nav-color;
 
   @media screen and (max-width: 1024px) {
     text-align: center;
