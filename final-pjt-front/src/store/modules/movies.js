@@ -17,10 +17,10 @@ export default {
 		searchedMovies: [],
 		genres: [],
 		selectedGenres: [],
-		searchKeywords: '',
-		type: 'title',
-		minRank: '0',
-		sortKeyword: '-release_date'
+		searchKeywords: "",
+		type: "title",
+		minRank: "0",
+		sortKeyword: "-release_date",
 		//
 	},
 
@@ -53,33 +53,48 @@ export default {
 		SET_POPULAR_MOVIE: (state, movie) => (state.popularMovie = movie),
 		SET_MOVIE_DETAIL: (state, movieDetail) => (state.movieDetail = movieDetail),
 		// 검색기능
-		SET_KEYWORD_MOVIE: (state, keywordMovies) => (state.keywordMovies = keywordMovies),
-		SET_SEARCHED_MOVIES: (state, searchedMovies) => {state.searchedMovies = searchedMovies},
-		SET_GENRES: (state, genres) => {state.genres = genres},
+		SET_KEYWORD_MOVIE: (state, keywordMovies) =>
+			(state.keywordMovies = keywordMovies),
+		SET_SEARCHED_MOVIES: (state, searchedMovies) => {
+			state.searchedMovies = searchedMovies;
+		},
+		SET_GENRES: (state, genres) => {
+			state.genres = genres;
+		},
 		SET_SELECTED_GENRES: (state, genreId) => {
-			if ( state.selectedGenres.every((id) =>{
-				return id !== genreId
-			})) {
-				state.selectedGenres.push(genreId)
+			if (
+				state.selectedGenres.every((id) => {
+					return id !== genreId;
+				})
+			) {
+				state.selectedGenres.push(genreId);
 			} else {
 				state.selectedGenres = state.selectedGenres.filter((id) => {
-					return id !== genreId
-				})
+					return id !== genreId;
+				});
 			}
 		},
-		SET_SEARCH_KEYWORDS: (state, searchKeywords) => {state.searchKeywords = searchKeywords},
-		SET_TYPE: (state, type) => {state.type = type},
-		SET_MIN_RANK: (state, minRank) => {state.minRank = minRank},
-		SET_SORT_KEYWORD: (state, sortKeyword) => {state.sortKeyword = sortKeyword},
+		SET_SEARCH_KEYWORDS: (state, searchKeywords) => {
+			state.searchKeywords = searchKeywords;
+		},
+		SET_TYPE: (state, type) => {
+			state.type = type;
+		},
+		SET_MIN_RANK: (state, minRank) => {
+			state.minRank = minRank;
+		},
+		SET_SORT_KEYWORD: (state, sortKeyword) => {
+			state.sortKeyword = sortKeyword;
+		},
 		RESET_SEARCH: (state) => {
-			state.keywordMovies = [],
-			state.searchedMovies =  [],
-			state.selectedGenres = [],
-			state.searchKeywords = '',
-			state.type = 'title',
-			state.minRank = '0',
-			state.sortKeyword = '-release_date'
-		}
+			(state.keywordMovies = []),
+				(state.searchedMovies = []),
+				(state.selectedGenres = []),
+				(state.searchKeywords = ""),
+				(state.type = "title"),
+				(state.minRank = "0"),
+				(state.sortKeyword = "-release_date");
+		},
 		//
 	},
 
@@ -94,7 +109,10 @@ export default {
 					commit("SET_HOT_MOVIE", res.data);
 				})
 				.catch((err) => {
-					console.error(err.response.data);
+					console.err(err.response);
+					if (err.response.status === 404) {
+						router.push({ name: "NotFound" });
+					}
 				});
 		},
 
@@ -112,7 +130,7 @@ export default {
 					.catch((err) => {
 						console.error(err.response.data);
 					});
-				}
+			}
 		},
 
 		fetchBookmarkMovie({ commit, getters }) {
@@ -129,10 +147,10 @@ export default {
 					.catch((err) => {
 						console.error(err.response.data);
 					});
-				}
+			}
 		},
 
-		fetchRecentMovie({commit}) {
+		fetchRecentMovie({ commit }) {
 			axios({
 				url: drf.movies.recentMovie(),
 				method: "get",
@@ -146,7 +164,7 @@ export default {
 				});
 		},
 
-		fetchPopularMovie({commit}) {
+		fetchPopularMovie({ commit }) {
 			axios({
 				url: drf.movies.popularMovie(),
 				method: "get",
@@ -206,43 +224,45 @@ export default {
 					console.error(err.response.data);
 				});
 		},
-		
-		fetchKeywordMovie({commit}, {searchKeywords, type}) {
+
+		fetchKeywordMovie({ commit }, { searchKeywords, type }) {
 			axios({
-        url: drf.movies.keywordSearch(),
-        methods: "get",
-        params: {
-          searchKeywords,
-          type
-        }
-      })
-        .then((res) => {
-					commit("SET_KEYWORD_MOVIE", res.data)
-        })
-        .catch((err) => {
-          console.error(err.response.data)
-        })
+				url: drf.movies.keywordSearch(),
+				methods: "get",
+				params: {
+					searchKeywords,
+					type,
+				},
+			})
+				.then((res) => {
+					commit("SET_KEYWORD_MOVIE", res.data);
+				})
+				.catch((err) => {
+					console.error(err.response.data);
+				});
 		},
 
-		fetchSearchMovie({commit}, { searchPage, searchKeywords, type, 
-			selectedGenres, minRank, sort}) {
+		fetchSearchMovie(
+			{ commit },
+			{ searchPage, searchKeywords, type, selectedGenres, minRank, sort }
+		) {
 			axios({
 				url: drf.movies.search(searchPage),
-        methods: "get",
-        params: {
-          searchKeywords,
-          type,
+				methods: "get",
+				params: {
+					searchKeywords,
+					type,
 					selectedGenres,
-					minRank, 
+					minRank,
 					sort,
-				}
-      })
-        .then((res) => {
-          commit("SET_SEARCHED_MOVIES", res.data)
-        })
-        .catch((err) => {
-          console.error(err.response.data)
-        })
+				},
+			})
+				.then((res) => {
+					commit("SET_SEARCHED_MOVIES", res.data);
+				})
+				.catch((err) => {
+					console.error(err.response.data);
+				});
 		},
 
 		fetchGenres({ commit }) {
@@ -251,17 +271,15 @@ export default {
 				methods: "get",
 			})
 				.then((res) => {
-					commit("SET_GENRES", res.data)
+					commit("SET_GENRES", res.data);
 				})
 				.catch((err) => {
-					console.error(err.response.data)
-				})
+					console.error(err.response.data);
+				});
 		},
 
 		changeSelectedGenres({ commit }, genreId) {
-			commit("SET_SELECTED_GENRES", genreId)
+			commit("SET_SELECTED_GENRES", genreId);
 		},
-
-  },
-}
-
+	},
+};

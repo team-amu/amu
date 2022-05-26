@@ -94,6 +94,9 @@
   @include f-1;
   justify-content: center;
   align-items: center;
+  margin: 2em 0;
+  border-bottom: 1px solid white;
+  padding-bottom: .3em;
 }
 
 
@@ -115,5 +118,34 @@
 
   .article-user {
     @include flex-line(2, center);
+  }
+}
+
+@mixin movie-card-item {
+  @include flex-gap(column, 0);
+  @include li-none;
+  align-items: center;
+  flex-grow: 1;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 180px;
+  height: auto;
+  padding: 0;
+  margin: .5em 0;
+
+  .movie-poster {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .movie-title {
+    @include flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: 600;
+    height: 4em;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Community Total</h1>
+    <h1 id="main-title">전체게시판</h1>
     <section id="article-list-header-section">
       <router-link
         id="create-article-btn"
@@ -66,6 +66,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#main-title {
+  @include main-title;
+}
+
 #article-list-header-section {
   @include article-list-header-section;
 }

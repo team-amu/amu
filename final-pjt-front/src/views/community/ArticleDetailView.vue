@@ -188,9 +188,12 @@ export default {
       .then((res) => {
         this.$store.commit("SET_ARTICLE_INFO", res.data);
       })
-      .catch(err => {
-        console.error(err.data)
-      })
+      .catch((err) => {
+        console.err(err.response);
+        if (err.response.status === 404) {
+          this.$router.push({ name: "NotFound" });
+        }
+      });
     },
   },
   created() {
@@ -298,7 +301,7 @@ export default {
   #post-body-section {
     @include flex-gap(row, 1);
     border-bottom: 1px solid white;
-    padding-bottom: 1em;
+    padding: 1em 1em 5em 1em;
 
     @media only screen and (max-width: 465px) {
       @include trans;

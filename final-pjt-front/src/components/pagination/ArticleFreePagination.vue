@@ -1,5 +1,7 @@
 <template>
-  <div class="text-center">
+  <div 
+		id="pagination"
+		class="text-center">
     <v-pagination
       circle
 			class="custom-pagination"
@@ -35,4 +37,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#pagination {
+	margin: 2em 0 4em 0;
+}
 </style>

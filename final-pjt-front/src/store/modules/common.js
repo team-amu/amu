@@ -12,11 +12,29 @@ export default {
 
 	actions: {
 		goBack() {
-			router.go(-1);
+			window.history.length > 1 ? router.go(-1) : router.push("/");
 		},
-		goBackCheck() {
+		goBackCheck({ state }) {
 			if (confirm("이전으로 이동하시겠습니까?")) {
-				router.go(-1);
+				state.goBack();
+			}
+		},
+
+		goDoubleBack() {
+			window.history.length > 2 ? router.go(-2) : router.push("/");
+		},
+		goDoubleBackCheck({ state }) {
+			if (confirm("이전으로 이동하시겠습니까?")) {
+				state.goDoubleBack();
+			}
+		},
+
+		goHome() {
+			router.push({ name: "home" });
+		},
+		goHomeCheck() {
+			if (confirm("홈으로 이동하시겠습니까?")) {
+				router.push({ name: "home" });
 			}
 		},
 	},

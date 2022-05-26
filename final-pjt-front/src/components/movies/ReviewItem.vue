@@ -1,15 +1,11 @@
 <template>
-  <div>
   <li id="review-item">
-
     <section class="rank">
       <div class="rank"></div>
     </section>
 
     <section id="review-header">
-      
       <span id="review-profile-title">{{ review.title }}</span>
-
       <div id="review-profile">
         <div
           id="review-profile-image"
@@ -18,24 +14,17 @@
         <span id="review-profile-nickname">{{ review.user.profile.nickname }}</span>
         <span>⭐{{ review.rank}}</span>
       </div>
-
-
     </section>
 
     <section id="review-content">
-      <p>
-        {{ review.content }}
-      </p>
+      {{ review.content }}
     </section>
 
     <section id="review-date">
-      <div><v-icon>mdi-clock</v-icon> <span> 작성 {{ cuttedCreatedAt }}</span></div>
-      <div><v-icon>mdi-pen</v-icon> <span> 수정 {{ cuttedUpdatedAt }}</span></div>
+      <div class="date-part"><v-icon>mdi-clock</v-icon> 작성 {{ cuttedCreatedAt }}</div>
+      <div class="date-part"><v-icon>mdi-pen</v-icon> 수정 {{ cuttedUpdatedAt }}</div>
     </section>
-
   </li>
-
-  </div>
 </template>
 
 <script>
@@ -98,7 +87,6 @@ export default {
 <style lang="scss" scoped>
   span {
     @include f-5;
-    font-weight: bold;
     color: $dm-bg-color1;
   }
   p {
@@ -112,19 +100,8 @@ export default {
     margin-left: 3%;
   }
   #review-date {
-      
       @include flex-gap(row, 1);
-      @include f-7;
       align-self: flex-end;
-      margin: 0.1em 1em .5em 0;
-
-      i {
-        @include f-8;
-      }
-      span {
-        color: $dm-bg-color1;
-      }
-
   }
 
   #review-content {
@@ -139,18 +116,17 @@ export default {
   color: black;
   background-color: white;
   border-radius:20px;
-  padding: .5em, 1em;
+  padding: 0 1.5em 1em .5em;
 
   #review-header {
-    @include flex;
+    @include flex-gap(row, 0.5);
     justify-content: start;
+    align-items: center;
     border-bottom: 1px solid lightgray;
-    padding: .5em, .1em, .5em, .5em;
-    width: 94%;
-    margin-left: 3%;
+    padding: 0 0 .5em .5em;
+    margin: .5em 0;
 
     #review-profile {
-      margin-left: 4%;
       @include flex-gap;
       align-items: center;
 
@@ -161,13 +137,51 @@ export default {
       }
 
       #review-profile-nickname {
-        font-weight: 700;
+        font-weight: 600;
         color: $dm-pt-color2;
       }
     }
+  }
+
+  #review-content {
+    padding-left: .5em;
+  }
+}
+
+.whole {
+  width: 100%;
+  z-index: 2;
+}
 
 
+.content {
+  width: 100%;
+  border: 1px red solid;
+  z-index: 2;
+}
 
+.actor-images {
+  @include flex;
+  flex-wrap: wrap;
+}
+
+.date-part {
+  @include f-6;
+  color: $dm-bg-color1;
+
+  i {
+    @include f-5;
+    color: $dm-bg-color1;
+  }
+}
+
+#title-section {
+  @include flex-gap;
+  border-bottom: 1px solid white;
+
+  .vote {
+    display: inline-flex;
+    z-index: 2;
   }
 }
 </style>

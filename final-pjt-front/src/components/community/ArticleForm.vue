@@ -1,6 +1,6 @@
 <template>
   <div id="article-form-main">
-    <h2 id="main-title">게시글 {{ type }}</h2>
+    <h1 id="main-title">게시글 {{ type }}</h1>
     <form
       id="article-form"
       @submit.prevent="onSubmit"
@@ -163,10 +163,11 @@ export default {
 <style lang="scss" scoped>
 #article-form-main {
   @include flex-gap(column, 2);
-  margin: 2em 0;
+  margin-bottom: 2em;
 
   #main-title {
     @include main-title;
+    margin-bottom: -0.2em;
   }
 
   #article-form {

@@ -1,41 +1,10 @@
 <template>
   <div>
-    <!-- <router-link :to="{ name: 'communityReview', params: {page:'1'} }"> -->
-      <!-- <button @click="onClick">리뷰 더보기</button> -->
-    <!-- </router-link> -->
-    <hr>
-
-
     <div v-for="review in reviews" :key="review.pk">
       <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
         <review-item :review="review"></review-item>
       </router-link>
-      <hr>
     </div>
-
-
-    <!-- 리뷰가 갑자기 안나와서 일단 바꿔놓음..ㅠㅠ -->
-    <!-- <div v-if="isMore">
-      <div v-for="review in recentReviews" :key="review.pk">
-        <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
-          <review-item :review="review"></review-item>
-        </router-link>
-        <hr>
-      </div>
-      <button @click="onClick">접기</button>
-    </div>
-
-    <div v-if="!isMore">
-      <button @click="onClick">리뷰 더보기</button>
-      <hr>
-      <div v-for="review in recentTwoReviews" :key="review.pk">
-        <router-link :to="{ name: 'articleDetail', params: { articlePk : review.pk } }">
-          <review-item :review="review"></review-item>
-        </router-link>
-        <hr>
-      </div> -->
-    <!-- </div> -->
-
   </div>
 </template>
 
