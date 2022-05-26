@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Profile Article</h1>
     <profile-user-section v-if="isRightProfile && isProfile" :profile="profile"></profile-user-section>
     <profile-content-section
       v-if="isRightProfile && isProfile"
