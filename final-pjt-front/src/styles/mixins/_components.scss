@@ -94,6 +94,9 @@
   @include f-1;
   justify-content: center;
   align-items: center;
+  margin: 2em 0;
+  border-bottom: 1px solid white;
+  padding-bottom: .3em;
 }
 
 
@@ -123,6 +126,7 @@
   @include li-none;
   align-items: center;
   flex-grow: 1;
+  background-color: white;
   border: 1px solid white;
   border-radius: 10px;
   width: 180px;
@@ -140,7 +144,8 @@
     @include flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
+    font-weight: 600;
     height: 4em;
   }
 }
