@@ -12,7 +12,7 @@ export default {
 
 	actions: {
 		goBack() {
-			window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+			window.history.length > 1 ? router.go(-1) : router.push("/");
 		},
 		goBackCheck({ state }) {
 			if (confirm("이전으로 이동하시겠습니까?")) {
@@ -21,7 +21,7 @@ export default {
 		},
 
 		goDoubleBack() {
-			window.history.length > 2 ? this.$router.go(-2) : this.$router.push("/");
+			window.history.length > 2 ? router.go(-2) : router.push("/");
 		},
 		goDoubleBackCheck({ state }) {
 			if (confirm("이전으로 이동하시겠습니까?")) {

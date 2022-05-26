@@ -167,6 +167,7 @@ export default {
 
   #main-title {
     @include main-title;
+    margin-bottom: -0.2em;
   }
 
   #article-form {
