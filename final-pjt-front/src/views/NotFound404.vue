@@ -1,8 +1,11 @@
 <template>
   <div class="container-404">
-    <h1 class="main-title">404 Not Found</h1>
-    <h1 class="main-title">잘못된 요청입니다!</h1>
-    <button id="back-button" @click="goBack">이전으로 돌아가기</button>
+    <div id="message-box">
+      <h1 class="main-title">404 Not Found</h1>
+      <h1 class="main-title">잘못된 요청입니다!</h1>
+    </div>
+    <button id="back-button" @click="goDoubleBack">이전으로 돌아가기</button>
+    <button id="back-button" @click="goHome">HOME으로 돌아가기</button>
     
   </div>
 </template>
@@ -12,7 +15,7 @@ import { mapActions } from 'vuex';
 export default {
   name: "NotFound404",
   methods: {
-    ...mapActions(['goBack'])
+    ...mapActions(['goDoubleBack', 'goHome'])
   }
 }
 </script>
@@ -20,9 +23,12 @@ export default {
 <style lang="scss" scoped>
 .container-404 {
   @include flex(column);
+  margin: 3em 0;
 
   .main-title {
     @include main-title;
+    border: 0;
+    margin: 0;
   }
 
   #back-button {

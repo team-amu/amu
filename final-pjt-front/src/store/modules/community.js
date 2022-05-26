@@ -106,6 +106,9 @@ export default {
 				})
 				.catch((err) => {
 					console.error(err.data);
+					if (err.response.status === 404) {
+						router.push({ name: "NotFound" });
+					}
 				});
 		},
 
@@ -127,6 +130,9 @@ export default {
 				})
 				.catch((err) => {
 					console.error(err.data);
+					if (err.response.status === 404) {
+						router.push({ name: "NotFound" });
+					}
 				});
 		},
 
@@ -147,6 +153,9 @@ export default {
 				})
 				.catch((err) => {
 					console.error(err.data);
+					if (err.response.status === 404) {
+						router.push({ name: "NotFound" });
+					}
 				});
 		},
 
@@ -167,6 +176,9 @@ export default {
 				})
 				.catch((err) => {
 					console.error(err.data);
+					if (err.response.status === 404) {
+						router.push({ name: "NotFound" });
+					}
 				});
 		},
 
@@ -224,6 +236,9 @@ export default {
 				})
 				.catch((err) => {
 					console.error(err.data);
+					if (err.response.status === 404) {
+						router.push({ name: "NotFound" });
+					}
 				});
 		},
 
@@ -248,6 +263,9 @@ export default {
 					})
 					.catch((err) => {
 						console.error(err);
+						if (err.response.status === 404) {
+							router.push({ name: "NotFound" });
+						}
 					});
 			});
 		},
@@ -291,6 +309,9 @@ export default {
 					})
 					.catch((err) => {
 						console.err(err.response);
+						if (err.response.status === 404) {
+							router.push({ name: "NotFound" });
+						}
 					});
 			}
 		},
@@ -306,7 +327,12 @@ export default {
 				.then((res) => {
 					commit("SET_ARTICLE_COMMENTS", res.data);
 				})
-				.catch((err) => console.error(err.response));
+				.catch((err) => {
+					console.err(err.response);
+					if (err.response.status === 404) {
+						router.push({ name: "NotFound" });
+					}
+				});
 		},
 
 		// 댓글 수정
@@ -320,7 +346,12 @@ export default {
 				.then((res) => {
 					commit("SET_ARTICLE_COMMENTS", res.data);
 				})
-				.catch((err) => console.err(err.response));
+				.catch((err) => {
+					console.err(err.response);
+					if (err.response.status === 404) {
+						router.push({ name: "NotFound" });
+					}
+				});
 		},
 
 		// 댓글 삭제
@@ -335,7 +366,12 @@ export default {
 					.then((res) => {
 						commit("SET_ARTICLE_COMMENTS", res.data);
 					})
-					.catch((err) => console.error(err.response));
+					.catch((err) => {
+						console.err(err.response);
+						if (err.response.status === 404) {
+							router.push({ name: "NotFound" });
+						}
+					});
 			}
 		},
 

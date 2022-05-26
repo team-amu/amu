@@ -188,9 +188,12 @@ export default {
       .then((res) => {
         this.$store.commit("SET_ARTICLE_INFO", res.data);
       })
-      .catch(err => {
-        console.error(err.data)
-      })
+      .catch((err) => {
+        console.err(err.response);
+        if (err.response.status === 404) {
+          this.$router.push({ name: "NotFound" });
+        }
+      });
     },
   },
   created() {
