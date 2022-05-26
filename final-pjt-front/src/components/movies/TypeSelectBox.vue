@@ -37,10 +37,12 @@ export default {
   @include select-style1;
   select {
     @include f-5;
+    flex-shrink: 1;
+    text-align: center;
     width: 100%;
     background-color: #fff;
     color: $dm-bg-color1;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 1px;
   }
   select::-ms-expand { 
