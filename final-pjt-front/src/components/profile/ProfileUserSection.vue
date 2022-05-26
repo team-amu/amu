@@ -81,37 +81,57 @@
       class="profile-btn-section"
       v-if="!isEditing"
     >
-      <div class="profile-btn">
-        <div class="profile-btn-title">좋아요한 영화</div>
-        <div class="profile-btn-count-part">
-          <v-icon class="profile-btn-icon">mdi-heart</v-icon>
-          <span class="profile-btn-count">{{ profile.user.like_movies.length }}</span>
+      <router-link
+        class="profile-btn-link"
+        :to="{ name: 'profileLike', params: { username: currentUser.username }}"
+      >
+        <div class="profile-btn">
+          <div class="profile-btn-title">좋아요한 영화</div>
+          <div class="profile-btn-count-part">
+            <v-icon class="profile-btn-icon">mdi-heart</v-icon>
+            <span class="profile-btn-count">{{ profile.user.like_movies.length }}</span>
+          </div>
         </div>
-      </div>
+      </router-link>
 
-      <div class="profile-btn">
-        <div class="profile-btn-title">북마크한 영화</div>
-        <div class="profile-btn-count-part">
-          <v-icon class="profile-btn-icon">mdi-book-heart</v-icon>
-          <span class="profile-btn-count">{{ profile.user.bookmark_movies.length }}</span>
+      <router-link
+        class="profile-btn-link"
+        :to="{ name: 'profileBookmark', params: { username: currentUser.username }}"
+      >
+        <div class="profile-btn">
+          <div class="profile-btn-title">북마크한 영화</div>
+          <div class="profile-btn-count-part">
+            <v-icon class="profile-btn-icon">mdi-book-heart</v-icon>
+            <span class="profile-btn-count">{{ profile.user.bookmark_movies.length }}</span>
+          </div>
         </div>
-      </div>
+      </router-link>
 
-      <div class="profile-btn">
-        <div class="profile-btn-title">작성한 게시글</div>
-        <div class="profile-btn-count-part">
-          <v-icon class="profile-btn-icon">mdi-note-text</v-icon>
-          <span class="profile-btn-count">{{ profile.user.articles.length }}</span>
+      <router-link
+        class="profile-btn-link"
+        :to="{ name: 'profileArticle', params: { username: currentUser.username }}"
+      >
+        <div class="profile-btn">
+          <div class="profile-btn-title">작성한 게시글</div>
+          <div class="profile-btn-count-part">
+            <v-icon class="profile-btn-icon">mdi-note-text</v-icon>
+            <span class="profile-btn-count">{{ profile.user.articles.length }}</span>
+          </div>
         </div>
-      </div>
+      </router-link>
 
-      <div class="profile-btn">
-        <div class="profile-btn-title">작성한 댓글</div>
-        <div class="profile-btn-count-part">
-          <v-icon class="profile-btn-icon">mdi-comment-text</v-icon>
-          <span class="profile-btn-count">{{ profile.user.comments.length }}</span>
+      <router-link
+        class="profile-btn-link"
+        :to="{ name: 'profileComment', params: { username: currentUser.username }}"
+      >
+        <div class="profile-btn">
+          <div class="profile-btn-title">작성한 댓글</div>
+          <div class="profile-btn-count-part">
+            <v-icon class="profile-btn-icon">mdi-comment-text</v-icon>
+            <span class="profile-btn-count">{{ profile.user.comments.length }}</span>
+          </div>
         </div>
-      </div>
+      </router-link>
     </section>
   </div>
 </template>
@@ -313,24 +333,32 @@ export default {
     gap: .5em;
     margin: 1em 0;
 
+    .profile-btn-link {
+      width: 24%;
+    }
+
     .profile-btn {
+      $profile-btn-color: white;
       @include icon;
       @include flex(column);
       justify-content: center;
       align-items: center;
-      border: 1px solid white;
+      border: 1px solid $profile-btn-color;
       border-radius: 5px;
       padding: .5em;
-      width: 24%;
       flex-shrink: 1;
       gap: .5em;
+
+      // &:hover {
+      //   $profile-btn-color: $dm-pt-color1;
+      // }
 
       .profile-btn-count-part {
         @include flex;
         gap:.5em;
         @include f-4;
         span {
-          color: white;
+          color: $profile-btn-color;
         }
 
         .profile-btn-icon {
