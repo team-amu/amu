@@ -298,7 +298,7 @@ export default {
   #post-body-section {
     @include flex-gap(row, 1);
     border-bottom: 1px solid white;
-    padding-bottom: 1em;
+    padding: 1em 1em 5em 1em;
 
     @media only screen and (max-width: 465px) {
       @include trans;

@@ -101,7 +101,10 @@
         return this.currentUser.username? this.currentUser.username : 'guest'
       },
       profileImageSrc() {
-        const profile_image = this.currentUserProfile.profile_image
+        let profile_image = this.currentUserProfile.profile_image
+        if (!profile_image) {
+          profile_image = '/media/images/default.png'
+        }
         return {
           'background-image': `url("http://localhost:8000${profile_image}")`,
           'background-size': 'cover'

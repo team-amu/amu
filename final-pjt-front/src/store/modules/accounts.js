@@ -40,9 +40,11 @@ export default {
 		SET_PROFILE: (state, profile) => (state.profile = profile),
 		SET_AUTH_ERROR: (state, error) => (state.authError = error),
 		SET_PROFILE_ERROR: (state, error) => (state.profileError = error),
-		SET_CURRENT_USER_PROFILE: (state, myProfile) => (state.currentUserProfile = myProfile),
+		SET_CURRENT_USER_PROFILE: (state, myProfile) =>
+			(state.currentUserProfile = myProfile),
 		DELETE_CURRENT_USER_PROFILE: (state) => {
-			state.currentUserProfile = null}
+			state.currentUserProfile = null;
+		},
 
 		// 	SET_PROFILE_LIKED_MOVIE_PAGE_NUM: (state, page) =>
 		// 		(state.profileLikedMoviePageNum = page),
@@ -134,7 +136,7 @@ export default {
 				.then((res) => {
 					const token = res.data.key;
 					dispatch("saveToken", token);
-					dispatch("fetchCurrentUser"); 
+					dispatch("fetchCurrentUser");
 					dispatch("fetchMyProfile"); // 로그인 시 프로필 정보도 가져오기
 					router.push({ name: "home" });
 				})
@@ -165,7 +167,7 @@ export default {
 					commit("SET_CURRENT_USER", res.data);
 					commit("DELETE_CURRENT_USER_PROFILE"); // 로그아웃시 프로필 정보도 삭제
 					alert("성공적으로 logout!");
-					router.push({ name: "Home" });
+					router.push({ name: "home" });
 				})
 				.error((err) => {
 					console.error(err.response);
@@ -299,17 +301,17 @@ export default {
 				});
 		},
 
-		fetchMyProfile ({commit, getters},) {
+		fetchMyProfile({ commit, getters }) {
 			// 로그인 되어있을 때만 실행
-			if (getters.isLoggedIn){
-				console.log('들어오나?')
+			if (getters.isLoggedIn) {
+				console.log("들어오나?");
 				axios({
 					url: drf.accounts.myProfile(),
 					method: "get",
 					headers: getters.authHeader,
 				})
 					.then((res) => {
-						commit("SET_CURRENT_USER_PROFILE", res.data)
+						commit("SET_CURRENT_USER_PROFILE", res.data);
 					})
 					.catch((err) => {
 						console.error(err.response.data);
