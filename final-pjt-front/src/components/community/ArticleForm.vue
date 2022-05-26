@@ -27,24 +27,22 @@
       class="movie-search-part"
       ></search-bar-section>
 
+    <!-- 영화 제목 검색 결과 드롭다운 -->
+      <div
+        v-if="isKeywordsMovie && !isSelect"
+        id="searched-title-part"
+      >
+        <ul>
+          <button v-for="movie in keywordMovies" :key="movie.id" 
+          @click.prevent="selectMovie(movie)"
+          style="display: block;"
+          >
+              {{ movie.title }}
+          </button>
+        </ul>
+      </div>  
+
       <section v-if="isReview" id="movie-info-section">
-        
-
-        <!-- 영화 제목 검색 결과 드롭다운 -->
-        <div
-          v-if="isKeywordsMovie && !isSelect"
-          id="searched-title-part"
-        >
-          <ul>
-            <button v-for="movie in keywordMovies" :key="movie.id" 
-            @click.prevent="selectMovie(movie)"
-            style="display: block;"
-            >
-                {{ movie.title }}
-            </button>
-          </ul>
-        </div>    
-
         <div id="movie-info-part">
           <!-- 영화 제목 결과창 -->
           <input
@@ -189,15 +187,6 @@ export default {
   #movie-info-section {
     @include flex-gap(column, 0.5);
 
-    #searched-title-part{
-      width: 100%;
-      height: 100px;
-      margin: 5px;
-      background-color: silver;
-      float: left;
-      overflow: auto;
-    }
-
     #movie-info-part {
       @include flex-gap(row, 0.5);
 
@@ -211,6 +200,10 @@ export default {
       }
     }
   }
+
+  #searched-title-part{
+      @include searched-box;
+    }
 
   #article-content-input {
     background-color: white;

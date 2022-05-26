@@ -128,12 +128,7 @@ export default {
 
 <style lang="scss" scoped>
 .searched-box {
-  width: 100%;
-  height: 100px;
-  margin: 5px;
-  background-color: silver;
-  float: left;
-  overflow: auto;
+  @include searched-box;
 }
 
 .section-container {

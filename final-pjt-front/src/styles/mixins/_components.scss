@@ -23,3 +23,26 @@
     }
   }
 }
+
+@mixin searched-box {
+  @include trans;
+  line-height: 1.8;
+  width: 100%;
+  height: 130px;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 10px 0 0 10px;
+  float: left;
+  overflow: auto;
+  margin: .5em 0;
+  padding: .5em 0;
+  
+  li {
+    list-style: none;
+  }
+
+  button:hover {
+    @include trans(.2);
+    color: $dm-pt-color1;
+  }
+}

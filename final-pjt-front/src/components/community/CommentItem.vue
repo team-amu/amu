@@ -145,13 +145,13 @@ export default {
   color: black;
   background-color: white;
   border-radius: 20px;
-  padding: 1em;
+  padding: .5em 1em;
 
   #comment-profile {
     @include flex-gap(row, .5);
     justify-content: space-between;
-    border-bottom: 1px solid $dm-bg-color1;
-    padding: 0 1em .5em 1em;
+    border-bottom: 1px solid lightgray;
+    padding: .5em 1em;
 
     // #comment-profile-image {}
     #comment-profile-nickname{

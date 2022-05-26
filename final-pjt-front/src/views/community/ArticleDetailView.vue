@@ -86,7 +86,9 @@
     </section>
 
     <!-- 댓글 섹션 -->
-    <comment-section :comments="articleInfo.comments"></comment-section>
+    <comment-section
+      :comments="articleInfo.comments"
+    ></comment-section>
   </div>
 </template>
 

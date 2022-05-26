@@ -6,7 +6,7 @@
         댓글 {{ articleInfo.comments.length }}
       </div>
     </div>
-    <ul id="comment-list-part">
+    <ul id="comment-list-part" v-if="isComments">
       <comment-item
         v-for="comment in comments"
         :key="comment.pk"
@@ -20,12 +20,16 @@
 import CommentForm from '@/components/community/CommentForm'
 import CommentItem from '@/components/community/CommentItem'
 import { mapGetters } from 'vuex'
+import _ from 'lodash';
 export default {
   name: "CommentSection",
   components: { CommentForm, CommentItem },
   props: { comments: Array },
   computed: {
-    ...mapGetters(['articleInfo'])
+    ...mapGetters(['articleInfo']),
+    isComments() {
+      return !_.isEmpty(this.articleInfo.comments)
+    }
   }
 }
 </script>
