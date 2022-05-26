@@ -42,7 +42,6 @@ export default {
 		SET_PROFILE_ERROR: (state, error) => (state.profileError = error),
 		SET_CURRENT_USER_PROFILE: (state, myProfile) => (state.currentUserProfile = myProfile),
 		DELETE_CURRENT_USER_PROFILE: (state) => {
-			console.log('sdsdsdsdsd')
 			state.currentUserProfile = null}
 
 		// 	SET_PROFILE_LIKED_MOVIE_PAGE_NUM: (state, page) =>
@@ -91,8 +90,6 @@ export default {
 					const token = res.data.key;
 					dispatch("saveToken", token); // 로컬 스토리지에 토큰 저장
 					dispatch("fetchCurrentUser"); // 로컬 스토리지에 유저 정보 저장
-					console.log("sdsdds");
-					console.log(payload.profile.profile_image);
 					// 프로필 생성!
 					axios({
 						url: drf.accounts.createProfile(payload.credentials.username),
@@ -168,7 +165,7 @@ export default {
 					commit("SET_CURRENT_USER", res.data);
 					commit("DELETE_CURRENT_USER_PROFILE"); // 로그아웃시 프로필 정보도 삭제
 					alert("성공적으로 logout!");
-					router.push({ name: "login" }); // login 으로 보내지 말고 추후 수정 필요 220519
+					router.push({ name: "Home" });
 				})
 				.error((err) => {
 					console.error(err.response);

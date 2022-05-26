@@ -3,10 +3,13 @@
     <h1>Home</h1>
     
     <hr>
-    <type-select-box></type-select-box>
+
+    <type-select-box id=""></type-select-box>
+
     <search-bar-section
     @on-search="onSearch"
     ></search-bar-section>
+
 
     <div class="searched-box" v-if="isKeywordsMovie">
       <ul>
@@ -29,12 +32,23 @@
     <h2>최근 HOT한 영화 </h2>
     <card-list :movies="hotMovie"></card-list>
     
-    <h2>팔로우한 사람들이 좋아하는 영화</h2>
-    <card-list :movies="likeMovie"></card-list>
-    
-    <h2>팔로우한 사람들이 북마크한 영화</h2>
-    <card-list :movies="bookmarkMovie"></card-list>
+    <div v-if="isLoggedIn">
+      <h2>팔로우한 사람들이 좋아하는 영화</h2>
+      <card-list :movies="likeMovie"></card-list>
+      
+      <h2>팔로우한 사람들이 북마크한 영화</h2>
+      <card-list :movies="bookmarkMovie"></card-list>
+    </div>
+
+    <div v-if="!isLoggedIn">
+      <h2>최근 개봉 영화</h2>
+      <card-list :movies="recentMovie"></card-list>
+      
+      <h2>인기 있는 영화</h2>
+      <card-list :movies="popularMovie"></card-list>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -53,10 +67,12 @@ export default {
   },
   computed: {
     ...mapGetters(['hotMovie', 'likeMovie', 'bookmarkMovie', 
-    'isKeywordsMovie', 'keywordMovies', 'type', 'searchKeywords', 'selectedGenres', 'minRank', 'sortKeyword']),
+    'isKeywordsMovie', 'keywordMovies', 'type', 'searchKeywords', 
+    'selectedGenres', 'minRank', 'sortKeyword', 'isLoggedIn',
+    'recentMovie', 'popularMovie', ]),
   },
   methods: {
-    ...mapActions(['fetchHotMovie', 'fetchLikeMovie', 'fetchBookmarkMovie', ]),
+    ...mapActions(['fetchHotMovie', 'fetchLikeMovie', 'fetchBookmarkMovie', 'fetchPopularMovie', 'fetchRecentMovie' ]),    
     onSearch() {
       router.push({ name: 'movieSearch', params: { searchPage: '1' }, query: {searchKeywords: this.searchKeywords, 
       type: this.type, genres: this.selectedGenres, minRank: this.minRank, sort: this.sortKeyword}})
@@ -77,6 +93,8 @@ export default {
     this.fetchHotMovie()
     this.fetchLikeMovie()
     this.fetchBookmarkMovie()
+    this.fetchPopularMovie()
+    this.fetchRecentMovie()
     this.$store.commit("RESET_SEARCH")
   },
 }
@@ -86,5 +104,6 @@ export default {
 .searched-box {
   @include searched-box;
 }
+
 </style>
 

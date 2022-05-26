@@ -38,6 +38,8 @@
                 <v-icon class="btn-icon"
                 v-if="!isLike && isLoggedIn" @click="movieLike(movieDetail.id)"
                 >mdi-heart-outline</v-icon>
+                <v-icon class="btn-icon"
+                v-if="!isLoggedIn">mdi-heart-outline</v-icon>
                 <span class="btn-count">{{ movieDetail.likes_count }}</span>
               </div>
 
@@ -48,6 +50,8 @@
                 <v-icon class="btn-icon"
                 v-if="!isBookmark && isLoggedIn" @click="movieBookmark(movieDetail.id)"
                 >mdi-book-heart-outline</v-icon>
+                <v-icon class="btn-icon"
+                v-if="!isLoggedIn">mdi-book-heart-outline</v-icon>
                 <span class="btn-count">{{ movieDetail.bookmarks_count }}</span>
               </div>
             </div>

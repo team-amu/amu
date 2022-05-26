@@ -73,7 +73,6 @@ export default {
     },
     sortChange(event) {
       this.sort = event.target.value
-      console.log(event.target.value)
       this.$store.commit('SET_SORT_KEYWORD', this.sort)
     },
     onUp() {

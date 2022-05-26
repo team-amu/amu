@@ -148,7 +148,6 @@ export default {
     },
   },
   created() {
-    console.log(this.commentData)
   }
 }
 </script>

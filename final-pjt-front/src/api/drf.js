@@ -57,9 +57,13 @@ export default {
 	movies: {
 		home: () => HOST + MOVIES,
 		// 추천 알고리즘 영화들
+			// 로그인 유저
 		hotMovie: () => HOST + MOVIES + "hot/",
 		likeMovie: () => HOST + MOVIES + "like/",
 		bookmarkMovie: () => HOST + MOVIES + "bookmark/",
+			// 비로그인 유저
+		popularMovie: () => HOST + MOVIES + "anonymous/recommend/hot/",
+		recentMovie: () => HOST + MOVIES + "anonymous/recommend/recent/",
 		// db의 장르 뽑기
 		genres: () => HOST + MOVIES + "genres/",
 		//

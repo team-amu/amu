@@ -15,4 +15,7 @@ urlpatterns = [
     path('search/<int:search_page>/', views.movie_search),
     # 검색어에 맞는 내용들을 출력해줌
     path('keywordSearch/', views.print_keyword_search),
+    # 비로그인 유저들에게 보여줄 추천 영화
+    path('anonymous/recommend/recent/', views.anonymous_recommend_recent),
+    path('anonymous/recommend/hot/', views.anonymous_recommend_hot),
 ]

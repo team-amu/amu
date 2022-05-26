@@ -169,7 +169,7 @@ def print_keyword_search(request):
                 )
             ).filter(retitle__contains=rekeyword)
         else:
-            results = Movie.objects.all()
+            return Response({})
         serializer = MovieTitleSerializer(results, many=True)
 
     else: # 배우일 때
@@ -181,7 +181,7 @@ def print_keyword_search(request):
                 )
             ).filter(retitle__contains=rekeyword)
         else:
-            results = Actor.objects.all()
+            return Response({})
         serializer = ActorNameSerializer(results, many=True)
     
     return Response(serializer.data)
@@ -190,4 +190,19 @@ def print_keyword_search(request):
 def print_genres(request):
     genres =Genre.objects.all()
     serializer = GenreSerializer(genres, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def anonymous_recommend_recent(request):
+
+    movies = Movie.objects.all().order_by('-release_date')[:10]
+    serializer = MovieListSerializer(movies, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def anonymous_recommend_hot(request):
+
+    movies = Movie.objects.all().order_by('-popularity')[:10]
+
+    serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)

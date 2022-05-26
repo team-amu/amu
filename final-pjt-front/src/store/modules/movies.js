@@ -9,6 +9,8 @@ export default {
 		hotMovie: [],
 		likeMovie: [],
 		bookmarkMovie: [],
+		recentMovie: [],
+		popularMovie: [],
 		movieDetail: {},
 		// 검색기능
 		keywordMovies: [],
@@ -27,6 +29,8 @@ export default {
 		hotMovie: (state) => state.hotMovie,
 		likeMovie: (state) => state.likeMovie,
 		bookmarkMovie: (state) => state.bookmarkMovie,
+		recentMovie: (state) => state.recentMovie,
+		popularMovie: (state) => state.popularMovie,
 		movieDetail: (state) => state.movieDetail,
 		// 검색기능
 		keywordMovies: (state) => state.keywordMovies,
@@ -45,6 +49,8 @@ export default {
 		SET_HOT_MOVIE: (state, movie) => (state.hotMovie = movie),
 		SET_LIKE_MOVIE: (state, movie) => (state.likeMovie = movie),
 		SET_BOOKMARK_MOVIE: (state, movie) => (state.bookmarkMovie = movie),
+		SET_RECENT_MOVIE: (state, movie) => (state.recentMovie = movie),
+		SET_POPULAR_MOVIE: (state, movie) => (state.popularMovie = movie),
 		SET_MOVIE_DETAIL: (state, movieDetail) => (state.movieDetail = movieDetail),
 		// 검색기능
 		SET_KEYWORD_MOVIE: (state, keywordMovies) => (state.keywordMovies = keywordMovies),
@@ -93,29 +99,61 @@ export default {
 		},
 
 		fetchLikeMovie({ commit, getters }) {
+			if (getters.isLoggedIn) {
+				axios({
+					url: drf.movies.likeMovie(),
+					method: "get",
+					// data: {}
+					headers: getters.authHeader,
+				})
+					.then((res) => {
+						commit("SET_LIKE_MOVIE", res.data);
+					})
+					.catch((err) => {
+						console.error(err.response.data);
+					});
+				}
+		},
+
+		fetchBookmarkMovie({ commit, getters }) {
+			if (getters.isLoggedIn) {
+				axios({
+					url: drf.movies.bookmarkMovie(),
+					method: "get",
+					// data: {}
+					headers: getters.authHeader,
+				})
+					.then((res) => {
+						commit("SET_BOOKMARK_MOVIE", res.data);
+					})
+					.catch((err) => {
+						console.error(err.response.data);
+					});
+				}
+		},
+
+		fetchRecentMovie({commit}) {
 			axios({
-				url: drf.movies.likeMovie(),
+				url: drf.movies.recentMovie(),
 				method: "get",
 				// data: {}
-				headers: getters.authHeader,
 			})
 				.then((res) => {
-					commit("SET_LIKE_MOVIE", res.data);
+					commit("SET_RECENT_MOVIE", res.data);
 				})
 				.catch((err) => {
 					console.error(err.response.data);
 				});
 		},
 
-		fetchBookmarkMovie({ commit, getters }) {
+		fetchPopularMovie({commit}) {
 			axios({
-				url: drf.movies.bookmarkMovie(),
+				url: drf.movies.popularMovie(),
 				method: "get",
 				// data: {}
-				headers: getters.authHeader,
 			})
 				.then((res) => {
-					commit("SET_BOOKMARK_MOVIE", res.data);
+					commit("SET_POPULAR_MOVIE", res.data);
 				})
 				.catch((err) => {
 					console.error(err.response.data);
@@ -170,7 +208,6 @@ export default {
 		},
 		
 		fetchKeywordMovie({commit}, {searchKeywords, type}) {
-			console.log(searchKeywords)
 			axios({
         url: drf.movies.keywordSearch(),
         methods: "get",
