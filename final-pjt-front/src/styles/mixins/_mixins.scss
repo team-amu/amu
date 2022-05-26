@@ -20,6 +20,13 @@
   padding: 0.5em;
 }
 
+@mixin hover($color:$dm-pt-color1) {
+  &:hover {
+    @include trans(0.2);
+    color: $color;
+  }
+}
+
 
 
 @mixin link-none {
