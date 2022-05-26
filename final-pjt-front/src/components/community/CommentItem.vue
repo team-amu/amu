@@ -185,7 +185,7 @@ export default {
 
     #edit-btn-list {
       @include flex-gap;
-      @include f-6;
+      @include f-5;
 
       #remove-btn {
         color: red;
@@ -194,16 +194,16 @@ export default {
 
     #editing-btn-list {
       @include flex-gap;
-      @include f-6;
+      @include f-5;
     }
   }
 
   #comment-content {
-    @include f-6;
+    @include f-5;
   }
 
   #edit-input {
-      @include f-6;
+      @include f-5;
       outline: none;
       color: green;
       width: 100%;
@@ -211,12 +211,12 @@ export default {
 
   #comment-date {
     @include flex-gap(row, 1);
-    @include f-7;
+    @include f-6;
     align-self: flex-end;
     margin: 2em 1em .5em 0;
 
     i {
-      @include f-8;
+      @include f-7;
     }
 
     span {
