@@ -11,4 +11,13 @@ module.exports = defineConfig({
 			},
 		},
 	},
+	pages: {
+		index: {
+			entry: "src/index/main.js",
+			template: "public/index.html",
+			filename: "index.html",
+			title: "AMU🎬",
+			chunks: ["chunk-vendors", "chunk-common", "index"],
+		},
+	},
 });

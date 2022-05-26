@@ -130,9 +130,9 @@ export default {
 				})
 				.catch((err) => {
 					console.error(err.data);
-					if (err.response.status === 404) {
-						router.push({ name: "NotFound" });
-					}
+					// if (err.response.status === 404) {
+					// 	router.push({ name: "NotFound" });
+					// }
 				});
 		},
 
