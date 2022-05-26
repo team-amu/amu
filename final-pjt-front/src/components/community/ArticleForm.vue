@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2>게시글 작성</h2>
+  <div id="article-form-main">
+    <h2 id="main-title">게시글 {{ type }}</h2>
     <form
       id="article-form"
       @submit.prevent="onSubmit"
@@ -23,6 +23,7 @@
 
       <!-- 영화 제목 검색창 -->
       <search-bar-section
+      v-if="isReview"
       @click="onSearch"
       class="movie-search-part"
       ></search-bar-section>
@@ -94,6 +95,7 @@ export default {
   },
   data () {
     return {
+      type: '작성',
       movieTitle: '',
       formData: {
         'title': this.articleInfo.title,
@@ -151,6 +153,7 @@ export default {
     if (this.action === 'update') {
       this.movieTitle = this.formData.movie.title
       this.formData.movie = this.formData.movie.id
+      this.type = '수정'
     }
     this.$store.commit("RESET_SEARCH")
   }
@@ -158,81 +161,94 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#article-form {
-  @include f-5;
-  @include flex-gap(column, 1.5);
-  color: white;
+#article-form-main {
+  @include flex-gap(column, 2);
+  margin: 2em 0;
 
-  #article-title-section {
-    @include flex-gap(row, 0.5);
-
-    #article-category-select {
-      @include select-style2;
-      @include f-5;
-      background-color: white;
-      border-radius: 10px;
-      margin: 0;
-      
-      color: $dm-bg-color1;
-      text-align: center;
-
-    }
-
-    #article-title-input {
-      @include input-style1;
-      margin: 0;
-    }
+  #main-title {
+    @include main-title;
   }
 
-  #movie-info-section {
-    @include flex-gap(column, 0.5);
+  #article-form {
+    @include f-5;
+    @include flex-gap(column, .5);
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 1.5em;
 
-    #movie-info-part {
+    #article-title-section {
       @include flex-gap(row, 0.5);
 
-      #movie-title-part {
-        @include input-style1;
-        background-color: mix($dm-bg-color1, white, 90%);
-        color: white;
+      #article-category-select {
+        @include select-style2;
+        @include f-5;
+        background-color: white;
+        border-radius: 10px;
         margin: 0;
-        flex-shrink:1;
-        width: 2000px;
+        
+        color: $dm-bg-color1;
+        text-align: center;
+
+      }
+
+      #article-title-input {
+        @include input-style1;
+        margin: 0;
+      }
+    }
+
+    #movie-info-section {
+      @include flex-gap(column, 0.5);
+
+      #movie-info-part {
+        @include flex-gap(row, 0.5);
+
+        #movie-title-part {
+          @include input-style1;
+          background-color: mix($dm-bg-color1, white, 90%);
+          color: white;
+          margin: 0;
+          flex-shrink:1;
+          width: 2000px;
+        }
+      }
+    }
+
+    #searched-title-part{
+        @include searched-box;
+      }
+
+    #article-content-input {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1em;
+      outline: none;
+      width: 100%;
+      @include wh-ratio(16, 5);
+      @include f-5;
+
+      @media only screen and (max-width:768px){
+        @include wh-ratio(1, 1);
+      }
+      @media only screen and (max-width:465px){
+        @include wh-ratio(5, 16);
+      }
+    }
+
+    #btn-section {
+      @include flex-gap(row, 0.5);
+      justify-content: flex-end;
+
+      .btn {
+        @include pt-btn1;
+        width: 10%;
+        padding: 0.4em;
       }
     }
   }
-
-  #searched-title-part{
-      @include searched-box;
-    }
-
-  #article-content-input {
-    background-color: white;
-    border-radius: 10px;
-    padding: 1em;
-    outline: none;
-    width: 100%;
-    @include wh-ratio(16, 5);
-    @include f-5;
-
-    @media only screen and (max-width:768px){
-      @include wh-ratio(1, 1);
-    }
-    @media only screen and (max-width:465px){
-      @include wh-ratio(5, 16);
-    }
-  }
-
-  #btn-section {
-    @include flex-gap(row, 0.5);
-    justify-content: flex-end;
-
-    .btn {
-      @include pt-btn1;
-      width: 10%;
-      padding: 0.4em;
-    }
-  }
 }
+
 
 .test {
   background-color: white;

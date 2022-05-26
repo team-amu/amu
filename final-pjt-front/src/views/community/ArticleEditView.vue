@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <h1>Edit Article</h1>
-    <article-form
-      v-if="isArticle"
-      :articleInfo="articleInfo"
-      action="update"
-    ></article-form>
-  </div>
+  <article-form
+    v-if="isArticle"
+    :articleInfo="articleInfo"
+    action="update"
+  ></article-form>
 </template>
 
 <script>

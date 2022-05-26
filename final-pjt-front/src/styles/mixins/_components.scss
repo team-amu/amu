@@ -88,3 +88,10 @@
     @include flex-gap;
   }
 }
+
+@mixin main-title {
+  @include flex;
+  @include f-1;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <h1>ArticleCreate</h1>
-    <article-form :articleInfo="articleInfo" action="create"></article-form>
-  </div>
+  <article-form :articleInfo="articleInfo" action="create"></article-form>
 </template>
 
 <script>
