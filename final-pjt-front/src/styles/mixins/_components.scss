@@ -58,3 +58,33 @@
 // {
 //   width:.75vh;height:.75vh;background:transparent;}
 }
+
+@mixin article-list-header-section {
+  @include flex;
+  justify-content: space-between;
+  align-items: center;
+
+  #create-article-btn {
+    @include flex;
+    gap: .5em;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+
+    width: 150px;
+    height: 32px;
+    border-radius: 5px;
+    background-color: $dm-pt-color1;
+    
+    @include icon(black);
+
+    span {
+      color: black;
+    }
+  }
+
+  #select-section {
+    @include flex-gap;
+  }
+}

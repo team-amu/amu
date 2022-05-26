@@ -1,11 +1,19 @@
 <template>
   <div>
     <h1>Community Hot</h1>
-    <div class="select-section">
-      <article-hot-sort-select></article-hot-sort-select>
-      <!-- <article-sort-select></article-sort-select> -->
-      <article-unit-select></article-unit-select>
-    </div>
+    <section id="article-list-header-section">
+      <router-link
+        id="create-article-btn"
+        :to="{ name: 'articleCreate' }"
+      >
+        <v-icon>mdi-pen</v-icon>
+        <span>게시글 작성</span>
+      </router-link>
+      <div id="select-section">
+        <article-hot-sort-select :action="action"></article-hot-sort-select>
+        <article-unit-select></article-unit-select>
+      </div>
+    </section>
     <ul class="article-list">
       <article-title-item
         v-for="article in hots"
@@ -53,8 +61,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.select-section {
-  @include select-section;
+<style lang="scss" scoped>
+#article-list-header-section {
+  @include article-list-header-section;
 }
 </style>
