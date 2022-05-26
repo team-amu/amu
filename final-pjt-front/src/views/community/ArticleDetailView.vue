@@ -64,7 +64,11 @@
         id="movie-poster-part"
         v-if="isReview"
       >
-        <img :src="posterSrc" alt="movie poster image">
+        <router-link
+          :to="{ name: 'movieDetail', params: { moviePk: articleInfo.movie.pk } }"
+        >
+          <img :src="posterSrc" alt="movie poster image">
+        </router-link>
       </div>
 
       <div id="post-content-part">
