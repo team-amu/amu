@@ -1,10 +1,14 @@
 <template>
   <li id="comment-item">
-    <section id="comment-profile">
+    <section id="comment-header">
       <router-link
         :to="{ name: 'profileLike', params: { username } }"
+        id="comment-profile"
       >
-        <!-- <img src="" alt=""> -->
+        <div
+          id="comment-profile-image"
+          :style="profileImageSrc"
+        ></div>
         <span id="comment-profile-nickname">{{ nickname }}</span>
       </router-link>
 
@@ -84,6 +88,14 @@ export default {
 
     cuttedUpdatedAt() {
       return this.timedelta(this.commentData.updatedAt)
+    },
+
+    profileImageSrc() {
+      const profile_image = this.commentData.commentUser.profile.profile_image
+      return {
+        'background-image': `url("http://localhost:8000${profile_image}")`,
+        'background-size': 'cover'
+      }
     }
   },
   methods: {
@@ -134,6 +146,9 @@ export default {
       timedelta = Math.floor(timedelta/12)
       return `${timedelta}년 전`
     },
+  },
+  created() {
+    console.log(this.commentData)
   }
 }
 </script>
@@ -147,16 +162,26 @@ export default {
   border-radius: 20px;
   padding: .5em 1em;
 
-  #comment-profile {
-    @include flex-gap(row, .5);
+  #comment-header {
+    @include flex;
     justify-content: space-between;
     border-bottom: 1px solid lightgray;
-    padding: .5em 1em;
+    padding: .5em 1em .5em .5em;
 
-    // #comment-profile-image {}
-    #comment-profile-nickname{
-      font-weight: 700;
-      color: black
+    #comment-profile {
+      @include flex-gap;
+      align-items: center;
+
+      #comment-profile-image {
+        width: 2em;
+        height: 2em;
+        border-radius: 50%;
+      }
+
+      #comment-profile-nickname{
+        font-weight: 700;
+        color: black
+      }
     }
 
     #edit-btn-list {

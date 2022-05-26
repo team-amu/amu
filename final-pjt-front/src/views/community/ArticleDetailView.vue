@@ -4,18 +4,38 @@
     <section id="post-header-section">
       <div id="post-title-part">
         <div id="post-title">{{ articleInfo.title }}</div>
-        <div id="post-number">#{{ articleInfo.pk }}</div>
+        <!-- <div id="post-number">#{{ articleInfo.pk }}</div> -->
       </div>
-      <div id="user-info-part">
+      <div
+        v-if="isAuthor"
+        id="post-edit-part"
+      >
+        <div id="post-edit-btn">
+          <router-link
+            :to="{ name: 'articleEdit', params: { articlePk: articleInfo.pk }}"
+          >
+            수정
+          </router-link>
+        </div>
+        
+        <div
+          id="post-remove-btn"
+          @click="deleteArticle(articleInfo.pk)"
+        >삭제</div>
+      </div>
+      <span>
         <router-link
+          id="user-info-part"
           :to="{ name: 'profileLike', params: { username } }"
         >
-          <!-- <div id="user-profile-image">
-            <img src="" alt="user profile image">
-          </div> -->
+          <div
+            id="user-profile-image"
+            :style="profileImageSrc"
+          >
+          </div>
           <div id="user-username">{{ nickname }}</div>
         </router-link>
-      </div>
+      </span>
       
       <div id="post-info-part">
         <div id="post-created-at-part">
@@ -37,22 +57,6 @@
           </div>
         </div>
       </div>
-
-      <div
-        v-if="isAuthor"
-        id="post-edit-part"
-      >
-        <router-link
-          :to="{ name: 'articleEdit', params: { articlePk: articleInfo.pk }}"
-        >
-          <div id="post-edit-btn">수정</div>
-        </router-link>
-        
-        <div
-          id="post-remove-btn"
-          @click="deleteArticle(articleInfo.pk)"
-        >삭제</div>
-      </div>
     </section>
 
     <section id="post-body-section">
@@ -63,12 +67,12 @@
         <img :src="posterSrc" alt="movie poster image">
       </div>
 
-      <div id="movie-content-part">
+      <div id="post-content-part">
         <div
           id="movie-title-part"
           v-if="isReview"
         >
-          {{ articleInfo.title }} ⭐{{ articleInfo.rank}}
+          {{ articleInfo.movie.title }} ⭐{{ articleInfo.rank}}
         </div>
         <div id="post-content">
           {{ articleInfo.content }}
@@ -137,12 +141,6 @@ export default {
       return this.articleInfo.user.profile.nickname
     },
 
-    profileImageSrc() {
-      const profile_image = this.currentUserProfile.profile_image
-      console.log(profile_image)
-      return `http://localhost:8000${profile_image}`
-    },
-
     cuttedCreatedAt() {
       // const data = this.cutDate(this.articleInfo.created_at)
       // return `${data.Y}년 ${data.M}월 ${data.D}일 ${data.h}:${data.m}`
@@ -163,6 +161,14 @@ export default {
       const path = this.articleInfo.movie.poster_path
       return domain + path
     },
+
+    profileImageSrc() {
+      const profile_image = this.articleInfo.user.profile.profile_image
+      return {
+        'background-image': `url("http://localhost:8000${profile_image}")`,
+        'background-size': 'cover'
+      }
+    }
   },
 
   methods: {
@@ -212,35 +218,43 @@ export default {
         @include f-2;
       }
 
-      #post-number {
-        color: darken(white, 0.1);
-        padding: .2em;
+      // #post-number {
+      //   color: darken(white, 0.1);
+      //   padding: .2em;
+      // }
+    }
+
+    #post-edit-part {
+      @include flex-gap;
+
+      #post-edit-btn {
+        @include pt-btn2;
+        margin: 0;
+        padding: 0;
+        width: 5em;
+        cursor: pointer;
+      }
+
+      #post-remove-btn {
+        @include pt-btn2;
+        color: red;
+        margin: 0;
+        padding: 0;
+        width: 5em;
+        cursor: pointer;
       }
     }
 
     #user-info-part {
-      @include flex-gap(row, 1);
+      @include flex-gap;
+      display: inline-flex;
+      align-items: center;
 
       #user-profile-image {
         width: 2em;
-        aspect-ratio: 1/1;
+        height: 2em;
         border-radius: 50%;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-
-        .img {
-          flex-shrink: 0;
-          min-width: 100%;
-          min-height: 100%;
-        }
       }
-
-      // #user-username {
-
-      // }
     }
 
     #post-info-part {
@@ -271,30 +285,25 @@ export default {
         }
       }
 
-      #post-edit-part {
-        @include flex-gap;
-
-        #post-edit-btn {
-          display: inline;
-          border: 1px solid white;
-          border-radius: 20px;
-          padding: .3em 1em;
-        }
-
-        #post-remove-btn {
-          @include pt-btn2;
-        }
-      }
+      
     }
 
   }
 
   #post-body-section {
     @include flex-gap(row, 1);
+    border-bottom: 1px solid white;
+    padding-bottom: 1em;
+
+    @media only screen and (max-width: 465px) {
+      @include trans;
+      @include flex-gap(column, 1);
+    }
 
     #movie-poster-part {
-      width: 2000px;
+      flex-basis: 500vh;
       flex-shrink: 1;
+      height: auto;
 
       img {
         flex-shrink: 0;
@@ -304,15 +313,16 @@ export default {
     }
     #post-content-part {
       @include flex-gap(column, 1);
-      border-bottom: 1px solid white;
-      padding-bottom: 1em;
-      width: 4000px;
+      flex-basis: 1000vh;
       flex-shrink: 1;
+      flex-grow: 1;
 
       #movie-title-part {
-        @include f-1;
+        @include f-3;
+        padding-bottom: .5em;
+        margin-bottom: .5em;
+        border-bottom: 1px solid white;
       }
-
       // #post-content {}
     }
   }

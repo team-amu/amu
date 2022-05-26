@@ -43,7 +43,7 @@ export default {
 
   #comment-input {
     @include f-6;
-    @include wh-ratio(16, 3);
+    @include wh-ratio(16, 1);
     width: 100%;
     padding: 1em;
     border-radius: 10px;
