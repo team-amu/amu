@@ -18,7 +18,7 @@
 
 ### 2) 와이어 프레임
 
-> 디자인 툴 **Figma**를 이용하여 제작([📂Notion 링크](https://www.figma.com/file/pWza1eRvuregdvFmTDtYIi/AMU-%EC%98%81%ED%99%94-tutorial?node-id=0%3A1))
+> 디자인 툴 **Figma**를 이용하여 제작([📂Figma 링크](https://www.figma.com/file/pWza1eRvuregdvFmTDtYIi/AMU-%EC%98%81%ED%99%94-tutorial?node-id=0%3A1))
 
 ![image-20220527023739252](https://user-images.githubusercontent.com/86189596/170598797-c5505937-11bb-431f-a91f-9eeed24a5c6b.png)
 
