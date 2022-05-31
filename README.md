@@ -325,10 +325,10 @@
 
 ### 1. 팀원 및 업무 분담
 
-|           |              공통               | ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/86189596/170598870-4611e24c-f6fa-4c12-ae6d-c6786c886e60.png)<br/>박승훈 | ![ezgif com-gif-maker](https://user-images.githubusercontent.com/86189596/170598875-a654c734-4ad7-44d2-adcf-f64444eaa4c0.png)<br/>이윤경 |
-| :-------: | :-----------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| **BACK**  | 데이터 모델링<br/>API 설계<br/> | 데이터 소스 구축<br/>Pagination 로직 구현<br/>게시글 정렬 및 필터 기능 구현 | Django-Vue 연동<br/>추천 알고리즘 구현<br/>영화 검색 기능 구현<br/> |
-| **FRONT** |       와이어 프레임 제작        | 컴포넌트 설계 및 시각화<br/>SCSS 모듈화<br/>Community 컴포넌트 <br/>Profile 컴포넌트 |                        Movie 컴포넌트  <br/> 로고 및 캐릭터 디자인                      |
+|           |           공통            | ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/86189596/170598870-4611e24c-f6fa-4c12-ae6d-c6786c886e60.png)<br/>박승훈 | ![ezgif com-gif-maker](https://user-images.githubusercontent.com/86189596/170598875-a654c734-4ad7-44d2-adcf-f64444eaa4c0.png)<br/>이윤경 |
+| :-------: | :-----------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+| **BACK**  | ERD설계<br/>API 설계<br/> | 데이터 소스 구축<br/>Pagination 로직 구현<br/>게시글 정렬 및 필터 기능 구현 | 추천 알고리즘 구현<br/>영화 검색 기능 구현<br/>영화 정렬, 필터 구현<br/>데이터 모델링<br/> |
+| **FRONT** |    와이어 프레임 제작     | 컴포넌트 설계 및 시각화<br/>SCSS 모듈화<br/>Community 컴포넌트 <br/>Profile 컴포넌트 | Django-Vue 연동<br/>Movie 컴포넌트  <br/> 로고 및 캐릭터 디자인 |
 
 <br>
 
