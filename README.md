@@ -340,19 +340,19 @@
 
 #### 공통
 
-  ![KakaoTalk_20220527_063030578](https://user-images.githubusercontent.com/86189596/170598841-92f678d1-75da-4b97-9849-e47095e65a79.png)
+  ![image](https://user-images.githubusercontent.com/86189596/171089902-62fed915-772b-44b5-8b57-d40f490798b8.png)
 
 <br>
 
 #### 박승훈
 
-![33](https://user-images.githubusercontent.com/86189596/170598862-fbe504d0-6884-463c-97c2-15538169aec0.PNG)
+![image](https://user-images.githubusercontent.com/86189596/171088842-3b0afec4-ab7e-41ee-8caa-1cb108385251.png)
 
 <br>
 
 #### 이윤경
 
-![22](https://user-images.githubusercontent.com/86189596/170598856-33d668bd-6c93-4817-8e37-a5469150e3ec.PNG)
+![image](https://user-images.githubusercontent.com/86189596/171088872-32b260d7-a7e6-411c-9952-8f917922e480.png)
 
 <br>
 
