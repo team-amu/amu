@@ -2,7 +2,9 @@
 
 ![image-20220527025518107](https://user-images.githubusercontent.com/86189596/170598806-7a23584d-81af-46a8-be8c-19cac5fa7950.png)
 
-영화 추천 커뮤티니 사이트인 아무는, 영화에 대한 나의 기록을 남긴다는 뜻인 Archive of Movie와, 아무 영화나 추천해 준다는 말장난을 이용하여 만들어진 이름입니다! 커뮤니티에서 자신과 비슷한 취향의 유저, 혹은 정반대의 유저들을 만나 다양한 영화를 추천 받아 보세요!
+> 영화 추천 커뮤티니 사이트인 **아무**는, 영화에 대한 기록들을 남긴다는 의미인 **아**카이브 오브 **무**비(Archive of Movie)와, 고대 그리스의 소통의 장이라는 의미로 **아**고라 오브 **무**비(Agora of Movie), 그리고 **아무 영화나 추천해준다**는 말장난을 이용하여 만들어진 이름입니다! 
+
+> 커뮤니티에서 자신과 비슷한 취향의 유저, 혹은 정반대의 유저들을 만나 다양한 영화를 추천 받아보세요!
 
 <br>
 
@@ -16,9 +18,12 @@
 
 ### 2) 와이어 프레임
 
-> 디자인 툴 "Figma"를 이용하여 제작([🌺링크](https://www.figma.com/file/pWza1eRvuregdvFmTDtYIi/AMU-%EC%98%81%ED%99%94-tutorial?node-id=0%3A1))
+> 디자인 툴 **Figma**를 이용하여 제작([📂Notion 링크](https://www.figma.com/file/pWza1eRvuregdvFmTDtYIi/AMU-%EC%98%81%ED%99%94-tutorial?node-id=0%3A1))
 
 ![image-20220527023739252](https://user-images.githubusercontent.com/86189596/170598797-c5505937-11bb-431f-a91f-9eeed24a5c6b.png)
+
+- 페이지별 UI 구성 기획
+- 댓글 기능을 활용해 팀원간의 비동기적 쌍방향 소통
 
 <br>
 
@@ -27,6 +32,8 @@
 > draw.io 
 
 ![ERD drawio](https://user-images.githubusercontent.com/86189596/170598865-631d2fe2-b490-4e1d-a0a9-5e77fafb1483.png)
+
+- Django DB 구성에 필요한 roadmap 설계
 
 <br>
 
@@ -92,255 +99,21 @@
 | POST      | `<int:movie_id>/like/`        | 단일 영화에 대한 like 상태 변화 (로그인 상태가 아닐 시 로그인 필요 알림 띄우기 or like 버튼 없애기) |
 | POST      | `<int:movie_id>/bookmark/`    | 단일 영화 bookmark기능 상태 변화 (로그인 상태가 아닐 시 로그인 필요 알림 띄우기 or bookmark 버튼 없애기) |
 | GET       | `anonymous/recommend/recent/` | 비로그인 유저가 받는 추천 영화 리스트(최신 순)               |
-| GET       | `anonymous/recommend/hot`     | 비로그인 유저가 받는 추천 영화 리스트(인기 순)               |
+| GET       | `anonymous/recommend/hot/`     | 비로그인 유저가 받는 추천 영화 리스트(인기 순)               |
 
 <br>
 
-### 5) 컴포넌트 구조
+### 5) 파일 구조
 
 > Django
 
-```
-D:.
-|   .gitignore
-|   db rest sql.sql
-|   manage.py
-|   package-lock.json
-|   requirements.txt
-|   test.txt
-|   
-+---accounts
-|   |   adapters.py
-|   |   admin.py
-|   |   apps.py
-|   |   models.py
-|   |   serializers.py
-|   |   tests.py
-|   |   urls.py
-|   |   views.py
-|   |   __init__.py
-|   |   
-|   \---migrations
-|           0001_initial.py
-|           0002_alter_profile_profile_image.py
-|           __init__.py
-|           
-+---amu
-|       asgi.py
-|       settings.py
-|       urls.py
-|       wsgi.py
-|       __init__.py
-|       
-+---community
-|   |   admin.py
-|   |   apps.py
-|   |   models.py
-|   |   test.py
-|   |   tests.py
-|   |   urls.py
-|   |   views.py
-|   |   __init__.py
-|   |   
-|   +---migrations
-|   |       0001_initial.py
-|   |       __init__.py
-|   |       
-|   \---serializers
-|           article.py
-|           comment.py
-|           
-+---movies
-|   |   admin.py
-|   |   apps.py
-|   |   models.py
-|   |   tests.py
-|   |   urls.py
-|   |   views.py
-|   |   _movie_info_crawler.py
-|   |   __init__.py
-|   |   
-|   +---fixtures
-|   |       actor.json
-|   |       castedactors.json
-|   |       data.json
-|   |       genre.json
-|   |       movie.json
-|   |       movies_app.json
-|   |       
-|   +---migrations
-|   |       0001_initial.py
-|   |       __init__.py
-|   |       
-|   +---serializers
-|   |       actor.py
-|   |       character.py
-|   |       genre.py
-|   |       movie.py
-|   |       
-|   \---templates
-|       \---movies
-|               index.html
-|               
-\---venv
-    |   pyvenv.cfg
-    |   
-    +---Include
-    +---Lib
-    |   \---site-packages
-    |       |   clipboard.py
-    |       |   decorator.py
-    |       |   distutils-precedence.pth
-    |       |   mypy_extensions.py
-    |       |   pickleshare.py
-    |       |   pprintpp.py
-    |       |   six.py
-    |       |   toposort.py
-    |       |   typing_extensions.py
-    |       |   _cffi_backend.cp310-win_amd64.pyd
-    |       |   
-    |       +---allauth
-    |       |   |   app_settings.py
-    |       |   |   decorators.py
-    |       |   |   exceptions.py
-    |       |   |   models.py
-    |       |   |   ratelimit.py
-    |       |   |   tests.py
-    |       |   |   urls.py
-    |       |   |   utils.py
-    |       |   |   __init__.py
-    |       |   |   
-    |       |   +---account
-    |       |   |   |   adapter.py
-    |       |   |   |   admin.py
-    |       |   |   |   apps.py
-    |       |   |   |   app_settings.py
-    |       |   |   |   auth_backends.py
-    |       |   |   |   decorators.py
-    |       |   |   |   forms.py
-    |       |   |   |   managers.py
-    |       |   |   |   models.py
-    |       |   |   |   signals.py
-    |       |   |   |   tests.py
-    |       |   |   |   urls.py
-    |       |   |   |   utils.py
-    |       |   |   |   views.py
-    |       |   |   |   __init__.py
-    |       |   |   |   
-```
+[Django 컴포넌트 구조 Notion 링크](https://www.notion.so/Django-95a89ac00eb74715bcb7351985d5f205)
+
+<br>
 
 > Vue
 
-```
-|   App.vue
-|   main.js
-|   text.txt
-|   
-+---api
-|       drf.js
-|       
-+---assets
-|       logo.png
-|       logo.svg
-|       
-+---components
-|   |   AccountErrorList.vue
-|   |   
-|   +---community
-|   |       ArticleForm.vue
-|   |       ArticleHotSortSelect.vue
-|   |       ArticleSortSelect.vue
-|   |       ArticleTitleItem.vue
-|   |       ArticleUnitSelect.vue
-|   |       CommentForm.vue
-|   |       CommentItem.vue
-|   |       CommentSection.vue
-|   |       
-|   +---movies
-|   |       ActorItem.vue
-|   |       CardItem.vue
-|   |       CardList.vue
-|   |       FilterSortSection.vue
-|   |       GenresSelectBox.vue
-|   |       ReviewItem.vue
-|   |       ReviewList.vue
-|   |       SearchBarSection.vue
-|   |       SearchedCardItem.vue
-|   |       SearchedCardSection.vue
-|   |       TypeSelectBox.vue
-|   |       
-|   +---pagination
-|   |       ArticleFreePagination.vue
-|   |       ArticleHotPagination.vue
-|   |       ArticleReviewPagination.vue
-|   |       ArticleTotalPagination.vue
-|   |       
-|   \---profile
-|           ProfileArticleItem.vue
-|           ProfileBookmarkedMovieItem.vue
-|           ProfileCommentItem.vue
-|           ProfileContentSection.vue
-|           ProfileLikedMovieItem.vue
-|           ProfileUserSection.vue
-|           
-+---plugins
-|       vuetify.js
-|       
-+---router
-|       index.js
-|       
-+---store
-|   |   index.js
-|   |   
-|   \---modules
-|           accounts.js
-|           common.js
-|           community.js
-|           movies.js
-|           
-+---styles
-|   |   _app.scss
-|   |   _variables.scss
-|   |   
-|   \---mixins
-|           _button.scss
-|           _components.scss
-|           _font.scss
-|           _form.scss
-|           _layout.scss
-|           _mixins.scss
-|           _pagination.scss
-|           _profile.scss
-|           _select.scss
-|           
-\---views
-    |   NotFound404.vue
-    |   
-    +---accounts
-    |       LoginView.vue
-    |       LogoutView.vue
-    |       SignupView.vue
-    |       
-    +---community
-    |       ArticleCreateView.vue
-    |       ArticleDetailView.vue
-    |       ArticleEditView.vue
-    |       CommunityFreeView.vue
-    |       CommunityHotView.vue
-    |       CommunityReviewView.vue
-    |       CommunityTotalView.vue
-    |       
-    +---movies
-    |       HomeView.vue
-    |       MovieDetailView.vue
-    |       MovieSearchView.vue
-    |       
-    \---profile
-            ProfileArticleView.vue
-            ProfileBookmarkView.vue
-            ProfileCommentView.vue
-            ProfileLikeView.vue
-```
+[Vue 컴포넌트 구조 Notion 링크](https://www.notion.so/Vue-0bc8f957f1eb4bdda836a7cad85de169)
 
 <br>
 
@@ -349,6 +122,11 @@ D:.
 ### 1) 개발 도구
 
 ![image-20220527015930633](https://user-images.githubusercontent.com/86189596/170598792-6d07b075-0cf4-4a80-8874-b7b4646c3dd4.png)
+
+- BE: Django
+- DB: Sqlite3
+- FE: Vue, Vuex, Vuetify, SCSS
+- UI tool: Figma
 
 <br>
 
@@ -359,10 +137,10 @@ D:.
 | ![그림3](https://user-images.githubusercontent.com/86189596/170599169-469165ea-5693-4e3b-87aa-7e5aeb97ce09.png) | ![그림4-16536048673633](https://user-images.githubusercontent.com/86189596/170599188-51ec3157-07c9-4e3a-a049-830ca0aeabad.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
-- 보기 설정을 구현해서 아이콘을 누르면 모양이 변경됨과 동시에 별이 실제 텍스트로 보입니다.
-- 비밀번호와 비밀번호 확인이 서로 일치하는지 확인할 수 있습니다.
-- 프로필 사진을 등록하지 않고 가입이 가능합니다.
-- 이 경우 기본 이미지로 최초 설정됩니다.
+- 보기 설정 구현: 눈 모양 아이콘 클릭 시 비밀번호 확인 가능, 눈 모양 아이콘 토글 변경
+- 오타 및 비밀번호 확인과 일치 여부 확인 가능
+- 가입 시 프로필 사진 생략 가능
+- 이 경우 기본 이미지로 최초 설정
 
 <br>
 
@@ -371,8 +149,8 @@ D:.
 | ![그림6](https://user-images.githubusercontent.com/86189596/170599198-e974680b-c40d-47f5-85bf-b227b4ab91b9.png) | ![그림7](https://user-images.githubusercontent.com/86189596/170599202-4cd89f87-9bab-4d33-9a5f-cbc88e9857d5.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
-- 회원가입과 마찬가지로 비밀번호 확인이 가능합니다.
-- 회원가입 페이지로 이동하는 버튼을 두어 이동이 가능합니다.
+- 회원가입과 마찬가지로 비밀번호 확인 가능
+- 회원가입 페이지 이동 버튼 배치
 
 <br>
 
@@ -381,9 +159,9 @@ D:.
 | ![그림8](https://user-images.githubusercontent.com/86189596/170599205-d49c08d6-1a66-44f2-8853-324a02de76c4.png) |
 | ------------------------------------------------------------ |
 
-- 아무 영화 사이트의 모든 페이지로 이동할 수 있습니다.
-- 비로그인 유저에게는 마이페이지 링크가 보이지 않습니다.
-- 프로필 사진을 등록하지 않은 유저에게는 기본 이미지가 보입니다.
+- 아무 영화 사이트의 모든 페이지로 이동 가능
+- 비로그인 유저는 마이페이지 링크 생략
+- 프로필 사진 미등록 유저: 프로필 사진 자리에 기본 이미지 배치
 
 <br>
 
@@ -392,19 +170,25 @@ D:.
 | ![그림9](https://user-images.githubusercontent.com/86189596/170599220-96770837-e6e9-4178-8e99-dd7346a5593f.png) | ![그림11](https://user-images.githubusercontent.com/86189596/170599229-57daefea-87c6-44e2-a762-e40bac528e18.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
-- 아래의 다양한 분류에 대해서 영화를 추천받습니다.
+- 다양한 기준에 의한 영화 추천
   - `AMU 인기 영화` : 서비스 사이트에서 최근 한 달간 가장 많이 좋아요/북마크가 기록된 영화
   - `최근 개봉 영화` : 가장 최근 개봉한 영화들
   - `인기 영화` : TMDB 영화 API의 popular(관객 수) 기준으로 높은 점수를 받은 영화
-- 로그인 사용자는 팔로우 기능을 기반으로 한 영화들을 추가로 추천받습니다.
-  - `팔로워들이 좋아하는 영화` : 팔로워들이 좋아요한 영화들을 봅니다.
-  - `팔로워들이 좋아하는 영화` : 팔로워들이 좋아요한 영화들을 봅니다.
+
+<br>
+
+- 로그인 사용자에게는 **팔로우 기능을 기반으로 한 영화들**을 추가로 추천 제공
+  - `팔로워들이 좋아하는 영화`
+  - `팔로워들이 북마크한 영화`
+
+<br>
 
 ![그림12](https://user-images.githubusercontent.com/86189596/170599233-a40ff1fd-a231-4890-a5cd-e377c9dfea89.png)
 
-- 위의 검색바를 통해 검색 및 영화 검색 페이지로 이동할 수 있습니다.
-- 검색어를 영화 제목과 배우 이름으로 설정할 수 있습니다.
-- 검색하고 있는 글자가 포함된 제목의 영화들을 아래에 띄워줍니다. 떠오른 영화를 클릭 시 그 영화의 상세페이지로 이동할 수 있습니다.
+- 검색바 검색을 통해 영화 검색 결과 페이지로 이동
+- 검색어는 영화 제목과 배우 이름 중 선택해 검색
+- 검색하고 있는 글자가 포함된 제목의 영화들을 검색창 하단에 표시
+- 표시된 영화 제목을 클릭 시 해당 영화의 상세페이지로 이동
 
 <br>
 
@@ -413,8 +197,16 @@ D:.
 | ![그림16](https://user-images.githubusercontent.com/86189596/170599253-dcce3aad-bb30-4c78-aacb-e274ce51ee3d.png) | ![그림17](https://user-images.githubusercontent.com/86189596/170599257-b4648f0f-ece7-42a0-ba5f-7dcf08680a06.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
-- 검색된 영화들을 볼 수 있는 페이지 입니다. 배우 이름으로 검색 시, 해당 배우가 출연한 영화들을 보여줍니다.
-- 최신 순, 오래된 순, 평점 높은 순, 평점 높은 순, 제목 오름차순, 제목 내림차 순으로 검색한 영화들을 정렬하고, 장르와 최소 평점으로 필터링 할 수 있습니다.
+- 검색된 영화들의 결과 페이지
+- 배우 이름으로 검색 시, 해당 배우가 출연한 영화들을 표시
+- 정렬 기준
+  - 최신순, 오래된 순
+  - 평점 높은 순, 평점 낮은 순
+  - 제목 오름차순, 제목 내림차순
+
+- 필터 기준
+  - 영화 장르
+  - 최소 평점
 
 <br>
 
@@ -423,10 +215,17 @@ D:.
 | ![그림13](https://user-images.githubusercontent.com/86189596/170599239-8a51de83-2b88-45c4-8337-905542f13bb9.png) | ![그림14](https://user-images.githubusercontent.com/86189596/170599245-12747459-37ab-412b-b9c9-378f93d366d9.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
-- 포스터와 영화의 트레일러를 감상할 수 있습니다.
-- 로그인한 유저만 좋아요와 북마크 버튼을 클릭할 수 있습니다.
-- 출연진의 사진을 클릭할 시 해당 배우가 출연한 영화를 보여주는 검색페이지로 이동합니다.
-- 해당 영화에 대한 리뷰들을 볼 수 있습니다. 리뷰를 클릭 시 리뷰 게시글로 이동합니다.
+- UI 및 기능
+  - 포스터와 영화의 트레일러를 상단에 표시
+  - 로그인한 유저만 좋아요와 북마크 버튼을 클릭 가능
+
+- 출연진
+  - 출연진 사진에 마우스를 올리면, 배우 이름과 배역 표시
+  - 출연진 사진을 클릭 시 해당 배우가 출연한 영화들을 표시하는 검색페이지로 이동
+
+- 리뷰
+  - 해당 영화에 대해 커뮤니티에 연결된 리뷰들을 확인 가능
+  - 리뷰 클릭 시 커뮤니티의 해당 리뷰 게시글로 이동
 
 <br>
 
@@ -437,19 +236,23 @@ D:.
 | ![그림19](https://user-images.githubusercontent.com/86189596/170599264-ce496cc4-f595-4add-9a89-fd94f6386673.png) | ![그림20](https://user-images.githubusercontent.com/86189596/170599269-b8d47ea4-9635-433b-b943-aa4032db9bed.png) |
 | ![그림24](https://user-images.githubusercontent.com/86189596/170599286-2c0204f9-b803-444c-a394-69fe6a3339d2.png) | ![그림25](https://user-images.githubusercontent.com/86189596/170599290-91b69204-5455-4447-b8d0-f9edbc493c55.png) |
 
-- 아래의 여러 카테고리들로 구분됩니다.
-  - `영화게시판` : 영화와 관련된 게시글입니다. 게시글에 영화를 검색해 입력하면 게시글에서 영화 포스터를 확인할 수 있습니다.
-  - `자유게시판` : 영화와 무관한 개인적인 글을 작성하는 공간입니다.
-  - `전체게시판` : 영화게시판의 게시물과 자유게시판의 게시물을 모두 볼 수 있습니다.
-  - `인기게시판` : 댓글 수, 좋아요 수를 기준으로 10개, 50개, 100개가 넘는 게시물만 모아볼 수 있습니다.
+- 아래의 여러 카테고리들로 구분
+  - `영화게시판` : 영화와 관련된 게시글. 게시글에 영화를 검색해 제목을 입력하면 게시글에서 영화 포스터를 확인 가능
+  - `자유게시판` : 영화와 무관한 내용의 글을 작성하는 공간
+  - `전체게시판` : 영화게시판의 게시물과 자유게시판의 게시물을 모두 확인 가능
+  - `인기게시판` : 댓글 수, 좋아요 수를 기준으로 10개, 50개, 100개가 넘는 게시물만 필터해 확인 가능
 
-- 정렬 선택 기준이 있습니다. 기준은 아래와 같습니다.
-  - `최신순` : 가장 최근에 등록된 게시물부터 차례로 표시됩니다.
-  - `좋아요 많은 순` : 좋아요 개수가 많은 게시물부터 차례로 표시됩니다.
-  - `댓글 많은 순` : 댓글 개수가 많은 게시물부터 차례로 표시됩니다.
+<br>
 
-- 페이지 당 표시되는 게시물의 개수를 설정할 수 있습니다.
-  - 5개, 10개, 20개 단위에서 선택합니다.
+- 정렬기준 선택 가능
+  - `최신순` : 가장 최근에 등록된 게시물부터 차례로 표시
+  - `좋아요 많은 순` : 좋아요 개수가 많은 게시물부터 차례로 표시
+  - `댓글 많은 순` : 댓글 개수가 많은 게시물부터 차례로 표시
+
+<br>
+
+- 페이지 당 표시되는 게시물의 개수를 설정 가능
+  - 5개, 10개, 20개 단위
 
 <br>
 
@@ -458,12 +261,10 @@ D:.
 | ![그림38](https://user-images.githubusercontent.com/86189596/170599160-87bbc2f0-3e99-4bc6-ae39-9243f78161e8.png) | ![그림37](https://user-images.githubusercontent.com/86189596/170599157-505ec05a-0c04-4a4b-843a-df40cf23007a.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
-
-
-- 영화 리뷰와 일반 게시물 중에서 선택해서 게시할 수 있습니다.
-- 해당 영화를 검색해서 등록해야만 리뷰를 작성할 수 있습니다.
-- 귀여운 별을 이용해 평점을 등록할 수 있습니다!
-- 영화게시판이 아닌, 자유게시판 선택시, 영화 검색바와 별이 사라집니다.
+- 영화 리뷰와 일반 게시물 중 선택해서 작성
+- 리뷰의 경우 특정 영화를 검색해서 등록해야만 작성 가능
+- 귀여운 별을 이용해 평점 등록
+- 자유게시판 선택 시, 영화 검색바와 평점 선택 별 미표시
 
 <br>
 
@@ -471,9 +272,9 @@ D:.
 
 ![그림29](https://user-images.githubusercontent.com/86189596/170599309-62f44f23-2c1a-4a58-8ffd-89fb1847ef96.png)
 
-- 본인의 게시물을 수정할 수 있습니다. 
-- 작성했던 내용과 제목 뿐만 아니라, 이 전에 선택했던 영화와 평점도 함께 보면서 수정할 수 있습니다!
-- 수정 페이지에서 이전으로 가면 진행하던 수정을 무를 수 있습니다!!
+- 본인이 작성한 게시물을 수정
+- 기존 작성 내용이 자동으로 폼에 표시
+- 이전 버튼 클릭 시 수정 중이던 내용 취소 가능
 
 <br>
 
@@ -482,11 +283,11 @@ D:.
 | ![그림26](https://user-images.githubusercontent.com/86189596/170599298-d705f941-14bc-442d-9566-abaa03eabb45.png) | ![그림27](https://user-images.githubusercontent.com/86189596/170599301-897739c1-e526-48e6-8fff-44feed077521.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
-
-
-- 게시물을 작성한 유저만 수정과 삭제 버튼을 확인하고, 조작해 수정/삭제를 할 수 있습니다.
-- 해당 게시물에 유저들은 좋아요와 댓글을 달 수 있습니다. 아무 영화 사이트의 유저들과 대화를 나눠보세요!
-- 리뷰 게시물일 경우 해당 영화의 포스터를 같이 볼 수 있습니다.
+- 게시물 작성 유저만 수정/삭제 버튼을 확인 가능
+- 유저들은 좋아요 및 댓글 작성 가능
+- 커뮤니티로서의 정체성으로 소통 기능 확보
+- 영화 리뷰 게시물일 경우 해당 영화의 포스터까지 확인 가능
+- 영화 포스터를 클릭 시 해당 영화의 상세 페이지로 이동
 
 <br>
 
@@ -497,31 +298,31 @@ D:.
 | ![그림35](https://user-images.githubusercontent.com/86189596/170599144-baeeba84-a709-4618-b261-14c33870ad33.png) |      |
 | ------------------------------------------------------------ | ---- |
 
-- 유저의 프로필 페이지 진입시 기본적으로 이 유저가 좋아요를 누른 영화들을 보여줍니다. 
-- 유저를 팔로우 할 수 있습니다.
-- 본인의 프로필 페이지인 경우, 아무 영화 사이트의 활동명과 자기소개, 프로필 사진을 수정할 수 있습니다.
+- 유저의 프로필 페이지 진입 시 기본적으로 유저가 좋아요를 누른 영화 표시
+- 대상 유저를 팔로우/언팔로우 가능
+- 본인 프로필 페이지인 경우, 사이트 내의 활동명과 자기소개, 프로필 사진을 수정 가능
 
 <br>
 
 > 북마크한 영화
 
-- 프로필 페이지의 유저가 북마크한 영화들을 보여줍니다.
+- 프로필 페이지의 유저가 북마크한 영화 표시
 
 <br>
 
 > 작성한 게시글
 
-- 프로필 페이지의 유저가 작성한 게시글들을 보여줍니다.
-- 가장 최근 작성한 게시글부터 상단에 배치해 나열합니다.
-- 게시글 제목을 클릭하면 해당 게시물로 이동합니다.
+- 프로필 페이지의 유저가 작성한 게시글 표시
+- 가장 최근 작성한 게시글부터 상단에 배치해 나열
+- 게시글 제목 클릭 시 해당 게시물로 이동
 
 <br>
 
 > 작성한 댓글
 
-- 유저가 작성한 댓글들을 보여줍니다.
-- 댓글을 달은 원글의 제목을 하단에 표시하여 확인이 가능하게 하였습니다.
-- 해당 댓글 영역을 클릭하면 해당 댓글이 달리 게시물로 이동합니다.
+- 유저가 작성한 댓글 표시
+- 댓글을 달은 원글의 제목을 하단에 표시하여 확인 가능
+- 해당 댓글 영역 클릭 시 해당 댓글이 달린 게시물로 이동
 
 <br>
 
@@ -532,7 +333,7 @@ D:.
 |           |              공통               | ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/86189596/170598870-4611e24c-f6fa-4c12-ae6d-c6786c886e60.png)<br/>박승훈 | ![ezgif com-gif-maker](https://user-images.githubusercontent.com/86189596/170598875-a654c734-4ad7-44d2-adcf-f64444eaa4c0.png)<br/>이윤경 |
 | :-------: | :-----------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | **BACK**  | 데이터 모델링<br/>API 설계<br/> | 데이터 소스 구축<br/>Pagination 로직 구현<br/>게시글 정렬 및 필터 기능 구현 | Django-Vue 연동<br/>추천 알고리즘 구현<br/>영화 검색 기능 구현<br/> |
-| **FRONT** |       와이어 프레임 제작        | 컴포넌트 설계 및 시각화<br/>SCSS 모듈화<br/>Community 컴포넌트 <br/>Profile 컴포넌트 |                        Movie 컴포넌트                        |
+| **FRONT** |       와이어 프레임 제작        | 컴포넌트 설계 및 시각화<br/>SCSS 모듈화<br/>Community 컴포넌트 <br/>Profile 컴포넌트 |                        Movie 컴포넌트  <br/> 로고 및 캐릭터 디자인                      |
 
 <br>
 
@@ -540,19 +341,21 @@ D:.
 
 - [🧷노션 링크](https://cyclic-traffic-ddc.notion.site/bf74a7a8e0b64b8eb48b500552949ba0)
 
-- **공통**
+<br>
+
+#### 공통
 
   ![KakaoTalk_20220527_063030578](https://user-images.githubusercontent.com/86189596/170598841-92f678d1-75da-4b97-9849-e47095e65a79.png)
 
 <br>
 
-- **박승훈**
+#### 박승훈
 
 ![33](https://user-images.githubusercontent.com/86189596/170598862-fbe504d0-6884-463c-97c2-15538169aec0.PNG)
 
 <br>
 
-- **이윤경**
+#### 이윤경
 
 ![22](https://user-images.githubusercontent.com/86189596/170598856-33d668bd-6c93-4817-8e37-a5469150e3ec.PNG)
 
@@ -560,7 +363,7 @@ D:.
 
 ## 라. 회고
 
-### 1. 박승훈
+### 박승훈
 
 > 와이어프레임이 무색하게
 
@@ -610,7 +413,7 @@ Figma를 이용해서 와이어프레임을 작성하는 데에 꽤나 많은 �
 
 <br>
 
-### 2. 이윤경
+### 이윤경
 
 > 두려움 반 재미 반!
 
