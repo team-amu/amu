@@ -111,7 +111,7 @@ def movie_search(request, search_page):
                     )
                 ).filter(Q(rename__icontains=research_word) & Q(vote_average__gte=rank)).distinct().order_by(sort)
         else:
-            results = Movie.objects.all().filter(Q(vote_average__gte=rank)).distinct().order_by(sort)        
+            results = Movie.objects.all().filter(Q(vote_average__gte=rank)).distinct().order_by(sort)[:20] # 렉때문에 일단 20개만!! pagination 추가하기!
 
 
     serializer = SearchedMovieSerializer(results, many=True)
